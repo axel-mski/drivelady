@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Drive Lady | Covoiturage 100% féminin</title>
+    <meta
+      name="description"
+      content="Drive Lady est le réseau de covoiturage 100% féminin pensé pour voyager, rentrer et se déplacer en confiance."
+    />
+    <meta name="theme-color" content="#f8b6de" />
+    <link rel="icon" href="./assets/drive-lady-app-icon.png" />
+    <link rel="apple-touch-icon" href="./assets/drive-lady-app-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Aller au contenu</a>
+
+    <div class="page-stage">
+      <div class="site-frame">
+        <header class="site-header" data-header>
+          <nav class="nav-shell" aria-label="Navigation principale">
+            <a class="brand" href="#top" aria-label="Drive Lady accueil">
+              <img src="./assets/drive-lady-logo.png" alt="Logo Drive Lady" />
+              <span>Drive Lady</span>
+            </a>
+            <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu" data-menu-button>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span class="sr-only">Ouvrir le menu</span>
+            </button>
+            <div class="nav-links" id="site-menu" data-menu>
+              <a href="#trajets">Trajets</a>
+              <a href="#confiance">Confiance</a>
+              <a href="#partenaires">Partenaires</a>
+              <a href="#faq">FAQ</a>
+            </div>
+            <a class="nav-cta" href="https://app-drivelady.fr/" target="_blank" rel="noreferrer">Rejoindre</a>
+          </nav>
+        </header>
+
+        <main id="main">
+          <section class="hero" id="top" aria-labelledby="hero-title">
+            <span class="sparkle sparkle--one" aria-hidden="true"></span>
+            <span class="sparkle sparkle--two" aria-hidden="true"></span>
+            <span class="sparkle sparkle--three" aria-hidden="true"></span>
+            <span class="sparkle sparkle--four" aria-hidden="true"></span>
+            <img class="serpent serpent--rose" src="./assets/hero-serpent-rose.svg" alt="" aria-hidden="true" />
+            <svg class="serpent serpent--blue" viewBox="0 0 430 430" aria-hidden="true">
+              <path d="M440 8c-112 28-173 92-155 165 19 80 111 88 116 164 5 72-74 112-146 72-84-47-64-158 16-204" />
+            </svg>
+
+            <div class="hero__copy reveal">
+              <h1 id="hero-title">
+                <span>Le&nbsp;covoiturage&nbsp;entre&nbsp;femmes,</span>
+                <span>en toute confiance.</span>
+              </h1>
+              <p class="hero__lead">
+                Conductrice ou passagère, rejoins une communauté pensée pour les retours de soirée, les trajets du
+                quotidien, les écoles, les vacances et les déplacements où la sérénité compte vraiment.
+              </p>
+              <div class="hero__actions">
+                <a class="button button--primary" href="https://app-drivelady.fr/" target="_blank" rel="noreferrer">
+                  Rejoindre la communauté
+                </a>
+                <a class="button button--secondary" href="#trajets">Découvrir le principe</a>
+              </div>
+            </div>
+
+            <div class="hero__showcase reveal reveal--delay" aria-label="Aperçu Drive Lady">
+              <article class="app-panel app-panel--history" aria-hidden="true">
+                <div class="phone-status">
+                  <span>9:41</span>
+                  <span class="phone-status__icons" aria-hidden="true">
+                    <svg class="status-icon status-icon--signal" viewBox="0 0 21 14" focusable="false">
+                      <rect x="1" y="8" width="3" height="5" rx="1.25"></rect>
+                      <rect x="6" y="6" width="3" height="7" rx="1.25"></rect>
+                      <rect x="11" y="3" width="3" height="10" rx="1.25"></rect>
+                      <rect class="status-icon__muted" x="16" y="1" width="3" height="12" rx="1.25"></rect>
+                    </svg>
+                    <svg class="status-icon status-icon--wifi" viewBox="0 0 18 14" focusable="false">
+                      <path d="M1.7 5.1C5.8 1.6 12.2 1.6 16.3 5.1"></path>
+                      <path d="M4.7 8.3C7.1 6.3 10.9 6.3 13.3 8.3"></path>
+                      <path d="M7.7 11.2C8.5 10.6 9.5 10.6 10.3 11.2"></path>
+                    </svg>
+                    <svg class="status-icon status-icon--battery" viewBox="0 0 29 14" focusable="false">
+                      <rect class="status-icon__battery-shell" x="1" y="1.7" width="23.4" height="10.6" rx="3.15"></rect>
+                      <rect class="status-icon__battery-cap" x="25.6" y="5" width="2.2" height="4" rx="1.1"></rect>
+                      <rect class="status-icon__battery-fill" x="3.3" y="3.95" width="18.9" height="6.1" rx="1.75"></rect>
+                    </svg>
+                  </span>
+                </div>
+                <h2>Trajets</h2>
+                <p>Cette semaine</p>
+                <div class="route-bars">
+                  <span></span><span></span><span></span><span></span><span></span><span></span>
+                  <span></span><span></span><span></span><span></span><span></span><span></span>
+                </div>
+                <div class="mini-card">
+                  <strong>Retour tardif</strong>
+                  <small>3 places · Profil vérifié</small>
+                </div>
+                <div class="mini-chart">
+                  <span></span><span></span><span></span><span></span><span></span>
+                </div>
+              </article>
+
+              <article class="phone-frame" aria-hidden="true">
+                <div class="phone-notch"></div>
+                <div class="phone-status">
+                  <span>9:41</span>
+                  <span class="phone-status__icons" aria-hidden="true">
+                    <svg class="status-icon status-icon--signal" viewBox="0 0 21 14" focusable="false">
+                      <rect x="1" y="8" width="3" height="5" rx="1.25"></rect>
+                      <rect x="6" y="6" width="3" height="7" rx="1.25"></rect>
+                      <rect x="11" y="3" width="3" height="10" rx="1.25"></rect>
+                      <rect class="status-icon__muted" x="16" y="1" width="3" height="12" rx="1.25"></rect>
+                    </svg>
+                    <svg class="status-icon status-icon--wifi" viewBox="0 0 18 14" focusable="false">
+                      <path d="M1.7 5.1C5.8 1.6 12.2 1.6 16.3 5.1"></path>
+                      <path d="M4.7 8.3C7.1 6.3 10.9 6.3 13.3 8.3"></path>
+                      <path d="M7.7 11.2C8.5 10.6 9.5 10.6 10.3 11.2"></path>
+                    </svg>
+                    <svg class="status-icon status-icon--battery" viewBox="0 0 29 14" focusable="false">
+                      <rect class="status-icon__battery-shell" x="1" y="1.7" width="23.4" height="10.6" rx="3.15"></rect>
+                      <rect class="status-icon__battery-cap" x="25.6" y="5" width="2.2" height="4" rx="1.1"></rect>
+                      <rect class="status-icon__battery-fill" x="3.3" y="3.95" width="18.9" height="6.1" rx="1.75"></rect>
+                    </svg>
+                  </span>
+                </div>
+                <div class="phone-greeting">
+                  <div>
+                    <h2>Drive Lady</h2>
+                    <p>Comment tu rentres ?</p>
+                  </div>
+                  <img src="./assets/drive-lady-logo.png" alt="" />
+                </div>
+                <div class="calendar-row">
+                  <span>Lun</span><span>Mar</span><span class="is-active">Mer</span><span>Jeu</span><span>Ven</span>
+                </div>
+                <div class="drive-orbit">
+                  <div>
+                    <strong>Trajet prêt</strong>
+                    <span>En confiance</span>
+                  </div>
+                </div>
+                <button type="button">Publier un trajet</button>
+                <div class="phone-tabs">
+                  <span class="is-active">Accueil</span>
+                  <span>Trajets</span>
+                  <span>Profil</span>
+                </div>
+              </article>
+
+              <article class="app-panel app-panel--feed" aria-hidden="true">
+                <div class="phone-status">
+                  <span>9:41</span>
+                  <span class="phone-status__icons" aria-hidden="true">
+                    <svg class="status-icon status-icon--signal" viewBox="0 0 21 14" focusable="false">
+                      <rect x="1" y="8" width="3" height="5" rx="1.25"></rect>
+                      <rect x="6" y="6" width="3" height="7" rx="1.25"></rect>
+                      <rect x="11" y="3" width="3" height="10" rx="1.25"></rect>
+                      <rect class="status-icon__muted" x="16" y="1" width="3" height="12" rx="1.25"></rect>
+                    </svg>
+                    <svg class="status-icon status-icon--wifi" viewBox="0 0 18 14" focusable="false">
+                      <path d="M1.7 5.1C5.8 1.6 12.2 1.6 16.3 5.1"></path>
+                      <path d="M4.7 8.3C7.1 6.3 10.9 6.3 13.3 8.3"></path>
+                      <path d="M7.7 11.2C8.5 10.6 9.5 10.6 10.3 11.2"></path>
+                    </svg>
+                    <svg class="status-icon status-icon--battery" viewBox="0 0 29 14" focusable="false">
+                      <rect class="status-icon__battery-shell" x="1" y="1.7" width="23.4" height="10.6" rx="3.15"></rect>
+                      <rect class="status-icon__battery-cap" x="25.6" y="5" width="2.2" height="4" rx="1.1"></rect>
+                      <rect class="status-icon__battery-fill" x="3.3" y="3.95" width="18.9" height="6.1" rx="1.75"></rect>
+                    </svg>
+                  </span>
+                </div>
+                <div class="search-pill">Recherche</div>
+                <div class="feed-tabs">
+                  <span>Soirée</span>
+                  <span>Campus</span>
+                  <span>Vacances</span>
+                </div>
+                <img src="./assets/drive-lady-hero.avif" alt="" />
+                <h2>Trajet préparé</h2>
+                <p>Le contexte, le profil et les repères utiles avant de monter.</p>
+              </article>
+            </div>
+
+            <a class="hero__scroll" href="#trajets" aria-label="Voir la suite"></a>
+          </section>
+
+          <section class="search-band" aria-labelledby="search-title">
+            <div class="section-label">Trouver ou proposer</div>
+            <form class="ride-form" data-ride-form novalidate>
+              <div class="form-heading">
+                <h2 id="search-title">Prépare ton trajet</h2>
+                <p>Entre ton départ, ton arrivée et le moment du trajet pour rejoindre l'application avec le bon contexte.</p>
+              </div>
+              <label>
+                <span>Départ</span>
+                <input type="text" name="from" autocomplete="address-level2" placeholder="Paris 11e" />
+              </label>
+              <label>
+                <span>Arrivée</span>
+                <input type="text" name="to" autocomplete="address-level2" placeholder="Saint-Denis" />
+              </label>
+              <label>
+                <span>Moment</span>
+                <select name="moment">
+                  <option value="retour">Retour de soirée</option>
+                  <option value="travail">Trajet travail</option>
+                  <option value="ecole">École ou campus</option>
+                  <option value="vacances">Départ vacances</option>
+                </select>
+              </label>
+              <button class="button button--primary" type="submit">Chercher un trajet</button>
+              <p class="form-message" role="status" aria-live="polite" data-form-message>
+                Renseigne un départ et une arrivée pour préparer ta recherche.
+              </p>
+            </form>
+          </section>
+
+          <section class="journeys" id="trajets" aria-labelledby="journeys-title">
+            <div class="section-kicker">Trajets du quotidien</div>
+            <div class="journeys__header">
+              <h2 id="journeys-title">Plus qu'une liste de trajets, un réseau de confiance.</h2>
+              <p>
+                Chaque recherche donne les repères utiles avant de réserver : le contexte, le moment du trajet, les profils
+                et la possibilité de choisir une conductrice ou une passagère en accord avec ses attentes.
+              </p>
+            </div>
+            <div class="journeys__grid">
+              <article class="journey">
+                <div class="journey__image journey__image--night">
+                  <img src="./assets/journey-night.png" alt="Femmes qui rient en covoiturage après une sortie" />
+                </div>
+                <span class="journey__icon">01</span>
+                <h3>Sorties et retours tardifs</h3>
+                <p>Un trajet réservé dans un cadre féminin, avec les informations utiles avant de monter en voiture.</p>
+              </article>
+              <article class="journey">
+                <div class="journey__image journey__image--daily">
+                  <img src="./assets/journey-daily.png" alt="Femmes qui rient en covoiturage pour le quotidien" />
+                </div>
+                <span class="journey__icon">02</span>
+                <h3>Travail, école, quotidien</h3>
+                <p>Des habitudes de déplacement répétées, lisibles et plus humaines qu'un trajet anonyme.</p>
+              </article>
+              <article class="journey">
+                <div class="journey__image journey__image--weekend">
+                  <img src="./assets/journey-weekend.png" alt="Femmes qui rient en covoiturage pour un départ ponctuel" />
+                </div>
+                <span class="journey__icon">03</span>
+                <h3>Départs ponctuels</h3>
+                <p>Vacances, week-ends, événements, mêmes règles de clarté et de confiance.</p>
+              </article>
+            </div>
+          </section>
+
+          <section class="process" aria-labelledby="process-title">
+            <div class="process__copy">
+              <p class="eyebrow">Comment ça marche</p>
+              <h2 id="process-title">Trois gestes simples, sans promesse floue.</h2>
+              <p>
+                On crée son profil, on propose ou réserve un trajet, puis on avance avec une communauté pensée pour les
+                déplacements où la confiance n'est pas un détail.
+              </p>
+              <a class="button button--primary" href="https://app-drivelady.fr/" target="_blank" rel="noreferrer">
+                Accéder à l'app
+              </a>
+            </div>
+            <div class="solution-board" aria-label="Étapes Drive Lady">
+              <article class="solution-card solution-card--wide">
+                <div>
+                  <span>Trajet vérifié</span>
+                  <strong>Tout est lisible avant de valider.</strong>
+                  <p>Profil, horaire, lieu de rendez-vous et contexte du trajet restent visibles au bon moment.</p>
+                </div>
+                <img src="./assets/drive-lady-hero.avif" alt="" />
+              </article>
+              <article class="solution-card">
+                <img src="./assets/drive-lady-app-icon.png" alt="" />
+                <div>
+                  <span>Profil prêt</span>
+                  <strong>Crée ton profil et tes préférences.</strong>
+                  <p>Les informations utiles sont prêtes avant de proposer ou réserver un trajet.</p>
+                </div>
+              </article>
+              <article class="solution-card">
+                <div>
+                  <span>Retour tardif · 3 places</span>
+                  <strong>Choisis un trajet adapté au contexte.</strong>
+                  <p>Soirée, travail, école ou vacances : le moment du trajet reste clair.</p>
+                  <div class="route-bars">
+                    <span></span><span></span><span></span><span></span><span></span><span></span>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section class="trust" id="confiance" aria-labelledby="trust-title">
+            <div class="trust__content">
+              <p class="eyebrow">Confiance et sécurité</p>
+              <h2 id="trust-title">Savoir avec qui l'on roule, avant de monter.</h2>
+              <p>
+                Drive Lady met l'accent sur les informations qui changent tout : profil visible, contexte du trajet,
+                point de rendez-vous clair et possibilité de partager son déplacement avec une personne de confiance.
+              </p>
+            </div>
+            <div class="trust-panel">
+              <div class="trust-panel__header">
+                <span>Avant le trajet</span>
+                <strong>Préparation</strong>
+              </div>
+              <ul>
+                <li>
+                  <span></span>
+                  <p>Profil de la conductrice ou passagère visible avant validation.</p>
+                </li>
+                <li>
+                  <span></span>
+                  <p>Lieu, horaire et contexte du trajet affichés sans ambiguïté.</p>
+                </li>
+                <li>
+                  <span></span>
+                  <p>Partage possible d'un trajet prévu avec une personne de confiance.</p>
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="partners" id="partenaires" aria-labelledby="partners-title">
+            <div class="partners__visual" aria-hidden="true">
+              <div class="partner-note">
+                <span>Partenariats</span>
+                <p>Écoles, lieux de sortie, entreprises, collectivités</p>
+              </div>
+              <div class="partner-tile partner-tile--main">
+                <strong>Sorties</strong>
+                <span>Retours mieux organisés après événement</span>
+              </div>
+              <div class="partner-tile">
+                <strong>Campus</strong>
+                <span>Trajets récurrents entre étudiantes</span>
+              </div>
+              <div class="partner-tile partner-tile--dark">
+                <strong>Employeurs</strong>
+                <span>Mobilité plus sereine sur horaires décalés</span>
+              </div>
+            </div>
+            <div class="partners__copy">
+              <p class="eyebrow">Être partenaire</p>
+              <h2 id="partners-title">Accompagner les lieux qui génèrent les trajets.</h2>
+              <p>
+                Sorties, campus, entreprises et collectivités peuvent orienter leur public vers une solution de mobilité
+                plus rassurante, surtout quand les horaires ou les retours demandent plus d'attention.
+              </p>
+              <a class="button button--secondary" href="https://app-drivelady.fr/" target="_blank" rel="noreferrer">
+                Devenir partenaire
+              </a>
+            </div>
+          </section>
+
+          <section class="faq" id="faq" aria-labelledby="faq-title">
+            <div>
+              <p class="eyebrow">Questions fréquentes</p>
+              <h2 id="faq-title">Répondre vite, sans surpromettre.</h2>
+            </div>
+            <div class="faq-list" data-faq-list>
+              <button class="faq-item" type="button" aria-expanded="false">
+                <span>Drive Lady est-elle déjà disponible ?</span>
+                <p>Oui, l'application est accessible depuis app-drivelady.fr.</p>
+              </button>
+              <button class="faq-item" type="button" aria-expanded="false">
+                <span>Le service est-il uniquement féminin ?</span>
+                <p>Le positionnement public actuel est un réseau de covoiturage 100% féminin.</p>
+              </button>
+              <button class="faq-item" type="button" aria-expanded="false">
+                <span>Comment réserver ou proposer un trajet ?</span>
+                <p>La recherche se prépare ici, puis la publication ou la réservation se fait directement dans l'application.</p>
+              </button>
+            </div>
+          </section>
+        </main>
+
+        <footer class="footer">
+          <div>
+            <img src="./assets/drive-lady-logo.png" alt="Logo Drive Lady" />
+            <strong>Drive Lady</strong>
+          </div>
+          <p>Covoiturage entre femmes, en toute sécurité.</p>
+          <a href="https://app-drivelady.fr/" target="_blank" rel="noreferrer">Rejoindre la communauté</a>
+        </footer>
+      </div>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
