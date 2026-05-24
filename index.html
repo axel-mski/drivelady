@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css" />
@@ -42,7 +42,7 @@
               <a href="#partenaires">Partenaires</a>
               <a href="#faq">FAQ</a>
             </div>
-            <a class="nav-cta" href="https://app-drivelady.fr/" target="_blank" rel="noreferrer">Rejoindre</a>
+            <a class="nav-cta" href="http://app.localhost:5173/">Rejoindre</a>
           </nav>
         </header>
 
@@ -67,7 +67,7 @@
                 quotidien, les écoles, les vacances et les déplacements où la sérénité compte vraiment.
               </p>
               <div class="hero__actions">
-                <a class="button button--primary" href="https://app-drivelady.fr/" target="_blank" rel="noreferrer">
+                <a class="button button--primary" href="http://app.localhost:5173/">
                   Rejoindre la communauté
                 </a>
                 <a class="button button--secondary" href="#trajets">Découvrir le principe</a>
@@ -201,15 +201,37 @@
             <form class="ride-form" data-ride-form novalidate>
               <div class="form-heading">
                 <h2 id="search-title">Prépare ton trajet</h2>
-                <p>Entre ton départ, ton arrivée et le moment du trajet pour rejoindre l'application avec le bon contexte.</p>
+                <p>Entre ton départ, ton arrivée et le moment du trajet pour lancer la recherche avec le bon contexte.</p>
               </div>
-              <label>
+              <label class="address-field" data-address-field>
                 <span>Départ</span>
-                <input type="text" name="from" autocomplete="address-level2" placeholder="Paris 11e" />
+                <input
+                  type="text"
+                  name="from"
+                  value="Lorient"
+                  autocomplete="off"
+                  placeholder="Ville ou adresse"
+                  data-address-input
+                  data-address-role="from"
+                  aria-expanded="false"
+                  aria-controls="from-suggestions"
+                />
+                <div class="address-suggestions" id="from-suggestions" data-address-suggestions role="listbox"></div>
               </label>
-              <label>
+              <label class="address-field" data-address-field>
                 <span>Arrivée</span>
-                <input type="text" name="to" autocomplete="address-level2" placeholder="Saint-Denis" />
+                <input
+                  type="text"
+                  name="to"
+                  value="Saint-Denis"
+                  autocomplete="off"
+                  placeholder="Ville ou adresse"
+                  data-address-input
+                  data-address-role="to"
+                  aria-expanded="false"
+                  aria-controls="to-suggestions"
+                />
+                <div class="address-suggestions" id="to-suggestions" data-address-suggestions role="listbox"></div>
               </label>
               <label>
                 <span>Moment</span>
@@ -222,7 +244,7 @@
               </label>
               <button class="button button--primary" type="submit">Chercher un trajet</button>
               <p class="form-message" role="status" aria-live="polite" data-form-message>
-                Renseigne un départ et une arrivée pour préparer ta recherche.
+                Suggestions d'adresses fournies par la Géoplateforme française.
               </p>
             </form>
           </section>
@@ -272,7 +294,7 @@
                 On crée son profil, on propose ou réserve un trajet, puis on avance avec une communauté pensée pour les
                 déplacements où la confiance n'est pas un détail.
               </p>
-              <a class="button button--primary" href="https://app-drivelady.fr/" target="_blank" rel="noreferrer">
+              <a class="button button--primary" href="http://app.localhost:5173/">
                 Accéder à l'app
               </a>
             </div>
@@ -363,7 +385,7 @@
                 Sorties, campus, entreprises et collectivités peuvent orienter leur public vers une solution de mobilité
                 plus rassurante, surtout quand les horaires ou les retours demandent plus d'attention.
               </p>
-              <a class="button button--secondary" href="https://app-drivelady.fr/" target="_blank" rel="noreferrer">
+              <a class="button button--secondary" href="http://app.localhost:5173/">
                 Devenir partenaire
               </a>
             </div>
@@ -377,7 +399,7 @@
             <div class="faq-list" data-faq-list>
               <button class="faq-item" type="button" aria-expanded="false">
                 <span>Drive Lady est-elle déjà disponible ?</span>
-                <p>Oui, l'application est accessible depuis app-drivelady.fr.</p>
+                <p>En local, l'application est accessible depuis app.localhost:5173.</p>
               </button>
               <button class="faq-item" type="button" aria-expanded="false">
                 <span>Le service est-il uniquement féminin ?</span>
@@ -397,7 +419,7 @@
             <strong>Drive Lady</strong>
           </div>
           <p>Covoiturage entre femmes, en toute sécurité.</p>
-          <a href="https://app-drivelady.fr/" target="_blank" rel="noreferrer">Rejoindre la communauté</a>
+          <a href="http://app.localhost:5173/">Rejoindre la communauté</a>
         </footer>
       </div>
     </div>
