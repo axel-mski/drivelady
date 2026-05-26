@@ -1,16 +1,24 @@
 const header = document.querySelector("[data-header]");
 const menuButton = document.querySelector("[data-menu-button]");
 const menu = document.querySelector("[data-menu]");
+const navDropdowns = document.querySelectorAll("[data-nav-dropdown]");
 const rideForm = document.querySelector("[data-ride-form]");
 const formMessage = document.querySelector("[data-form-message]");
 const faqList = document.querySelector("[data-faq-list]");
+const trustJourney = document.querySelector("[data-trust-journey]");
 const addressInputs = document.querySelectorAll("[data-address-input]");
+const contactForm = document.querySelector("[data-contact-form]");
+const contactMessage = document.querySelector("[data-contact-message]");
+const currentYearTargets = document.querySelectorAll("[data-current-year]");
 const selectedAddresses = new Map();
 const appHost = "app.localhost";
 const defaultAppPort = "5173";
+const announcementDismissKey = "drive-lady-announcement-dismissed-v1";
 const appMode = renderLocalAppIfNeeded();
 
 if (!appMode) {
+initAnnouncementBanner();
+
 const setHeaderState = () => {
   if (!header) return;
   header.classList.toggle("is-scrolled", window.scrollY > 12);
@@ -19,16 +27,61 @@ const setHeaderState = () => {
 setHeaderState();
 window.addEventListener("scroll", setHeaderState, { passive: true });
 
+const closeNavDropdowns = (exceptDropdown = null) => {
+  navDropdowns.forEach((dropdown) => {
+    if (dropdown === exceptDropdown) return;
+    dropdown.classList.remove("is-open");
+    dropdown.querySelector("[data-nav-dropdown-trigger]")?.setAttribute("aria-expanded", "false");
+  });
+};
+
 if (menuButton && menu) {
   menuButton.addEventListener("click", () => {
     const isOpen = menu.classList.toggle("is-open");
     menuButton.setAttribute("aria-expanded", String(isOpen));
+
+    if (!isOpen) {
+      closeNavDropdowns();
+    }
   });
 
   menu.addEventListener("click", (event) => {
     if (!(event.target instanceof HTMLAnchorElement)) return;
     menu.classList.remove("is-open");
     menuButton.setAttribute("aria-expanded", "false");
+    closeNavDropdowns();
+  });
+}
+
+if (navDropdowns.length) {
+  navDropdowns.forEach((dropdown) => {
+    const trigger = dropdown.querySelector("[data-nav-dropdown-trigger]");
+
+    if (!trigger) return;
+
+    trigger.addEventListener("click", (event) => {
+      event.stopPropagation();
+      const willOpen = !dropdown.classList.contains("is-open");
+      closeNavDropdowns(dropdown);
+      dropdown.classList.toggle("is-open", willOpen);
+      trigger.setAttribute("aria-expanded", String(willOpen));
+    });
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!(event.target instanceof Node)) return;
+    const clickedInsideDropdown = Array.from(navDropdowns).some((dropdown) => dropdown.contains(event.target));
+
+    if (!clickedInsideDropdown) {
+      closeNavDropdowns();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    closeNavDropdowns();
+    menu?.classList.remove("is-open");
+    menuButton?.setAttribute("aria-expanded", "false");
   });
 }
 
@@ -75,7 +128,32 @@ if (rideForm && formMessage) {
 
 if (faqList) {
   faqList.addEventListener("click", (event) => {
-    const item = event.target instanceof Element ? event.target.closest(".faq-item") : null;
+    const target = event.target instanceof Element ? event.target : null;
+    const tab = target ? target.closest("[data-faq-tab]") : null;
+
+    if (tab instanceof HTMLButtonElement) {
+      const selectedCategory = tab.dataset.faqTab;
+
+      faqList.querySelectorAll("[data-faq-tab]").forEach((button) => {
+        const isActive = button === tab;
+        button.classList.toggle("is-active", isActive);
+        button.setAttribute("aria-selected", String(isActive));
+      });
+
+      faqList.querySelectorAll("[data-faq-panel]").forEach((panel) => {
+        const isActive = panel instanceof HTMLElement && panel.dataset.faqPanel === selectedCategory;
+        panel.classList.toggle("is-active", isActive);
+        panel.toggleAttribute("hidden", !isActive);
+      });
+
+      faqList.querySelectorAll(".faq-item").forEach((button) => {
+        button.setAttribute("aria-expanded", "false");
+      });
+
+      return;
+    }
+
+    const item = target ? target.closest(".faq-item") : null;
     if (!(item instanceof HTMLButtonElement)) return;
 
     const willOpen = item.getAttribute("aria-expanded") !== "true";
@@ -87,6 +165,119 @@ if (faqList) {
     item.setAttribute("aria-expanded", String(willOpen));
   });
 }
+
+if (trustJourney) {
+  trustJourney.addEventListener("click", (event) => {
+    const target = event.target instanceof Element ? event.target : null;
+    const tab = target ? target.closest("[data-trust-tab]") : null;
+
+    if (!(tab instanceof HTMLButtonElement)) return;
+
+    const selectedStep = tab.dataset.trustTab;
+
+    trustJourney.querySelectorAll("[data-trust-tab]").forEach((button) => {
+      const isActive = button === tab;
+      button.classList.toggle("is-active", isActive);
+      button.setAttribute("aria-selected", String(isActive));
+    });
+
+    trustJourney.querySelectorAll("[data-trust-panel]").forEach((panel) => {
+      const isActive = panel instanceof HTMLElement && panel.dataset.trustPanel === selectedStep;
+      panel.classList.toggle("is-active", isActive);
+      panel.toggleAttribute("hidden", !isActive);
+    });
+  });
+}
+
+currentYearTargets.forEach((target) => {
+  target.textContent = String(new Date().getFullYear());
+});
+
+if (contactForm && contactMessage) {
+  contactForm.addEventListener("submit", handleContactSubmit);
+}
+}
+
+function initAnnouncementBanner() {
+  const pageStage = document.querySelector(".page-stage");
+  if (!pageStage || document.querySelector("[data-announcement-banner]") || isAnnouncementDismissed()) return;
+
+  const banner = document.createElement("section");
+  banner.className = "announcement-banner";
+  banner.dataset.announcementBanner = "";
+  banner.setAttribute("aria-label", "Annonce Drive Lady");
+  banner.innerHTML = `
+    <div class="announcement-banner__inner">
+      <a class="announcement-banner__message" href="${getAppHomeUrl()}">L&rsquo;application Drive Lady est l&agrave; ! Acc&egrave;de &agrave; l&rsquo;app d&egrave;s maintenant</a>
+      <button class="announcement-banner__close" type="button" aria-label="Fermer le bandeau">
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  `;
+
+  const closeButton = banner.querySelector(".announcement-banner__close");
+  closeButton?.addEventListener("click", () => {
+    persistAnnouncementDismissal();
+    banner.classList.add("is-hiding");
+    window.setTimeout(() => banner.remove(), 180);
+  });
+
+  pageStage.parentElement?.insertBefore(banner, pageStage);
+}
+
+function isAnnouncementDismissed() {
+  try {
+    return window.localStorage.getItem(announcementDismissKey) === "true";
+  } catch {
+    return false;
+  }
+}
+
+function persistAnnouncementDismissal() {
+  try {
+    window.localStorage.setItem(announcementDismissKey, "true");
+  } catch {
+    // The banner should still close when storage is unavailable.
+  }
+}
+
+function getAppHomeUrl() {
+  const protocol = window.location.protocol === "file:" ? "http:" : window.location.protocol;
+  const port = window.location.port || defaultAppPort;
+  return `${protocol}//${appHost}:${port}/`;
+}
+
+function handleContactSubmit(event) {
+  event.preventDefault();
+
+  if (!contactForm || !contactMessage) return;
+
+  const formData = new FormData(contactForm);
+  const name = String(formData.get("nom") || "").trim();
+  const email = String(formData.get("email") || "").trim();
+  const topic = String(formData.get("sujet") || "Contact").trim();
+  const message = String(formData.get("message") || "").trim();
+
+  contactMessage.className = "form-message";
+
+  if (!name || !email || !message) {
+    contactMessage.classList.add("is-error");
+    contactMessage.textContent = "Ajoutez votre nom, votre e-mail et votre message.";
+    return;
+  }
+
+  const subject = `[Drive Lady] ${topic}`;
+  const body = [
+    `Nom : ${name}`,
+    `E-mail : ${email}`,
+    `Sujet : ${topic}`,
+    "",
+    message,
+  ].join("\n");
+
+  contactMessage.classList.add("is-success");
+  contactMessage.textContent = "Votre e-mail est prêt à être envoyé.";
+  window.location.href = `mailto:driveladypro@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
 function renderLocalAppIfNeeded() {

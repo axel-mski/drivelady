@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@700&family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css" />
@@ -26,7 +26,7 @@
       <div class="site-frame">
         <header class="site-header" data-header>
           <nav class="nav-shell" aria-label="Navigation principale">
-            <a class="brand" href="#top" aria-label="Drive Lady accueil">
+            <a class="brand" href="./" aria-label="Drive Lady accueil">
               <img src="./assets/drive-lady-logo.png" alt="Logo Drive Lady" />
               <span>Drive Lady</span>
             </a>
@@ -37,35 +37,105 @@
               <span class="sr-only">Ouvrir le menu</span>
             </button>
             <div class="nav-links" id="site-menu" data-menu>
-              <a href="#trajets">Trajets</a>
-              <a href="#confiance">Confiance</a>
-              <a href="#partenaires">Partenaires</a>
-              <a href="#faq">FAQ</a>
+              <div class="nav-dropdown is-current" data-nav-dropdown>
+                <button class="nav-dropdown__trigger" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="nav-discover-menu" data-nav-dropdown-trigger>
+                  Découvrir
+                  <svg class="nav-dropdown__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                </button>
+                <div class="nav-dropdown__menu" id="nav-discover-menu">
+                  <a href="./index.html#fonctionnement">Comment ça marche</a>
+                  <a href="./index.html#trajets">Trajets</a>
+                  <a href="./index.html#confiance">Sécurité</a>
+                  <a href="./index.html#faq">FAQ</a>
+                </div>
+              </div>
+              <div class="nav-dropdown" data-nav-dropdown>
+                <button class="nav-dropdown__trigger" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="nav-partners-menu" data-nav-dropdown-trigger>
+                  Partenaires
+                  <svg class="nav-dropdown__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                </button>
+                <div class="nav-dropdown__menu" id="nav-partners-menu">
+                  <a href="./index.html#partenaires">Événements</a>
+                  <a href="./a-propos/#partenaires">Bars et lieux de soirée</a>
+                  <a href="./a-propos/#partenaires">Festivals et campus</a>
+                  <a href="./contact.html#partenaires">Devenir partenaire</a>
+                </div>
+              </div>
+              <a href="./blog/">Blog</a>
+              <div class="nav-dropdown" data-nav-dropdown>
+                <button class="nav-dropdown__trigger" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="nav-about-menu" data-nav-dropdown-trigger>
+                  À propos
+                  <svg class="nav-dropdown__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                </button>
+                <div class="nav-dropdown__menu" id="nav-about-menu">
+                  <a href="./a-propos/#mission">Notre mission</a>
+                  <a href="./notre-equipe/">Notre équipe</a>
+                  <a href="./a-propos/#presse">Presse</a>
+                  <a href="./a-propos/">L'histoire de Drive Lady</a>
+                </div>
+              </div>
+              <div class="nav-dropdown" data-nav-dropdown>
+                <button class="nav-dropdown__trigger" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="nav-contact-menu" data-nav-dropdown-trigger>
+                  Contact
+                  <svg class="nav-dropdown__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                </button>
+                <div class="nav-dropdown__menu" id="nav-contact-menu">
+                  <a href="./contact.html">Nous écrire</a>
+                  <a href="./contact.html#partenaires">Contact partenaires</a>
+                  <a href="./contact.html#signalement">Faire un signalement</a>
+                  <a href="mailto:driveladypro@gmail.com">Support</a>
+                </div>
+              </div>
             </div>
-            <a class="nav-cta" href="http://app.localhost:5173/">Rejoindre</a>
+            <a class="nav-cta" href="http://app.localhost:5173/">Rejoindre la communauté</a>
           </nav>
         </header>
 
-        <main id="main">
+        <main id="main" class="home-main">
           <section class="hero" id="top" aria-labelledby="hero-title">
-            <span class="sparkle sparkle--one" aria-hidden="true"></span>
-            <span class="sparkle sparkle--two" aria-hidden="true"></span>
-            <span class="sparkle sparkle--three" aria-hidden="true"></span>
-            <span class="sparkle sparkle--four" aria-hidden="true"></span>
             <img class="serpent serpent--rose" src="./assets/hero-serpent-rose.svg" alt="" aria-hidden="true" />
             <svg class="serpent serpent--blue" viewBox="0 0 430 430" aria-hidden="true">
               <path d="M440 8c-112 28-173 92-155 165 19 80 111 88 116 164 5 72-74 112-146 72-84-47-64-158 16-204" />
             </svg>
 
             <div class="hero__copy reveal">
-              <h1 id="hero-title">
-                <span>Le&nbsp;covoiturage&nbsp;entre&nbsp;femmes,</span>
-                <span>en toute confiance.</span>
-              </h1>
+              <div class="hero-title-shell">
+                <span class="sparkle sparkle--one" aria-hidden="true"></span>
+                <span class="sparkle sparkle--two" aria-hidden="true"></span>
+                <span class="sparkle sparkle--three" aria-hidden="true"></span>
+                <span class="sparkle sparkle--four" aria-hidden="true"></span>
+                <h1 id="hero-title">
+                  <span class="hero-title__line">
+                    Le covoiturage entre
+                    femmes,
+                  </span>
+                  <span class="hero-title__line">en toute confiance.</span>
+                </h1>
+              </div>
               <p class="hero__lead">
                 Conductrice ou passagère, rejoins une communauté pensée pour les retours de soirée, les trajets du
                 quotidien, les écoles, les vacances et les déplacements où la sérénité compte vraiment.
               </p>
+              <div class="hero-press" aria-label="Vu sur">
+                <span>Vu sur</span>
+                <div class="hero-press__logos">
+                  <a class="hero-press__link" href="https://www.rtl.fr/actu/debats-societe/drive-lady-l-application-de-covoiturage-reservee-aux-femmes-7900265002" target="_blank" rel="noreferrer noopener" aria-label="Lire l'article RTL sur Drive Lady">
+                    <img class="press-logo press-logo--square" src="./assets/press-rtl.png" alt="RTL" />
+                  </a>
+                  <a class="hero-press__link" href="https://www.bfmtv.com/normandie/drive-lady-une-etudiante-normande-cree-une-application-de-covoiturage-reservee-aux-femmes_AV-202305140294.html" target="_blank" rel="noreferrer noopener" aria-label="Voir le format BFM TV sur Drive Lady">
+                    <img class="press-logo press-logo--square press-logo--bfm" src="./assets/press-bfm.png" alt="BFM TV" />
+                  </a>
+                  <a class="hero-press__link" href="https://france3-regions.franceinfo.fr/normandie/seine-maritime/rouen/l-initiative-elle-co-cree-drive-lady-une-application-de-covoiturage-reserve-aux-femmes-entretien-avec-camille-cottard-3158973.html" target="_blank" rel="noreferrer noopener" aria-label="Lire l'article France 3 Normandie sur Drive Lady">
+                    <img class="press-logo press-logo--square" src="./assets/press-france-bleu.png" alt="France Bleu" />
+                  </a>
+                  <a class="hero-press__link" href="https://www.liberation.fr/lifestyle/covoiturage-100-feminin-a-rouen-drive-lady-veut-faire-lappli-et-le-beau-temps-20230512_Z37A2HMMLRG4XKKMI6NINKSGAQ/" target="_blank" rel="noreferrer noopener" aria-label="Lire l'article Libération sur Drive Lady">
+                    <img class="press-logo press-logo--liberation" src="./assets/press-liberation.svg" alt="Libération" />
+                  </a>
+                  <a class="hero-press__link" href="https://www.instagram.com/reel/CsDU6J3PNzR/?utm_source=ig_web_copy_link&amp;igshid=MzRlODBiNWFlZA==" target="_blank" rel="noreferrer noopener" aria-label="Voir le format Quotidien sur Instagram">
+                    <img class="press-logo press-logo--quotidien" src="./assets/press-quotidien.jpg" alt="Quotidien" />
+                  </a>
+                </div>
+              </div>
               <div class="hero__actions">
                 <a class="button button--primary" href="http://app.localhost:5173/">
                   Rejoindre la communauté
@@ -244,7 +314,6 @@
               </label>
               <button class="button button--primary" type="submit">Chercher un trajet</button>
               <p class="form-message" role="status" aria-live="polite" data-form-message>
-                Suggestions d'adresses fournies par la Géoplateforme française.
               </p>
             </form>
           </section>
@@ -263,65 +332,103 @@
                 <div class="journey__image journey__image--night">
                   <img src="./assets/journey-night.png" alt="Femmes qui rient en covoiturage après une sortie" />
                 </div>
-                <span class="journey__icon">01</span>
-                <h3>Sorties et retours tardifs</h3>
-                <p>Un trajet réservé dans un cadre féminin, avec les informations utiles avant de monter en voiture.</p>
+                <div class="journey__body">
+                  <h3>Sorties et retours tardifs</h3>
+                  <p>Pour rentrer après une soirée avec une conductrice ou une passagère choisie selon tes attentes.</p>
+                </div>
               </article>
               <article class="journey">
                 <div class="journey__image journey__image--daily">
                   <img src="./assets/journey-daily.png" alt="Femmes qui rient en covoiturage pour le quotidien" />
                 </div>
-                <span class="journey__icon">02</span>
-                <h3>Travail, école, quotidien</h3>
-                <p>Des habitudes de déplacement répétées, lisibles et plus humaines qu'un trajet anonyme.</p>
+                <div class="journey__body">
+                  <h3>Travail, école, quotidien</h3>
+                  <p>Pour installer des habitudes de déplacement lisibles, répétables et moins anonymes.</p>
+                </div>
               </article>
               <article class="journey">
                 <div class="journey__image journey__image--weekend">
                   <img src="./assets/journey-weekend.png" alt="Femmes qui rient en covoiturage pour un départ ponctuel" />
                 </div>
-                <span class="journey__icon">03</span>
-                <h3>Départs ponctuels</h3>
-                <p>Vacances, week-ends, événements, mêmes règles de clarté et de confiance.</p>
+                <div class="journey__body">
+                  <h3>Départs ponctuels</h3>
+                  <p>Vacances, week-ends, événements : la même clarté avant de partager la route.</p>
+                </div>
               </article>
             </div>
           </section>
 
-          <section class="process" aria-labelledby="process-title">
-            <div class="process__copy">
-              <p class="eyebrow">Comment ça marche</p>
-              <h2 id="process-title">Trois gestes simples, sans promesse floue.</h2>
-              <p>
-                On crée son profil, on propose ou réserve un trajet, puis on avance avec une communauté pensée pour les
-                déplacements où la confiance n'est pas un détail.
-              </p>
-              <a class="button button--primary" href="http://app.localhost:5173/">
-                Accéder à l'app
-              </a>
+          <section class="process" id="fonctionnement" aria-labelledby="process-title">
+            <div class="process__intro">
+              <div class="process__title-block">
+                <p class="eyebrow process__eyebrow">Comment ça marche · 3 étapes</p>
+                <h2 id="process-title">Trois gestes simples, sans promesse floue.</h2>
+              </div>
+              <div class="process__summary">
+                <p>
+                  On crée son profil, on propose ou réserve un trajet, puis on avance avec une communauté pensée pour les
+                  déplacements où la confiance n'est pas un détail.
+                </p>
+                <div class="process__actions">
+                  <a class="button button--primary" href="http://app.localhost:5173/">
+                    Accéder à l'app
+                  </a>
+                  <a class="process__link" href="#confiance" data-label="Lire nos engagements">Lire nos engagements</a>
+                </div>
+              </div>
             </div>
-            <div class="solution-board" aria-label="Étapes Drive Lady">
-              <article class="solution-card solution-card--wide">
-                <div>
-                  <span>Trajet vérifié</span>
-                  <strong>Tout est lisible avant de valider.</strong>
-                  <p>Profil, horaire, lieu de rendez-vous et contexte du trajet restent visibles au bon moment.</p>
+
+            <div class="process-steps" aria-label="Étapes Drive Lady">
+              <article class="process-step process-step--profile">
+                <span class="process-step__number">01</span>
+                <span class="process-step__label">Profil</span>
+                <h3>Crée ton profil.</h3>
+                <p>Préférences, fenêtres horaires, vérifications d'identité — tout est prêt avant le premier trajet.</p>
+                <span class="process-step__pill">≈ 2 min</span>
+                <div class="process-mock process-mock--profile" aria-hidden="true">
+                  <span class="process-mock__avatar">L</span>
+                  <span class="process-mock__line process-mock__line--long"></span>
+                  <span class="process-mock__line process-mock__line--medium"></span>
+                  <span class="process-mock__line process-mock__line--full"></span>
+                  <span class="process-mock__line process-mock__line--short"></span>
                 </div>
-                <img src="./assets/drive-lady-hero.avif" alt="" />
               </article>
-              <article class="solution-card">
-                <img src="./assets/drive-lady-app-icon.png" alt="" />
-                <div>
-                  <span>Profil prêt</span>
-                  <strong>Crée ton profil et tes préférences.</strong>
-                  <p>Les informations utiles sont prêtes avant de proposer ou réserver un trajet.</p>
+
+              <article class="process-step process-step--trip">
+                <span class="process-step__number">02</span>
+                <span class="process-step__label">Trajet</span>
+                <h3>Propose ou réserve.</h3>
+                <p>Profil, horaire, lieu de rendez-vous et contexte du trajet — un seul écran de récap.</p>
+                <span class="process-step__pill">1 récap clair</span>
+                <div class="process-mock process-mock--trip" aria-hidden="true">
+                  <div class="process-mock__route-head">
+                    <span>21:30 — 22:05</span>
+                    <strong>Vérifié</strong>
+                  </div>
+                  <div class="process-mock__progress">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
                 </div>
               </article>
-              <article class="solution-card">
-                <div>
-                  <span>Retour tardif · 3 places</span>
-                  <strong>Choisis un trajet adapté au contexte.</strong>
-                  <p>Soirée, travail, école ou vacances : le moment du trajet reste clair.</p>
-                  <div class="route-bars">
-                    <span></span><span></span><span></span><span></span><span></span><span></span>
+
+              <article class="process-step process-step--return">
+                <span class="process-step__number">03</span>
+                <span class="process-step__label">Retour</span>
+                <h3>Avance en confiance.</h3>
+                <p>Partage live, contact urgence, retour tardif assuré : la confiance reste un détail réglé.</p>
+                <span class="process-step__pill">Safety by default</span>
+                <div class="process-mock process-mock--return" aria-hidden="true">
+                  <svg viewBox="0 0 280 74" role="img">
+                    <path d="M35 48 C78 12 112 62 156 25 C187 -1 222 8 246 21" />
+                    <circle cx="35" cy="48" r="4" />
+                    <circle cx="246" cy="21" r="4" />
+                  </svg>
+                  <div class="process-mock__footer">
+                    <span>● Live</span>
+                    <span>ETA · 22:04</span>
                   </div>
                 </div>
               </article>
@@ -329,33 +436,119 @@
           </section>
 
           <section class="trust" id="confiance" aria-labelledby="trust-title">
-            <div class="trust__content">
+            <div class="trust__header">
               <p class="eyebrow">Confiance et sécurité</p>
-              <h2 id="trust-title">Savoir avec qui l'on roule, avant de monter.</h2>
-              <p>
-                Drive Lady met l'accent sur les informations qui changent tout : profil visible, contexte du trajet,
-                point de rendez-vous clair et possibilité de partager son déplacement avec une personne de confiance.
-              </p>
+              <h2 id="trust-title">Savoir avec qui l'on roule, <span>à chaque moment.</span></h2>
             </div>
-            <div class="trust-panel">
-              <div class="trust-panel__header">
-                <span>Avant le trajet</span>
-                <strong>Préparation</strong>
+
+            <div class="trust-journey" data-trust-journey>
+              <div class="trust-tabs" role="tablist" aria-label="Moments de sécurité Drive Lady">
+                <button class="trust-tab is-active" type="button" role="tab" id="trust-tab-before" aria-selected="true" aria-controls="trust-panel-before" data-trust-tab="before">
+                  <span>01</span>
+                  <strong>Préparation</strong>
+                  <small>Avant le trajet</small>
+                </button>
+                <button class="trust-tab" type="button" role="tab" id="trust-tab-during" aria-selected="false" aria-controls="trust-panel-during" data-trust-tab="during">
+                  <span>02</span>
+                  <strong>En route</strong>
+                  <small>Pendant le trajet</small>
+                </button>
+                <button class="trust-tab" type="button" role="tab" id="trust-tab-after" aria-selected="false" aria-controls="trust-panel-after" data-trust-tab="after">
+                  <span>03</span>
+                  <strong>Après</strong>
+                  <small>Après le trajet</small>
+                </button>
               </div>
-              <ul>
-                <li>
-                  <span></span>
-                  <p>Profil de la conductrice ou passagère visible avant validation.</p>
-                </li>
-                <li>
-                  <span></span>
-                  <p>Lieu, horaire et contexte du trajet affichés sans ambiguïté.</p>
-                </li>
-                <li>
-                  <span></span>
-                  <p>Partage possible d'un trajet prévu avec une personne de confiance.</p>
-                </li>
-              </ul>
+
+              <section class="trust-panel is-active" id="trust-panel-before" role="tabpanel" aria-labelledby="trust-tab-before" data-trust-panel="before">
+                <div class="trust-mock trust-mock--before" aria-hidden="true">
+                  <div class="trust-mock__top">
+                    <span>Récap avant validation</span>
+                    <strong>• Vérifié</strong>
+                  </div>
+                  <div class="trust-mock__profile">
+                    <span>S</span>
+                    <p><strong>Sarah · 32 ans</strong><small>87 trajets · 4,9 ★ · ID vérifié</small></p>
+                    <b>✓</b>
+                  </div>
+                  <div class="trust-mock__route">
+                    <span></span>
+                    <p><small>21:30 · jeudi</small><strong>Nation — sortie M1, devant le kiosque</strong></p>
+                    <span></span>
+                    <p><small>22:05 · estimé</small><strong>Vincennes — porte rouge, rue Robert Giraudineau</strong></p>
+                  </div>
+                  <div class="trust-mock__share">
+                    <strong>Partager ce trajet à un proche</strong>
+                    <span>Mum · Sofia</span>
+                  </div>
+                </div>
+                <div class="trust-panel__copy">
+                  <h3>Tout ce qui change la décision est visible avant de valider.</h3>
+                  <ul class="trust-checklist">
+                    <li><span>✓</span><p><strong>Profil vérifié</strong><small>Pièce d'identité + selfie confrontés.</small></p></li>
+                    <li><span>✓</span><p><strong>Récap du trajet</strong><small>Lieu, horaire et contexte sans ambiguïté.</small></p></li>
+                    <li><span>✓</span><p><strong>Partage en un geste</strong><small>Envoie le trajet prévu à une personne de confiance.</small></p></li>
+                  </ul>
+                </div>
+              </section>
+
+              <section class="trust-panel" id="trust-panel-during" role="tabpanel" aria-labelledby="trust-tab-during" data-trust-panel="during" hidden>
+                <div class="trust-mock trust-mock--during" aria-hidden="true">
+                  <div class="trust-mock__top">
+                    <span>Trajet en cours</span>
+                    <strong>• Live</strong>
+                  </div>
+                  <div class="trust-map">
+                    <span>ETA · 22:04 · à l'heure</span>
+                    <svg viewBox="0 0 320 130">
+                      <path d="M24 104 C72 54 140 40 205 76 C250 99 288 72 307 28" />
+                      <circle cx="24" cy="104" r="5" />
+                      <circle cx="307" cy="28" r="7" />
+                    </svg>
+                  </div>
+                  <div class="trust-mock__watchers">
+                    <span>M</span><span>S</span>
+                    <strong>2 proches voient le trajet en temps réel</strong>
+                  </div>
+                  <div class="trust-mock__sos">Maintenir 2 s — SOS discret</div>
+                </div>
+                <div class="trust-panel__copy">
+                  <h3>Garder le lien, même en mouvement.</h3>
+                  <ul class="trust-checklist">
+                    <li><span>✓</span><p><strong>Partage live</strong><small>Position partagée en temps réel, désactivable à tout moment.</small></p></li>
+                    <li><span>✓</span><p><strong>Bouton SOS</strong><small>Accessible sans déverrouiller, prévient un proche + l'équipe.</small></p></li>
+                    <li><span>✓</span><p><strong>Itinéraire visible</strong><small>Le proche voit le trajet réel, pas seulement la promesse.</small></p></li>
+                  </ul>
+                </div>
+              </section>
+
+              <section class="trust-panel" id="trust-panel-after" role="tabpanel" aria-labelledby="trust-tab-after" data-trust-panel="after" hidden>
+                <div class="trust-mock trust-mock--after" aria-hidden="true">
+                  <div class="trust-mock__top">
+                    <span>Après le trajet</span>
+                    <strong>• Modéré humain</strong>
+                  </div>
+                  <div class="trust-rating">
+                    <span>S</span>
+                    <p><strong>Comment s'est passé le trajet ?</strong><small>Ton retour reste anonyme côté conductrice.</small></p>
+                    <div>★ ★ ★ ★ ★</div>
+                    <em>Ponctuelle</em><em>Conduite calme</em><em>Discussion sympa</em>
+                  </div>
+                  <div class="trust-report">
+                    <span>!</span>
+                    <p><strong>Signaler un problème</strong><small>Réponse humaine sous 24 h.</small></p>
+                    <b>→</b>
+                  </div>
+                </div>
+                <div class="trust-panel__copy">
+                  <h3>Faire grandir une communauté qui se tient.</h3>
+                  <ul class="trust-checklist">
+                    <li><span>✓</span><p><strong>Évaluations croisées</strong><small>Modérées par une équipe humaine, pas par un algorithme.</small></p></li>
+                    <li><span>✓</span><p><strong>Signalements sous 24h</strong><small>Une vraie personne lit, qualifie, répond.</small></p></li>
+                    <li><span>✓</span><p><strong>Exclusion ferme</strong><small>Comportements confirmés à risque : pas de seconde chance.</small></p></li>
+                  </ul>
+                </div>
+              </section>
             </div>
           </section>
 
@@ -394,32 +587,171 @@
           <section class="faq" id="faq" aria-labelledby="faq-title">
             <div>
               <p class="eyebrow">Questions fréquentes</p>
-              <h2 id="faq-title">Répondre vite, sans surpromettre.</h2>
+              <h2 id="faq-title">Une question ? On est là pour vous</h2>
             </div>
             <div class="faq-list" data-faq-list>
-              <button class="faq-item" type="button" aria-expanded="false">
-                <span>Drive Lady est-elle déjà disponible ?</span>
-                <p>En local, l'application est accessible depuis app.localhost:5173.</p>
-              </button>
-              <button class="faq-item" type="button" aria-expanded="false">
-                <span>Le service est-il uniquement féminin ?</span>
-                <p>Le positionnement public actuel est un réseau de covoiturage 100% féminin.</p>
-              </button>
-              <button class="faq-item" type="button" aria-expanded="false">
-                <span>Comment réserver ou proposer un trajet ?</span>
-                <p>La recherche se prépare ici, puis la publication ou la réservation se fait directement dans l'application.</p>
-              </button>
+              <div class="faq-tabs" role="tablist" aria-label="Catégories FAQ">
+                <button class="faq-tab is-active" type="button" role="tab" id="faq-tab-about" aria-selected="true" aria-controls="faq-panel-about" data-faq-tab="about">À propos de Drive Lady</button>
+                <button class="faq-tab" type="button" role="tab" id="faq-tab-app" aria-selected="false" aria-controls="faq-panel-app" data-faq-tab="app">Fonctionnement de l'application</button>
+                <button class="faq-tab" type="button" role="tab" id="faq-tab-safety" aria-selected="false" aria-controls="faq-panel-safety" data-faq-tab="safety">Sécurité & confiance</button>
+                <button class="faq-tab" type="button" role="tab" id="faq-tab-partners" aria-selected="false" aria-controls="faq-panel-partners" data-faq-tab="partners">Partenaires et événements</button>
+              </div>
+              <section class="faq-group is-active" id="faq-panel-about" role="tabpanel" aria-labelledby="faq-tab-about" data-faq-panel="about">
+                <h3 id="faq-about-title">À propos de Drive Lady</h3>
+                <button class="faq-item" type="button" aria-expanded="false">
+                  <span>Qu'est-ce que Drive Lady ?</span>
+                  <p>Drive Lady est une application de covoiturage 100 % entre femmes, pensée pour des trajets sereins, sécurisés et solidaires. Elle permet aux conductrices et passagères de partager leurs trajets en toute confiance, notamment après un événement, une soirée ou un cours.</p>
+                </button>
+                <button class="faq-item" type="button" aria-expanded="false">
+                  <span>Pourquoi une application réservée aux femmes ?</span>
+                  <p>Parce qu'entre femmes, tout est plus simple. On se comprend, on se fait confiance, et on partage les mêmes réflexes. D'ailleurs, 89 % des femmes affirment se sentir plus en sécurité entre elles. Drive Lady, c'est cette énergie-là : une communauté de femmes qui se soutiennent et se déplacent ensemble, en toute sérénité.</p>
+                </button>
+                <button class="faq-item" type="button" aria-expanded="false">
+                  <span>Est-ce un service payant ?</span>
+                  <p>L'inscription est 100% gratuite. Les trajets sont partagés entre utilisatrices : le coût du trajet dépend de la participation définie par la conductrice, comme sur un covoiturage classique.</p>
+                </button>
+              </section>
+
+              <section class="faq-group" id="faq-panel-app" role="tabpanel" aria-labelledby="faq-tab-app" data-faq-panel="app" hidden>
+                <h3 id="faq-app-title">Fonctionnement de l'application</h3>
+                <button class="faq-item" type="button" aria-expanded="false">
+                  <span>Comment accéder à Drive Lady ?</span>
+                  <p>Pas besoin de la télécharger sur un store. Rendez-vous simplement sur app-drivelady.fr et ajoutez-la à votre écran d'accueil. Vous pourrez ensuite rouler en toute sécurité.</p>
+                </button>
+                <button class="faq-item" type="button" aria-expanded="false">
+                  <span>Comment créer un compte ?</span>
+                  <p>Lors de l'inscription, il suffit de renseigner votre prénom, votre e-mail et de téléverser une photo de votre carte d'identité pour vérifier votre profil et garantir une communauté 100 % féminine. Une fois votre compte validé, vous pouvez proposer ou rejoindre des trajets en toute sérénité. Vos données sont protégées et ne sont jamais visibles par les autres utilisatrices.</p>
+                </button>
+                <button class="faq-item" type="button" aria-expanded="false">
+                  <span>Comment proposer ou rejoindre un trajet ?</span>
+                  <p>Une fois connectée, vous pouvez proposer un trajet en indiquant votre point de départ et d'arrivée, l'heure de départ, ainsi que le nombre de passagères acceptées, ou rejoindre un trajet déjà publié par une autre membre. La messagerie intégrée permet ensuite d'échanger en toute sécurité.</p>
+                </button>
+                <button class="faq-item" type="button" aria-expanded="false">
+                  <span>L'application fonctionne-t-elle sur tous les téléphones ?</span>
+                  <p>Oui. Drive Lady est une web-app compatible avec Android et iPhone. Elle s'installe facilement depuis votre navigateur. Rendez-vous sur app-drivelady.fr.</p>
+                </button>
+              </section>
+
+              <section class="faq-group" id="faq-panel-safety" role="tabpanel" aria-labelledby="faq-tab-safety" data-faq-panel="safety" hidden>
+                <h3 id="faq-safety-title">Sécurité & confiance</h3>
+                <button class="faq-item" type="button" aria-expanded="false">
+                  <span>Comment Drive Lady garantit la sécurité des utilisatrices ?</span>
+                  <p>Chaque membre est vérifiée via pièce d'identité, et toutes s'engagent à respecter les conditions d'utilisation, ainsi que la charte de communauté Drive Lady, basée sur la bienveillance, le respect et la responsabilité.</p>
+                </button>
+                <button class="faq-item" type="button" aria-expanded="false">
+                  <span>Mes données personnelles sont-elles protégées ?</span>
+                  <p>Oui. Drive Lady respecte le RGPD et s'engage à ne jamais partager vos données personnelles sans votre consentement. Seules les informations nécessaires aux trajets sont visibles des autres utilisatrices.</p>
+                </button>
+                <button class="faq-item" type="button" aria-expanded="false">
+                  <span>Et si la conductrice a consommé de l'alcool ?</span>
+                  <p>Drive Lady repose sur la confiance et la responsabilité de chacune. Nos conductrices s'engagent, via la charte de communauté, à assurer des trajets en toute sécurité, notamment en ne conduisant pas sous l'effet de l'alcool. Cette vigilance partagée permet à toutes de rentrer sereinement.</p>
+                </button>
+                <button class="faq-item" type="button" aria-expanded="false">
+                  <span>Puis-je signaler un comportement inapproprié ?</span>
+                  <p>En cas de problème ou de comportement inapproprié, vous pouvez contacter directement notre équipe à l'adresse driveladypro@gmail.com en précisant les détails du trajet concerné. Chaque message est traité avec bienveillance et confidentialité, car la sécurité et le respect de notre communauté sont essentiels pour Drive Lady.</p>
+                </button>
+              </section>
+
+              <section class="faq-group" id="faq-panel-partners" role="tabpanel" aria-labelledby="faq-tab-partners" data-faq-panel="partners" hidden>
+                <h3 id="faq-partners-title">Partenaires et événements</h3>
+                <button class="faq-item" type="button" aria-expanded="false">
+                  <span>Que signifie “événement partenaire” ?</span>
+                  <p>Un événement partenaire est un lieu ou une soirée qui collabore avec Drive Lady pour faciliter les trajets des femmes avant et après l'événement. Vous pouvez retrouver ces événements directement sur l'application afin de proposer ou rechercher votre trajet.</p>
+                </button>
+                <button class="faq-item" type="button" aria-expanded="false">
+                  <span>Où puis-je voir la liste des partenaires ?</span>
+                  <p>Sur notre site www.drivelady.fr, dans la section “Ils prennent soin de votre retour”, ou directement sur notre application afin de proposer ou rechercher votre trajet.</p>
+                </button>
+                <button class="faq-item" type="button" aria-expanded="false">
+                  <span>Envie de rejoindre l'aventure Drive Lady ?</span>
+                  <p>Contactez-nous à driveladypro@gmail.com avec le nom de votre établissement ou événement, notre équipe vous répondra rapidement.</p>
+                </button>
+              </section>
             </div>
           </section>
         </main>
 
-        <footer class="footer">
-          <div>
-            <img src="./assets/drive-lady-logo.png" alt="Logo Drive Lady" />
-            <strong>Drive Lady</strong>
+        <footer class="footer footer--home-flow">
+          <div class="footer__inner">
+            <div class="footer__top">
+              <div class="footer__brand">
+                <a class="footer__logo" href="#top" aria-label="Drive Lady accueil">
+                  <img src="./assets/drive-lady-logo.png" alt="Logo Drive Lady" />
+                  <span>Drive Lady</span>
+                </a>
+                <p>
+                  Le covoiturage entre femmes pensé pour les trajets du quotidien, les retours tardifs
+                  et les déplacements où la confiance doit rester visible.
+                </p>
+                <ul class="footer__social" aria-label="Reseaux sociaux Drive Lady">
+                  <li>
+                    <a class="footer__social-link" href="https://www.facebook.com/groups/199397746047175/" target="_blank" rel="noreferrer noopener" aria-label="Facebook">
+                      <img src="https://static.wixstatic.com/media/0fdef751204647a3bbd7eaa2827ed4f9.png/v1/fill/w_20,h_20,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Facebook.png" srcset="https://static.wixstatic.com/media/0fdef751204647a3bbd7eaa2827ed4f9.png/v1/fill/w_20,h_20,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Facebook.png 1x, https://static.wixstatic.com/media/0fdef751204647a3bbd7eaa2827ed4f9.png/v1/fill/w_40,h_40,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Facebook.png 2x" alt="" width="20" height="20" loading="lazy" decoding="async" />
+                    </a>
+                  </li>
+                  <li>
+                    <a class="footer__social-link" href="https://www.instagram.com/drivelady_/" target="_blank" rel="noreferrer noopener" aria-label="Instagram">
+                      <img src="https://static.wixstatic.com/media/01c3aff52f2a4dffa526d7a9843d46ea.png/v1/fill/w_20,h_20,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Instagram.png" srcset="https://static.wixstatic.com/media/01c3aff52f2a4dffa526d7a9843d46ea.png/v1/fill/w_20,h_20,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Instagram.png 1x, https://static.wixstatic.com/media/01c3aff52f2a4dffa526d7a9843d46ea.png/v1/fill/w_40,h_40,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Instagram.png 2x" alt="" width="20" height="20" loading="lazy" decoding="async" />
+                    </a>
+                  </li>
+                  <li>
+                    <a class="footer__social-link" href="https://www.linkedin.com/company/drivelady" target="_blank" rel="noreferrer noopener" aria-label="LinkedIn">
+                      <img src="https://static.wixstatic.com/media/11062b_72c275822d4344358ee379f14e7e115f~mv2.png/v1/fill/w_20,h_20,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/11062b_72c275822d4344358ee379f14e7e115f~mv2.png" srcset="https://static.wixstatic.com/media/11062b_72c275822d4344358ee379f14e7e115f~mv2.png/v1/fill/w_20,h_20,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/11062b_72c275822d4344358ee379f14e7e115f~mv2.png 1x, https://static.wixstatic.com/media/11062b_72c275822d4344358ee379f14e7e115f~mv2.png/v1/fill/w_40,h_40,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/11062b_72c275822d4344358ee379f14e7e115f~mv2.png 2x" alt="" width="20" height="20" loading="lazy" decoding="async" />
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <nav class="footer__links" aria-label="Navigation de pied de page">
+                <div class="footer__column">
+                  <h2>Découvrir</h2>
+                  <ul>
+                    <li><a href="./index.html#fonctionnement">Comment ça marche</a></li>
+                    <li><a href="./index.html#trajets">Trajets</a></li>
+                    <li><a href="./index.html#confiance">Sécurité</a></li>
+                    <li><a href="./index.html#faq">FAQ</a></li>
+                  </ul>
+                </div>
+                <div class="footer__column">
+                  <h2>Partenaires</h2>
+                  <ul>
+                    <li><a href="./index.html#partenaires">Événements</a></li>
+                    <li><a href="./a-propos/#partenaires">Bars et lieux de soirée</a></li>
+                    <li><a href="./a-propos/#partenaires">Festivals et campus</a></li>
+                    <li><a href="./contact.html#partenaires">Devenir partenaire</a></li>
+                  </ul>
+                </div>
+                <div class="footer__column">
+                  <h2>À propos</h2>
+                  <ul>
+                    <li><a href="./a-propos/#mission">Notre mission</a></li>
+                    <li><a href="./notre-equipe/">Notre équipe</a></li>
+                    <li><a href="./a-propos/#presse">Presse</a></li>
+                    <li><a href="./a-propos/">L'histoire de Drive Lady</a></li>
+                  </ul>
+                </div>
+                <div class="footer__column">
+                  <h2>Contact</h2>
+                  <ul>
+                    <li><a href="./contact.html">Nous écrire</a></li>
+                    <li><a href="./contact.html#partenaires">Contact partenaires</a></li>
+                    <li><a href="./contact.html#signalement">Faire un signalement</a></li>
+                    <li><a href="mailto:driveladypro@gmail.com">Support</a></li>
+                  </ul>
+                </div>
+              </nav>
+            </div>
+
+            <div class="footer__bottom">
+              <p>Copyright &copy; <span data-current-year>2026</span> Drive Lady. Tous droits réservés.</p>
+              <div class="footer__legal">
+                <a href="/mentions-legales">Mentions légales</a>
+                <a href="/conditions-generales-utilisation">CGU</a>
+                <a href="/conditions-generales-de-vente">CGV</a>
+                <a href="/politique-de-confidentialite">Confidentialité</a>
+              </div>
+            </div>
           </div>
-          <p>Covoiturage entre femmes, en toute sécurité.</p>
-          <a href="http://app.localhost:5173/">Rejoindre la communauté</a>
         </footer>
       </div>
     </div>

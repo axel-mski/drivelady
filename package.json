@@ -2,7 +2,22 @@
   "name": "drivelady-website",
   "private": true,
   "version": "0.1.0",
+  "packageManager": "npm@11.6.2",
   "scripts": {
-    "dev": "python -m http.server 5173 --bind 127.0.0.1"
+    "dev": "next dev --hostname 127.0.0.1 --port 5173",
+    "build": "next build",
+    "start": "next start --hostname 127.0.0.1 --port 5173",
+    "dev:static": "python -m http.server 5173 --bind 127.0.0.1",
+    "turbo": "turbo",
+    "turbo:build": "turbo build",
+    "turbo:dev": "turbo dev"
+  },
+  "dependencies": {
+    "next": "^16.2.6",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
+  },
+  "devDependencies": {
+    "turbo": "^2.9.14"
   }
 }
