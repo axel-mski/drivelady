@@ -3107,7 +3107,7 @@ main > section:first-child {
   color: var(--pink-600);
   font-family: "Inter", "Segoe UI", system-ui, sans-serif;
   font-size: clamp(2.2rem, 3.9vw, 3.35rem);
-  font-weight: 720;
+  font-weight: 700;
   line-height: 1.08;
   letter-spacing: 0;
 }
@@ -3149,10 +3149,6 @@ main > section:first-child {
 .partners__primary span {
   font-size: 1rem;
   line-height: 1;
-}
-
-.partners__download {
-  text-decoration: none;
 }
 
 .partners__stats {
@@ -6496,8 +6492,7 @@ main > .legal-hero:first-child {
     grid-template-columns: 1fr;
   }
 
-  .partners__primary,
-  .partners__download {
+  .partners__primary {
     width: 100%;
     justify-content: center;
     text-align: center;
