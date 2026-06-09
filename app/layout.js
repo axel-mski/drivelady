@@ -1,5 +1,9 @@
 import Script from "next/script";
+import CookieBanner from "./CookieBanner";
 import "../styles.css";
+import "../pages.css";
+
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 export const viewport = {
   width: "device-width",
@@ -22,6 +26,7 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         {children}
+        <CookieBanner gaId={GA_ID} />
         <Script src="/site-script.js" strategy="afterInteractive" />
       </body>
     </html>

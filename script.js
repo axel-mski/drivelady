@@ -7,13 +7,16 @@ const formMessage = document.querySelector("[data-form-message]");
 const faqList = document.querySelector("[data-faq-list]");
 const trustJourney = document.querySelector("[data-trust-journey]");
 const addressInputs = document.querySelectorAll("[data-address-input]");
-const contactForm = document.querySelector("[data-contact-form]");
-const contactMessage = document.querySelector("[data-contact-message]");
+const contactForms = document.querySelectorAll("[data-contact-form]");
+const contactTopicLinks = document.querySelectorAll("[data-contact-topic]");
 const currentYearTargets = document.querySelectorAll("[data-current-year]");
 const selectedAddresses = new Map();
 const appHost = "app.localhost";
 const defaultAppPort = "5173";
+const defaultRideTime = "22:30";
 const announcementDismissKey = "drive-lady-announcement-dismissed-v1";
+let activeSchedulePicker = null;
+let schedulePickerGlobalsBound = false;
 const appMode = renderLocalAppIfNeeded();
 
 if (!appMode) {
@@ -86,7 +89,10 @@ if (navDropdowns.length) {
 }
 
 initAddressAutocomplete();
+initRideScheduleDefaults();
 hydrateRideFormFromUrl();
+initSchedulePickers();
+initBlogDirectoryFilters();
 
 if (rideForm && formMessage) {
   rideForm.addEventListener("submit", async (event) => {
@@ -95,7 +101,9 @@ if (rideForm && formMessage) {
     const formData = new FormData(rideForm);
     const from = String(formData.get("from") || "").trim();
     const to = String(formData.get("to") || "").trim();
-    const moment = String(formData.get("moment") || "retour");
+    const travelDate = readDateInputValue(formData.get("travelDate")) || getTodayInputValue();
+    const travelTime = readTimeInputValue(formData.get("travelTime")) || defaultRideTime;
+    const timeMode = readTimeMode(formData.get("timeMode"));
 
     formMessage.className = "form-message";
 
@@ -117,7 +125,7 @@ if (rideForm && formMessage) {
     try {
       const fromAddress = await resolveAddress("from", from);
       const toAddress = await resolveAddress("to", to);
-      window.location.href = buildAppSearchUrl(fromAddress, toAddress, moment);
+      window.location.href = buildAppSearchUrl(fromAddress, toAddress, { travelDate, travelTime, timeMode });
     } catch {
       rideForm.classList.remove("is-loading");
       formMessage.classList.add("is-error");
@@ -193,9 +201,7 @@ currentYearTargets.forEach((target) => {
   target.textContent = String(new Date().getFullYear());
 });
 
-if (contactForm && contactMessage) {
-  contactForm.addEventListener("submit", handleContactSubmit);
-}
+initContactForms();
 }
 
 function initAnnouncementBanner() {
@@ -247,37 +253,107 @@ function getAppHomeUrl() {
   return `${protocol}//${appHost}:${port}/`;
 }
 
-function handleContactSubmit(event) {
+function initContactForms() {
+  if (!contactForms.length) return;
+
+  contactForms.forEach((form) => {
+    form.addEventListener("submit", handleContactSubmit);
+  });
+
+  const params = new URLSearchParams(window.location.search);
+  const urlTopic = params.get("sujet");
+  if (urlTopic) {
+    setContactTopic(urlTopic);
+  }
+
+  if (params.get("sent") === "1") {
+    const message = contactForms[0].querySelector("[data-contact-message]");
+    setContactMessage(message, "Merci, votre message a bien été envoyé.", "success");
+  }
+
+  contactTopicLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      setContactTopic(link.dataset.contactTopic || "");
+    });
+  });
+}
+
+function setContactTopic(topic) {
+  const cleanTopic = String(topic || "").trim();
+  if (!cleanTopic) return;
+
+  contactForms.forEach((form) => {
+    const topicField = form.querySelector('[name="sujet"]');
+    if (!topicField) return;
+
+    if (topicField instanceof HTMLSelectElement) {
+      const hasMatchingOption = Array.from(topicField.options).some((option) => option.value === cleanTopic);
+
+      if (!hasMatchingOption) {
+        topicField.add(new Option(cleanTopic, cleanTopic));
+      }
+    }
+
+    topicField.value = cleanTopic;
+  });
+}
+
+async function handleContactSubmit(event) {
   event.preventDefault();
 
-  if (!contactForm || !contactMessage) return;
+  const form = event.currentTarget;
+  if (!(form instanceof HTMLFormElement)) return;
 
-  const formData = new FormData(contactForm);
-  const name = String(formData.get("nom") || "").trim();
-  const email = String(formData.get("email") || "").trim();
-  const topic = String(formData.get("sujet") || "Contact").trim();
-  const message = String(formData.get("message") || "").trim();
+  const contactMessage = form.querySelector("[data-contact-message]");
+  const submitButton = form.querySelector('button[type="submit"]');
 
-  contactMessage.className = "form-message";
-
-  if (!name || !email || !message) {
-    contactMessage.classList.add("is-error");
-    contactMessage.textContent = "Ajoutez votre nom, votre e-mail et votre message.";
+  if (!form.checkValidity()) {
+    form.reportValidity();
     return;
   }
 
-  const subject = `[Drive Lady] ${topic}`;
-  const body = [
-    `Nom : ${name}`,
-    `E-mail : ${email}`,
-    `Sujet : ${topic}`,
-    "",
-    message,
-  ].join("\n");
+  const formData = new FormData(form);
+  setContactMessage(contactMessage, "", "");
 
-  contactMessage.classList.add("is-success");
-  contactMessage.textContent = "Votre e-mail est prêt à être envoyé.";
-  window.location.href = `mailto:driveladypro@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  try {
+    if (submitButton instanceof HTMLButtonElement) {
+      submitButton.disabled = true;
+      submitButton.dataset.originalText = submitButton.textContent || "";
+      submitButton.textContent = "Envoi en cours...";
+    }
+
+    const response = await fetch(form.action || "/api/contact", {
+      method: "POST",
+      body: formData,
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    const result = await response.json().catch(() => ({}));
+
+    if (!response.ok || result.ok === false) {
+      throw new Error(result.message || "Le formulaire est indisponible pour le moment.");
+    }
+
+    form.reset();
+    setContactMessage(contactMessage, result.message || "Merci, votre message a bien été envoyé.", "success");
+  } catch (error) {
+    setContactMessage(contactMessage, error.message || "Impossible d'envoyer le message. Réessayez dans quelques minutes.", "error");
+  } finally {
+    if (submitButton instanceof HTMLButtonElement) {
+      submitButton.disabled = false;
+      submitButton.textContent = submitButton.dataset.originalText || "Envoyer";
+      delete submitButton.dataset.originalText;
+    }
+  }
+}
+
+function setContactMessage(messageElement, text, status) {
+  if (!messageElement) return;
+
+  messageElement.className = "form-message";
+  if (status) messageElement.classList.add(`is-${status}`);
+  messageElement.textContent = text;
 }
 
 function renderLocalAppIfNeeded() {
@@ -289,7 +365,11 @@ function renderLocalAppIfNeeded() {
   const params = new URLSearchParams(window.location.search);
   const from = params.get("from") || "Lorient";
   const to = params.get("to") || "Saint-Denis";
-  const moment = params.get("moment") || "retour";
+  const travelDate = readDateInputValue(params.get("date")) || getTodayInputValue();
+  const travelTime = readTimeInputValue(params.get("time")) || defaultRideTime;
+  const timeMode = readTimeMode(params.get("timeMode"));
+  const dateLabel = formatRideDateLabel(travelDate);
+  const scheduleLabel = formatRideScheduleLabel(travelTime, timeMode);
   const protocol = window.location.protocol === "file:" ? "http:" : window.location.protocol;
   const port = window.location.port || defaultAppPort;
   const searchUrl = `${protocol}//localhost:${port}/#trajets`;
@@ -335,24 +415,22 @@ function renderLocalAppIfNeeded() {
             <span class="local-search-icon local-search-icon--destination" aria-hidden="true"></span>
             <input type="text" name="to" value="${escapeHtml(to)}" autocomplete="off" />
           </label>
-          <label class="local-search-cell local-search-cell--compact">
+          <div class="local-search-cell local-search-cell--compact">
             <span class="local-search-label">Date</span>
             <span class="local-search-icon local-search-icon--date" aria-hidden="true"></span>
-            <select name="date">
-              <option>Aujourd'hui</option>
-              <option>Demain</option>
-              <option>Ce week-end</option>
-            </select>
-          </label>
-          <label class="local-search-cell local-search-cell--compact">
-            <span class="local-search-label">Passagères</span>
-            <span class="local-search-icon local-search-icon--seat" aria-hidden="true"></span>
-            <select name="passengers">
-              <option>1 passagère</option>
-              <option>2 passagères</option>
-              <option>3 passagères</option>
-            </select>
-          </label>
+            <input type="date" name="travelDate" value="${escapeHtml(travelDate)}" />
+          </div>
+          <div class="local-search-cell local-search-cell--compact">
+            <span class="local-search-label">Heure</span>
+            <span class="local-search-icon local-search-icon--date" aria-hidden="true"></span>
+            <div class="local-time-field">
+              <select name="timeMode" aria-label="Type d'heure">
+                <option value="departure"${timeMode === "departure" ? " selected" : ""}>Départ</option>
+                <option value="arrival"${timeMode === "arrival" ? " selected" : ""}>Arrivée</option>
+              </select>
+              <input type="time" name="travelTime" value="${escapeHtml(travelTime)}" />
+            </div>
+          </div>
           <button class="local-search-submit" type="submit">Rechercher</button>
         </form>
         <p class="local-form-error" data-local-error role="alert" hidden></p>
@@ -459,9 +537,9 @@ function renderLocalAppIfNeeded() {
         <section class="local-results" aria-label="Trajets disponibles">
           <div class="local-results__bar">
             <div>
-              <p class="local-route-eyebrow">Aujourd'hui</p>
+              <p class="local-route-eyebrow">${escapeHtml(dateLabel)}</p>
               <h1 id="local-app-title">${escapeHtml(fromShort)} <span>vers</span> ${escapeHtml(toShort)}</h1>
-              <p class="local-route-meta">${escapeHtml(getMomentLabel(moment))} · ${escapeHtml(fromMeta)} · ${escapeHtml(toMeta)}</p>
+              <p class="local-route-meta">${escapeHtml(scheduleLabel)} · ${escapeHtml(fromMeta)} · ${escapeHtml(toMeta)}</p>
             </div>
             <strong data-result-count>${availableResults.length} trajets affichés</strong>
           </div>
@@ -506,6 +584,7 @@ function renderLocalAppIfNeeded() {
     </main>
   `;
 
+  initSchedulePickers(stage);
   initLocalSearchApp(stage);
   return true;
 }
@@ -1349,14 +1428,16 @@ function normalizeAddressItem(item, index, source) {
   };
 }
 
-function buildAppSearchUrl(fromAddress, toAddress, moment) {
+function buildAppSearchUrl(fromAddress, toAddress, schedule) {
   const protocol = window.location.protocol === "file:" ? "http:" : window.location.protocol;
   const port = window.location.port || defaultAppPort;
   const url = new URL(`${protocol}//${appHost}:${port}/`);
 
   appendAddressParams(url.searchParams, "from", fromAddress);
   appendAddressParams(url.searchParams, "to", toAddress);
-  url.searchParams.set("moment", moment);
+  url.searchParams.set("date", schedule.travelDate);
+  url.searchParams.set("time", schedule.travelTime);
+  url.searchParams.set("timeMode", schedule.timeMode);
 
   return url.toString();
 }
@@ -1369,6 +1450,581 @@ function appendAddressParams(params, prefix, address) {
   if (typeof address.lon === "number") params.set(`${prefix}Lon`, String(address.lon));
 }
 
+function initBlogDirectoryFilters() {
+  const directory = document.querySelector("[data-blog-filters]");
+  if (!directory) return;
+
+  const searchInput = directory.querySelector("[data-blog-search]");
+  const resultNumber = directory.querySelector("[data-blog-result-number]");
+  const resultLabel = directory.querySelector("[data-blog-result-label]");
+  const emptyState = directory.querySelector("[data-blog-empty]");
+  const cards = Array.from(directory.querySelectorAll("[data-blog-card]"));
+
+  const updateFilters = () => {
+    const query = normalizeBlogFilterText(searchInput instanceof HTMLInputElement ? searchInput.value : "");
+    let visibleCount = 0;
+
+    cards.forEach((card) => {
+      const searchText = normalizeBlogFilterText(card.dataset.blogSearch || card.textContent || "");
+      const searchMatch = !query || searchText.includes(query);
+
+      card.toggleAttribute("hidden", !searchMatch);
+      if (searchMatch) visibleCount += 1;
+    });
+
+    if (resultNumber) resultNumber.textContent = String(visibleCount);
+    if (resultLabel) resultLabel.textContent = ` guide${visibleCount > 1 ? "s" : ""} trouv\u00e9${visibleCount > 1 ? "s" : ""}`;
+    emptyState?.toggleAttribute("hidden", visibleCount > 0);
+  };
+
+  searchInput?.addEventListener("input", updateFilters);
+
+  updateFilters();
+}
+
+function normalizeBlogFilterText(value) {
+  return String(value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
+}
+
+function initSchedulePickers(root = document) {
+  if (!root || typeof root.querySelectorAll !== "function") return;
+
+  bindSchedulePickerGlobals();
+  initDatePickers(root);
+  initTimePickers(root);
+}
+
+function bindSchedulePickerGlobals() {
+  if (schedulePickerGlobalsBound) return;
+  schedulePickerGlobalsBound = true;
+
+  document.addEventListener("click", (event) => {
+    if (!activeSchedulePicker || !(event.target instanceof Node)) return;
+    if (!activeSchedulePicker.contains(event.target)) closeSchedulePicker(activeSchedulePicker);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && activeSchedulePicker) {
+      closeSchedulePicker(activeSchedulePicker);
+    }
+  });
+}
+
+function initDatePickers(root) {
+  root.querySelectorAll('input[name="travelDate"]').forEach((input) => {
+    if (!(input instanceof HTMLInputElement) || input.dataset.schedulePicker === "date") return;
+
+    input.dataset.schedulePicker = "date";
+    input.classList.add("schedule-native-control");
+    input.tabIndex = -1;
+    input.setAttribute("aria-hidden", "true");
+
+    const picker = document.createElement("div");
+    picker.className = "dl-schedule-picker dl-schedule-picker--date";
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "dl-schedule-button dl-schedule-button--date";
+    button.setAttribute("aria-haspopup", "dialog");
+    button.setAttribute("aria-expanded", "false");
+
+    const panel = document.createElement("div");
+    panel.className = "dl-schedule-panel dl-calendar-panel";
+    panel.setAttribute("role", "dialog");
+    panel.setAttribute("aria-label", "Choix de la date");
+    panel.hidden = true;
+
+    picker.append(button, panel);
+    input.insertAdjacentElement("afterend", picker);
+
+    const state = {
+      visibleMonth: getMonthStart(getPickerDate(input)),
+    };
+
+    const render = () => renderDatePicker(input, picker, button, panel, state);
+
+    button.addEventListener("click", (event) => {
+      event.stopPropagation();
+      render();
+      toggleSchedulePicker(picker);
+    });
+
+    input.addEventListener("change", () => {
+      state.visibleMonth = getMonthStart(getPickerDate(input));
+      updateDatePickerButton(input, button);
+      render();
+    });
+
+    updateDatePickerButton(input, button);
+    render();
+  });
+}
+
+function initTimePickers(root) {
+  root.querySelectorAll('input[name="travelTime"]').forEach((input) => {
+    if (!(input instanceof HTMLInputElement) || input.dataset.schedulePicker === "time") return;
+
+    const host = input.closest(".ride-time-grid, .local-time-field") || input.parentElement;
+    const select = host?.querySelector('select[name="timeMode"]');
+
+    if (!(host instanceof HTMLElement) || !(select instanceof HTMLSelectElement)) return;
+
+    input.dataset.schedulePicker = "time";
+    select.dataset.schedulePicker = "time";
+    input.classList.add("schedule-native-control");
+    select.classList.add("schedule-native-control");
+    input.tabIndex = -1;
+    select.tabIndex = -1;
+    input.setAttribute("aria-hidden", "true");
+    select.setAttribute("aria-hidden", "true");
+    host.classList.add("dl-time-host");
+
+    const picker = document.createElement("div");
+    picker.className = "dl-schedule-picker dl-schedule-picker--time";
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "dl-schedule-button dl-schedule-button--time";
+    button.setAttribute("aria-haspopup", "dialog");
+    button.setAttribute("aria-expanded", "false");
+
+    const panel = document.createElement("div");
+    panel.className = "dl-schedule-panel dl-time-panel";
+    panel.setAttribute("role", "dialog");
+    panel.setAttribute("aria-label", "Choix de l'heure");
+    panel.hidden = true;
+
+    picker.append(button, panel);
+    host.appendChild(picker);
+
+    const render = () => renderTimePicker(input, select, picker, button, panel);
+
+    button.addEventListener("click", (event) => {
+      event.stopPropagation();
+      render();
+      toggleSchedulePicker(picker);
+    });
+
+    input.addEventListener("change", () => {
+      updateTimePickerButton(input, select, button);
+      render();
+    });
+
+    select.addEventListener("change", () => {
+      updateTimePickerButton(input, select, button);
+      render();
+    });
+
+    updateTimePickerButton(input, select, button);
+    render();
+  });
+}
+
+function renderDatePicker(input, picker, button, panel, state) {
+  const selectedDate = getPickerDate(input);
+  const minDate = parseInputDate(input.min);
+  const todayValue = getTodayInputValue();
+  const selectedValue = formatInputDate(selectedDate);
+  const visibleMonth = state.visibleMonth || getMonthStart(selectedDate);
+  const minMonth = minDate ? getMonthStart(minDate) : null;
+
+  panel.replaceChildren();
+
+  const header = document.createElement("div");
+  header.className = "dl-calendar-header";
+
+  const previousButton = document.createElement("button");
+  previousButton.type = "button";
+  previousButton.className = "dl-calendar-nav dl-calendar-nav--prev";
+  previousButton.setAttribute("aria-label", "Mois précédent");
+  previousButton.disabled = Boolean(minMonth && formatInputDate(visibleMonth) <= formatInputDate(minMonth));
+
+  const title = document.createElement("strong");
+  title.className = "dl-calendar-title";
+  title.textContent = capitalizeText(
+    new Intl.DateTimeFormat("fr-FR", {
+      month: "long",
+      year: "numeric",
+    }).format(visibleMonth),
+  );
+
+  const nextButton = document.createElement("button");
+  nextButton.type = "button";
+  nextButton.className = "dl-calendar-nav dl-calendar-nav--next";
+  nextButton.setAttribute("aria-label", "Mois suivant");
+
+  previousButton.addEventListener("click", () => {
+    state.visibleMonth = addMonths(visibleMonth, -1);
+    renderDatePicker(input, picker, button, panel, state);
+  });
+
+  nextButton.addEventListener("click", () => {
+    state.visibleMonth = addMonths(visibleMonth, 1);
+    renderDatePicker(input, picker, button, panel, state);
+  });
+
+  header.append(previousButton, title, nextButton);
+
+  const presets = document.createElement("div");
+  presets.className = "dl-calendar-presets";
+
+  [
+    { label: "Aujourd'hui", date: parseInputDate(todayValue) },
+    { label: "Demain", date: addDays(parseInputDate(todayValue), 1) },
+    { label: "Week-end", date: getNextWeekendDate(parseInputDate(todayValue)) },
+  ].forEach((preset) => {
+    if (!preset.date) return;
+    const presetValue = formatInputDate(preset.date);
+    const presetButton = document.createElement("button");
+    presetButton.type = "button";
+    presetButton.textContent = preset.label;
+    presetButton.disabled = Boolean(minDate && presetValue < formatInputDate(minDate));
+    presetButton.classList.toggle("is-active", presetValue === selectedValue);
+    presetButton.addEventListener("click", () => {
+      setDatePickerValue(input, presetValue);
+      state.visibleMonth = getMonthStart(preset.date);
+      updateDatePickerButton(input, button);
+      renderDatePicker(input, picker, button, panel, state);
+      closeSchedulePicker(picker);
+    });
+    presets.appendChild(presetButton);
+  });
+
+  const weekdays = document.createElement("div");
+  weekdays.className = "dl-calendar-weekdays";
+  ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"].forEach((day) => {
+    const label = document.createElement("span");
+    label.textContent = day;
+    weekdays.appendChild(label);
+  });
+
+  const grid = document.createElement("div");
+  grid.className = "dl-calendar-grid";
+
+  const firstDay = new Date(visibleMonth.getFullYear(), visibleMonth.getMonth(), 1);
+  const firstWeekdayOffset = (firstDay.getDay() + 6) % 7;
+  const daysInMonth = new Date(visibleMonth.getFullYear(), visibleMonth.getMonth() + 1, 0).getDate();
+
+  for (let index = 0; index < firstWeekdayOffset; index += 1) {
+    const emptyCell = document.createElement("span");
+    emptyCell.className = "dl-calendar-empty";
+    grid.appendChild(emptyCell);
+  }
+
+  for (let day = 1; day <= daysInMonth; day += 1) {
+    const date = new Date(visibleMonth.getFullYear(), visibleMonth.getMonth(), day);
+    const value = formatInputDate(date);
+    const dayButton = document.createElement("button");
+    dayButton.type = "button";
+    dayButton.textContent = String(day);
+    dayButton.setAttribute("aria-label", formatFullDateLabel(value));
+    dayButton.disabled = Boolean(minDate && value < formatInputDate(minDate));
+    dayButton.classList.toggle("is-selected", value === selectedValue);
+    dayButton.classList.toggle("is-today", value === todayValue);
+    dayButton.addEventListener("click", () => {
+      setDatePickerValue(input, value);
+      updateDatePickerButton(input, button);
+      renderDatePicker(input, picker, button, panel, state);
+      closeSchedulePicker(picker);
+    });
+    grid.appendChild(dayButton);
+  }
+
+  panel.append(header, presets, weekdays, grid);
+}
+
+function renderTimePicker(input, select, picker, button, panel) {
+  const { hour, minute } = getTimeParts(input.value);
+
+  panel.replaceChildren();
+
+  const modeGroup = document.createElement("div");
+  modeGroup.className = "dl-time-mode";
+
+  Array.from(select.options).forEach((option) => {
+    const modeButton = document.createElement("button");
+    modeButton.type = "button";
+    modeButton.textContent = option.textContent.trim();
+    modeButton.classList.toggle("is-active", option.value === select.value);
+    modeButton.setAttribute("aria-pressed", String(option.value === select.value));
+    modeButton.addEventListener("click", () => {
+      setSelectValue(select, option.value);
+      updateTimePickerButton(input, select, button);
+      renderTimePicker(input, select, picker, button, panel);
+    });
+    modeGroup.appendChild(modeButton);
+  });
+
+  const presets = document.createElement("div");
+  presets.className = "dl-time-presets";
+
+  ["20:00", "21:30", "22:30", "23:00", "00:30", "02:00"].forEach((time) => {
+    const presetButton = document.createElement("button");
+    presetButton.type = "button";
+    presetButton.textContent = time;
+    presetButton.classList.toggle("is-active", time === input.value);
+    presetButton.addEventListener("click", () => {
+      setTimePickerValue(input, time);
+      updateTimePickerButton(input, select, button);
+      renderTimePicker(input, select, picker, button, panel);
+    });
+    presets.appendChild(presetButton);
+  });
+
+  const wheels = document.createElement("div");
+  wheels.className = "dl-time-wheels";
+  wheels.append(
+    renderTimeColumn("Heures", getHourOptions(), hour, (nextHour) => {
+      setTimePickerValue(input, `${nextHour}:${minute}`);
+      updateTimePickerButton(input, select, button);
+      renderTimePicker(input, select, picker, button, panel);
+    }),
+    renderTimeColumn("Minutes", getMinuteOptions(minute), minute, (nextMinute) => {
+      setTimePickerValue(input, `${hour}:${nextMinute}`);
+      updateTimePickerButton(input, select, button);
+      renderTimePicker(input, select, picker, button, panel);
+    }),
+  );
+
+  const footer = document.createElement("div");
+  footer.className = "dl-time-footer";
+
+  const selected = document.createElement("strong");
+  selected.textContent = `${getSelectedOptionLabel(select)} ${readTimeInputValue(input.value) || defaultRideTime}`;
+
+  const doneButton = document.createElement("button");
+  doneButton.type = "button";
+  doneButton.textContent = "Valider";
+  doneButton.addEventListener("click", () => closeSchedulePicker(picker));
+
+  footer.append(selected, doneButton);
+  panel.append(modeGroup, presets, wheels, footer);
+}
+
+function renderTimeColumn(label, values, selectedValue, onSelect) {
+  const column = document.createElement("div");
+  column.className = "dl-time-column";
+  column.setAttribute("aria-label", label);
+
+  values.forEach((value) => {
+    const item = document.createElement("button");
+    item.type = "button";
+    item.textContent = value;
+    item.classList.toggle("is-selected", value === selectedValue);
+    item.addEventListener("click", () => onSelect(value));
+    column.appendChild(item);
+  });
+
+  return column;
+}
+
+function toggleSchedulePicker(picker) {
+  const shouldOpen = !picker.classList.contains("is-open");
+
+  if (activeSchedulePicker && activeSchedulePicker !== picker) {
+    closeSchedulePicker(activeSchedulePicker);
+  }
+
+  picker.classList.toggle("is-open", shouldOpen);
+  picker.querySelector(".dl-schedule-panel").hidden = !shouldOpen;
+  picker.querySelector(".dl-schedule-button")?.setAttribute("aria-expanded", String(shouldOpen));
+  activeSchedulePicker = shouldOpen ? picker : null;
+}
+
+function closeSchedulePicker(picker) {
+  picker.classList.remove("is-open");
+  picker.querySelector(".dl-schedule-panel").hidden = true;
+  picker.querySelector(".dl-schedule-button")?.setAttribute("aria-expanded", "false");
+
+  if (activeSchedulePicker === picker) {
+    activeSchedulePicker = null;
+  }
+}
+
+function updateDatePickerButton(input, button) {
+  button.innerHTML = `
+    <span class="dl-schedule-button__glyph dl-schedule-button__glyph--date" aria-hidden="true"></span>
+    <span class="dl-schedule-button__copy">
+      <strong>${escapeHtml(formatDateButtonLabel(input.value))}</strong>
+      <small>${escapeHtml(formatDateMetaLabel(input.value))}</small>
+    </span>
+    <span class="dl-schedule-button__chevron" aria-hidden="true"></span>
+  `;
+  button.setAttribute("aria-label", `Date du trajet, ${formatFullDateLabel(input.value)}`);
+}
+
+function updateTimePickerButton(input, select, button) {
+  const time = readTimeInputValue(input.value) || defaultRideTime;
+  button.innerHTML = `
+    <span class="dl-schedule-button__glyph dl-schedule-button__glyph--time" aria-hidden="true"></span>
+    <span class="dl-schedule-button__copy">
+      <strong>${escapeHtml(`${getSelectedOptionLabel(select)} ${time}`)}</strong>
+      <small>${escapeHtml(formatTimeMetaLabel(time))}</small>
+    </span>
+    <span class="dl-schedule-button__chevron" aria-hidden="true"></span>
+  `;
+  button.setAttribute("aria-label", `${getSelectedOptionLabel(select)} à ${time}`);
+}
+
+function setDatePickerValue(input, value) {
+  input.value = value;
+  input.dispatchEvent(new Event("input", { bubbles: true }));
+  input.dispatchEvent(new Event("change", { bubbles: true }));
+}
+
+function setTimePickerValue(input, value) {
+  input.value = readTimeInputValue(value) || defaultRideTime;
+  input.dispatchEvent(new Event("input", { bubbles: true }));
+  input.dispatchEvent(new Event("change", { bubbles: true }));
+}
+
+function setSelectValue(select, value) {
+  select.value = value;
+  select.dispatchEvent(new Event("change", { bubbles: true }));
+}
+
+function getPickerDate(input) {
+  return parseInputDate(input.value) || parseInputDate(input.min) || parseInputDate(getTodayInputValue()) || new Date();
+}
+
+function parseInputDate(value) {
+  const cleanValue = readDateInputValue(value);
+  if (!cleanValue) return null;
+
+  const [year, month, day] = cleanValue.split("-").map(Number);
+  const date = new Date(year, month - 1, day);
+
+  if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) {
+    return null;
+  }
+
+  return date;
+}
+
+function formatInputDate(date) {
+  if (!(date instanceof Date) || Number.isNaN(date.getTime())) return getTodayInputValue();
+
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+}
+
+function getMonthStart(date) {
+  return new Date(date.getFullYear(), date.getMonth(), 1);
+}
+
+function addMonths(date, amount) {
+  return new Date(date.getFullYear(), date.getMonth() + amount, 1);
+}
+
+function addDays(date, amount) {
+  if (!(date instanceof Date)) return null;
+  const nextDate = new Date(date);
+  nextDate.setDate(nextDate.getDate() + amount);
+  return nextDate;
+}
+
+function getNextWeekendDate(date) {
+  if (!(date instanceof Date)) return null;
+  const nextDate = new Date(date);
+  const day = nextDate.getDay();
+  const daysUntilSaturday = day === 0 ? 0 : day <= 6 ? (6 - day) % 7 : 0;
+  nextDate.setDate(nextDate.getDate() + daysUntilSaturday);
+  return nextDate;
+}
+
+function formatDateButtonLabel(value) {
+  const date = parseInputDate(value);
+  if (!date) return "Choisir une date";
+
+  return capitalizeText(
+    new Intl.DateTimeFormat("fr-FR", {
+      weekday: "short",
+      day: "numeric",
+      month: "short",
+    })
+      .format(date)
+      .replace(/\.$/, ""),
+  );
+}
+
+function formatDateMetaLabel(value) {
+  const date = parseInputDate(value);
+  const today = parseInputDate(getTodayInputValue());
+  if (!date || !today) return "Date du trajet";
+
+  const diffDays = Math.round((date.getTime() - today.getTime()) / 86400000);
+
+  if (diffDays === 0) return "Aujourd'hui";
+  if (diffDays === 1) return "Demain";
+  if (diffDays > 1 && diffDays < 7) {
+    return capitalizeText(
+      new Intl.DateTimeFormat("fr-FR", {
+        weekday: "long",
+      }).format(date),
+    );
+  }
+
+  return capitalizeText(
+    new Intl.DateTimeFormat("fr-FR", {
+      month: "long",
+      year: "numeric",
+    }).format(date),
+  );
+}
+
+function formatFullDateLabel(value) {
+  const date = parseInputDate(value);
+  if (!date) return "date non sélectionnée";
+
+  return new Intl.DateTimeFormat("fr-FR", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(date);
+}
+
+function getTimeParts(value) {
+  const time = readTimeInputValue(value) || defaultRideTime;
+  const [hour, minute] = time.split(":");
+  return { hour, minute };
+}
+
+function getHourOptions() {
+  return ["18", "19", "20", "21", "22", "23", "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17"];
+}
+
+function getMinuteOptions(currentMinute) {
+  const minutes = new Set(Array.from({ length: 12 }, (_, index) => String(index * 5).padStart(2, "0")));
+  minutes.add(currentMinute);
+  return Array.from(minutes).sort((left, right) => Number(left) - Number(right));
+}
+
+function getSelectedOptionLabel(select) {
+  return select.selectedOptions[0]?.textContent?.trim() || "Départ";
+}
+
+function formatTimeMetaLabel(value) {
+  const { hour } = getTimeParts(value);
+  const numericHour = Number(hour);
+
+  if (numericHour >= 18 || numericHour < 5) return "Ce soir";
+  if (numericHour < 12) return "Matinée";
+  return "Après-midi";
+}
+
+function capitalizeText(value) {
+  const text = String(value || "");
+  return text ? text.charAt(0).toUpperCase() + text.slice(1) : "";
+}
+
 function hydrateRideFormFromUrl() {
   if (!rideForm || !formMessage) return;
   const params = new URLSearchParams(window.location.search);
@@ -1379,14 +2035,75 @@ function hydrateRideFormFromUrl() {
 
   const fromInput = rideForm.querySelector('[name="from"]');
   const toInput = rideForm.querySelector('[name="to"]');
-  const momentInput = rideForm.querySelector('[name="moment"]');
+  const dateInput = rideForm.querySelector('[name="travelDate"]');
+  const timeInput = rideForm.querySelector('[name="travelTime"]');
+  const timeModeInput = rideForm.querySelector('[name="timeMode"]');
 
   if (fromInput instanceof HTMLInputElement) fromInput.value = from || fromInput.value;
   if (toInput instanceof HTMLInputElement) toInput.value = to || toInput.value;
-  if (momentInput instanceof HTMLSelectElement && params.get("moment")) momentInput.value = params.get("moment");
+  if (dateInput instanceof HTMLInputElement && params.get("date")) dateInput.value = readDateInputValue(params.get("date")) || dateInput.value;
+  if (timeInput instanceof HTMLInputElement && params.get("time")) timeInput.value = readTimeInputValue(params.get("time")) || timeInput.value;
+  if (timeModeInput instanceof HTMLSelectElement && params.get("timeMode")) timeModeInput.value = readTimeMode(params.get("timeMode"));
 
   formMessage.className = "form-message is-success";
   formMessage.textContent = "Recherche prête sur l'app locale.";
+}
+
+function initRideScheduleDefaults() {
+  if (!rideForm) return;
+
+  const today = getTodayInputValue();
+
+  rideForm.querySelectorAll('[name="travelDate"]').forEach((input) => {
+    if (!(input instanceof HTMLInputElement)) return;
+    input.min = today;
+    if (!input.value) input.value = today;
+  });
+
+  const timeInput = rideForm.querySelector('[name="travelTime"]');
+  if (timeInput instanceof HTMLInputElement && !timeInput.value) {
+    timeInput.value = defaultRideTime;
+  }
+}
+
+function getTodayInputValue() {
+  const now = new Date();
+  const localDate = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
+  return localDate.toISOString().slice(0, 10);
+}
+
+function readDateInputValue(value) {
+  const date = String(value || "").trim();
+  return /^\d{4}-\d{2}-\d{2}$/.test(date) ? date : "";
+}
+
+function readTimeInputValue(value) {
+  const time = String(value || "").trim();
+  return /^\d{2}:\d{2}$/.test(time) ? time : "";
+}
+
+function readTimeMode(value) {
+  return value === "arrival" ? "arrival" : "departure";
+}
+
+function formatRideDateLabel(value) {
+  const date = readDateInputValue(value);
+  if (!date) return "Aujourd'hui";
+
+  const parsedDate = new Date(`${date}T12:00:00`);
+  const label = new Intl.DateTimeFormat("fr-FR", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+  }).format(parsedDate);
+
+  return label.charAt(0).toUpperCase() + label.slice(1);
+}
+
+function formatRideScheduleLabel(time, mode) {
+  const timeLabel = readTimeInputValue(time) || defaultRideTime;
+  const modeLabel = readTimeMode(mode) === "arrival" ? "Arrivée" : "Départ";
+  return `${modeLabel} ${timeLabel}`;
 }
 
 function readNumber(value) {

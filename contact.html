@@ -70,6 +70,7 @@
                 <div class="nav-dropdown__menu" id="nav-about-menu">
                   <a href="./notre-mission/">Notre mission</a>
                   <a href="./notre-equipe/">Notre équipe</a>
+                  <a href="./nous-rejoindre/">Nous rejoindre</a>
                   <a href="./presse/">Presse</a>
                   <a href="./histoire-drive-lady/">L'histoire de Drive Lady</a>
                 </div>
@@ -101,12 +102,12 @@
                 qui mérite une réponse rapide de l'équipe.
               </p>
 
-              <div class="contact-methods" aria-label="Coordonnées Drive Lady">
-                <a class="contact-method" href="mailto:driveladypro@gmail.com">
+              <div class="contact-methods" aria-label="Canaux Drive Lady">
+                <a class="contact-method" href="#formulaire" data-contact-topic="Question générale">
                   <span aria-hidden="true">@</span>
                   <div>
-                    <strong>Email</strong>
-                    <small>driveladypro@gmail.com</small>
+                    <strong>Formulaire</strong>
+                    <small>Message transmis à l'équipe</small>
                   </div>
                 </a>
                 <a class="contact-method" href="http://app.localhost:5173/">
@@ -124,11 +125,12 @@
               </figure>
             </div>
 
-            <form class="contact-form" data-contact-form action="mailto:driveladypro@gmail.com" method="post" enctype="text/plain">
+            <form class="contact-form" id="formulaire" data-contact-form action="/api/contact" method="post">
               <div class="form-heading">
                 <h2>Envoyer un message</h2>
                 <p>Réponse par e-mail dès que possible.</p>
               </div>
+              <input type="text" class="contact-form__honeypot" name="site_web" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
               <div class="contact-form__grid">
                 <label>
@@ -155,7 +157,7 @@
                 </label>
               </div>
 
-              <button class="button button--primary" type="submit">Préparer l'e-mail</button>
+              <button class="button button--primary" type="submit">Envoyer le message</button>
               <p class="form-message" role="status" aria-live="polite" data-contact-message></p>
             </form>
           </section>
@@ -171,13 +173,13 @@
                 <span>01</span>
                 <h3>Signalement</h3>
                 <p>Comportement inapproprié, sécurité, trajet problématique ou question de confidentialité.</p>
-                <a href="mailto:driveladypro@gmail.com?subject=Signalement%20Drive%20Lady">Écrire au support</a>
+                <a href="#formulaire" data-contact-topic="Signalement">Écrire au support</a>
               </article>
               <article id="partenaires" class="contact-routing-card">
                 <span>02</span>
                 <h3>Partenariats</h3>
                 <p>Écoles, lieux de sortie, entreprises, collectivités ou événements qui veulent faciliter les retours.</p>
-                <a href="mailto:driveladypro@gmail.com?subject=Partenariat%20Drive%20Lady">Proposer un partenariat</a>
+                <a href="#formulaire" data-contact-topic="Partenariat">Proposer un partenariat</a>
               </article>
               <article class="contact-routing-card">
                 <span>03</span>
@@ -244,6 +246,7 @@
                   <ul>
                     <li><a href="./notre-mission/">Notre mission</a></li>
                     <li><a href="./notre-equipe/">Notre équipe</a></li>
+                    <li><a href="./nous-rejoindre/">Nous rejoindre</a></li>
                     <li><a href="./presse/">Presse</a></li>
                     <li><a href="./histoire-drive-lady/">L'histoire de Drive Lady</a></li>
                   </ul>
@@ -262,6 +265,7 @@
 
             <div class="footer__bottom">
               <p>Copyright &copy; <span data-current-year>2026</span> Drive Lady. Tous droits réservés.</p>
+              <p class="footer__credit">R&eacute;alis&eacute; avec <span class="footer__heart" aria-hidden="true">&hearts;</span> par l'agence digitale <a href="https://scaly.co" target="_blank" rel="noreferrer noopener">Scaly</a></p>
               <div class="footer__legal">
                 <a href="/mentions-legales">Mentions légales</a>
                 <a href="/conditions-generales-utilisation">CGU</a>

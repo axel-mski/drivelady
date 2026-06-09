@@ -70,6 +70,7 @@
                 <div class="nav-dropdown__menu" id="nav-about-menu">
                   <a href="./notre-mission/">Notre mission</a>
                   <a href="./notre-equipe/">Notre équipe</a>
+                  <a href="./nous-rejoindre/">Nous rejoindre</a>
                   <a href="./presse/">Presse</a>
                   <a href="./histoire-drive-lady/">L'histoire de Drive Lady</a>
                 </div>
@@ -303,15 +304,20 @@
                 />
                 <div class="address-suggestions" id="to-suggestions" data-address-suggestions role="listbox"></div>
               </label>
-              <label>
-                <span>Moment</span>
-                <select name="moment">
-                  <option value="retour">Retour de soirée</option>
-                  <option value="travail">Trajet travail</option>
-                  <option value="ecole">École ou campus</option>
-                  <option value="vacances">Départ vacances</option>
-                </select>
-              </label>
+              <div class="date-field ride-schedule-field">
+                <span>Date</span>
+                <input type="date" name="travelDate" data-travel-date />
+              </div>
+              <fieldset class="ride-time-field">
+                <legend>Heure</legend>
+                <div class="ride-time-grid">
+                  <select name="timeMode" aria-label="Type d'heure">
+                    <option value="departure">Départ</option>
+                    <option value="arrival">Arrivée</option>
+                  </select>
+                  <input type="time" name="travelTime" value="22:30" aria-label="Heure" />
+                </div>
+              </fieldset>
               <button class="button button--primary" type="submit">Chercher un trajet</button>
               <p class="form-message" role="status" aria-live="polite" data-form-message>
               </p>
@@ -382,8 +388,8 @@
               <article class="process-step process-step--profile">
                 <span class="process-step__number">01</span>
                 <span class="process-step__label">Profil</span>
-                <h3>Crée ton profil.</h3>
-                <p>Préférences, fenêtres horaires, vérifications d'identité — tout est prêt avant le premier trajet.</p>
+                <h3>Crée ton profil vérifié.</h3>
+                <p>Nom, prénom, bio et vérification d'identité — les bases du profil sont posées avant le premier trajet.</p>
                 <span class="process-step__pill">≈ 2 min</span>
                 <div class="process-mock process-mock--profile" aria-hidden="true">
                   <span class="process-mock__avatar">L</span>
@@ -398,7 +404,7 @@
                 <span class="process-step__number">02</span>
                 <span class="process-step__label">Trajet</span>
                 <h3>Propose ou réserve.</h3>
-                <p>Profil, horaire, lieu de rendez-vous et contexte du trajet — un seul écran de récap.</p>
+                <p>Profil, horaire, lieu de rendez-vous et événement partenaire — un seul écran de récap.</p>
                 <span class="process-step__pill">1 récap clair</span>
                 <div class="process-mock process-mock--trip" aria-hidden="true">
                   <div class="process-mock__route-head">
@@ -418,7 +424,7 @@
                 <span class="process-step__number">03</span>
                 <span class="process-step__label">Retour</span>
                 <h3>Avance en confiance.</h3>
-                <p>Partage live, contact urgence, retour tardif assuré : la confiance reste un détail réglé.</p>
+                <p>Roule avec des femmes aux profils vérifiés, surtout sur les retours liés à des événements partenaires.</p>
                 <span class="process-step__pill">Safety by default</span>
                 <div class="process-mock process-mock--return" aria-hidden="true">
                   <svg viewBox="0 0 280 74" role="img">
@@ -427,8 +433,8 @@
                     <circle cx="246" cy="21" r="4" />
                   </svg>
                   <div class="process-mock__footer">
-                    <span>● Live</span>
-                    <span>ETA · 22:04</span>
+                    <span>● Communauté</span>
+                    <span>Profil vérifié</span>
                   </div>
                 </div>
               </article>
@@ -468,7 +474,7 @@
                   </div>
                   <div class="trust-mock__profile">
                     <span>S</span>
-                    <p><strong>Sarah · 32 ans</strong><small>87 trajets · 4,9 ★ · ID vérifié</small></p>
+                    <p><strong>Sarah · 32 ans</strong><small>87 trajets · 4,9 ★ · Profil vérifié</small></p>
                     <b>✓</b>
                   </div>
                   <div class="trust-mock__route">
@@ -478,16 +484,16 @@
                     <p><small>22:05 · estimé</small><strong>Vincennes — porte rouge, rue Robert Giraudineau</strong></p>
                   </div>
                   <div class="trust-mock__share">
-                    <strong>Partager ce trajet à un proche</strong>
-                    <span>Mum · Sofia</span>
+                    <strong>Message</strong>
+                    <span>Sarah répond</span>
                   </div>
                 </div>
                 <div class="trust-panel__copy">
                   <h3>Tout ce qui change la décision est visible avant de valider.</h3>
                   <ul class="trust-checklist">
                     <li><span>✓</span><p><strong>Profil vérifié</strong><small>Pièce d'identité + selfie confrontés.</small></p></li>
-                    <li><span>✓</span><p><strong>Récap du trajet</strong><small>Lieu, horaire et contexte sans ambiguïté.</small></p></li>
-                    <li><span>✓</span><p><strong>Partage en un geste</strong><small>Envoie le trajet prévu à une personne de confiance.</small></p></li>
+                    <li><span>✓</span><p><strong>Récap du trajet</strong><small>Lieu, horaire et événement partenaire sans ambiguïté.</small></p></li>
+                    <li><span>✓</span><p><strong>Message avant trajet</strong><small>Échange direct pour confirmer les détails utiles.</small></p></li>
                   </ul>
                 </div>
               </section>
@@ -496,10 +502,10 @@
                 <div class="trust-mock trust-mock--during" aria-hidden="true">
                   <div class="trust-mock__top">
                     <span>Trajet en cours</span>
-                    <strong>• Live</strong>
+                    <strong>• Message</strong>
                   </div>
                   <div class="trust-map">
-                    <span>ETA · 22:04 · à l'heure</span>
+                    <span>Récap trajet · 22:05</span>
                     <svg viewBox="0 0 320 130">
                       <path d="M24 104 C72 54 140 40 205 76 C250 99 288 72 307 28" />
                       <circle cx="24" cy="104" r="5" />
@@ -508,16 +514,16 @@
                   </div>
                   <div class="trust-mock__watchers">
                     <span>M</span><span>S</span>
-                    <strong>2 proches voient le trajet en temps réel</strong>
+                    <strong>Message ouvert avec Sarah</strong>
                   </div>
-                  <div class="trust-mock__sos">Maintenir 2 s — SOS discret</div>
+                  <div class="trust-mock__sos">Envoyer un message</div>
                 </div>
                 <div class="trust-panel__copy">
-                  <h3>Garder le lien, même en mouvement.</h3>
+                  <h3>Garder un échange clair pendant le trajet.</h3>
                   <ul class="trust-checklist">
-                    <li><span>✓</span><p><strong>Partage live</strong><small>Position partagée en temps réel, désactivable à tout moment.</small></p></li>
-                    <li><span>✓</span><p><strong>Bouton SOS</strong><small>Accessible sans déverrouiller, prévient un proche + l'équipe.</small></p></li>
-                    <li><span>✓</span><p><strong>Itinéraire visible</strong><small>Le proche voit le trajet réel, pas seulement la promesse.</small></p></li>
+                    <li><span>✓</span><p><strong>Message direct</strong><small>Une précision, un retard ou un changement se confirme simplement.</small></p></li>
+                    <li><span>✓</span><p><strong>Infos du trajet</strong><small>Horaire, point de rendez-vous et événement partenaire restent accessibles.</small></p></li>
+                    <li><span>✓</span><p><strong>Profil vérifié</strong><small>La conductrice garde ses signaux de confiance visibles.</small></p></li>
                   </ul>
                 </div>
               </section>
@@ -666,7 +672,7 @@
                 </button>
                 <button class="faq-item" type="button" aria-expanded="false">
                   <span>Puis-je signaler un comportement inapproprié ?</span>
-                  <p>En cas de problème ou de comportement inapproprié, vous pouvez contacter directement notre équipe à l'adresse driveladypro@gmail.com en précisant les détails du trajet concerné. Chaque message est traité avec bienveillance et confidentialité, car la sécurité et le respect de notre communauté sont essentiels pour Drive Lady.</p>
+                  <p>En cas de problème ou de comportement inapproprié, vous pouvez contacter directement notre équipe via le <a href="/contact/?sujet=Signalement%20Drive%20Lady">formulaire de contact</a> en précisant les détails du trajet concerné. Chaque message est traité avec bienveillance et confidentialité, car la sécurité et le respect de notre communauté sont essentiels pour Drive Lady.</p>
                 </button>
               </section>
 
@@ -682,7 +688,7 @@
                 </button>
                 <button class="faq-item" type="button" aria-expanded="false">
                   <span>Envie de rejoindre l'aventure Drive Lady ?</span>
-                  <p>Contactez-nous à driveladypro@gmail.com avec le nom de votre établissement ou événement, notre équipe vous répondra rapidement.</p>
+                  <p>Contactez-nous via le <a href="/contact-partenaires/">formulaire partenaires</a> avec le nom de votre établissement ou événement, notre équipe vous répondra rapidement.</p>
                 </button>
               </section>
             </div>
@@ -744,6 +750,7 @@
                   <ul>
                     <li><a href="./notre-mission/">Notre mission</a></li>
                     <li><a href="./notre-equipe/">Notre équipe</a></li>
+                    <li><a href="./nous-rejoindre/">Nous rejoindre</a></li>
                     <li><a href="./presse/">Presse</a></li>
                     <li><a href="./histoire-drive-lady/">L'histoire de Drive Lady</a></li>
                   </ul>
@@ -762,6 +769,7 @@
 
             <div class="footer__bottom">
               <p>Copyright &copy; <span data-current-year>2026</span> Drive Lady. Tous droits réservés.</p>
+              <p class="footer__credit">R&eacute;alis&eacute; avec <span class="footer__heart" aria-hidden="true">&hearts;</span> par l'agence digitale <a href="https://scaly.co" target="_blank" rel="noreferrer noopener">Scaly</a></p>
               <div class="footer__legal">
                 <a href="/mentions-legales">Mentions légales</a>
                 <a href="/conditions-generales-utilisation">CGU</a>
