@@ -8242,15 +8242,15 @@ main > .legal-hero:first-child {
 
   .site-header {
     --mobile-header-x: 1rem;
-    --mobile-header-top: 1.25rem;
-    --mobile-header-y: calc(var(--mobile-header-top) + env(safe-area-inset-top, 0px));
+    --mobile-header-top: calc(0.75rem + env(safe-area-inset-top, 0px));
     position: fixed;
-    top: var(--mobile-header-y) !important;
-    inset-block-start: var(--mobile-header-y) !important;
+    top: var(--mobile-header-top) !important;
+    inset-block-start: var(--mobile-header-top) !important;
     right: var(--mobile-header-x);
     left: var(--mobile-header-x);
     width: auto;
     max-width: none;
+    height: 4.75rem;
     min-height: 4.75rem;
     margin: 0;
     padding: 0 1rem;
@@ -8258,11 +8258,17 @@ main > .legal-hero:first-child {
     background: transparent;
     backdrop-filter: none;
     box-shadow: none;
+    transform: translate3d(0, 0, 0);
+    transition:
+      background 0.24s var(--ease),
+      box-shadow 0.24s var(--ease),
+      border-color 0.24s var(--ease);
   }
 
   .site-header.is-scrolled {
-    top: var(--mobile-header-y) !important;
-    inset-block-start: var(--mobile-header-y) !important;
+    top: var(--mobile-header-top) !important;
+    inset-block-start: var(--mobile-header-top) !important;
+    height: 4.75rem;
     min-height: 4.75rem;
     border-color: rgba(255, 255, 255, 0.66);
     background:
@@ -8275,6 +8281,7 @@ main > .legal-hero:first-child {
   }
 
   .site-header.is-scrolled .nav-shell {
+    height: 4.75rem;
     min-height: 4.75rem;
   }
 
@@ -8292,7 +8299,9 @@ main > .legal-hero:first-child {
     position: relative;
     grid-template-columns: minmax(0, 1fr) auto;
     gap: 1rem;
+    height: 4.75rem;
     min-height: 4.75rem;
+    transition: none;
   }
 
   .site-header.is-menu-open .nav-shell,
@@ -8824,7 +8833,7 @@ main > .legal-hero:first-child {
 
   .site-header {
     --mobile-header-x: 1rem;
-    --mobile-header-top: 1.25rem;
+    --mobile-header-top: calc(0.75rem + env(safe-area-inset-top, 0px));
     margin: 0;
   }
 
