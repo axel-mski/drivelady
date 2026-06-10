@@ -1,6 +1,7 @@
 node_modules/
 .next/
 .turbo/
+.codex-chrome-profile/
 dist/
 .DS_Store
 Thumbs.db

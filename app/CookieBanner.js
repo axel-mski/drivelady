@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
 const STORAGE_KEY = "drive-lady-cookie-consent";
+const DISMISSAL_STORAGE_KEY = "drive-lady-cookie-banner-dismissed-until";
+const DISMISSAL_DURATION_MS = 24 * 60 * 60 * 1000;
 
 function normalizeConsent(value) {
   return value === "granted" || value === "denied" ? value : null;
@@ -185,6 +187,36 @@ function safeStorageSet(key, value) {
   }
 }
 
+function isCookieBannerDismissed() {
+  try {
+    const dismissedUntil = Number(localStorage.getItem(DISMISSAL_STORAGE_KEY));
+
+    if (!Number.isFinite(dismissedUntil)) return false;
+
+    if (Date.now() < dismissedUntil) {
+      return true;
+    }
+
+    localStorage.removeItem(DISMISSAL_STORAGE_KEY);
+    return false;
+  } catch {
+    return false;
+  }
+}
+
+function dismissCookieBannerFor24Hours() {
+  try {
+    localStorage.setItem(DISMISSAL_STORAGE_KEY, String(Date.now() + DISMISSAL_DURATION_MS));
+  } catch {
+    // If storage is unavailable, the close action still hides the banner for this render.
+  }
+}
+
+function isMobileCookieViewport() {
+  if (typeof window === "undefined" || !window.matchMedia) return false;
+  return window.matchMedia("(max-width: 640px)").matches;
+}
+
 function CookieGlyph({ size = 18 }) {
   return (
     <svg
@@ -226,7 +258,7 @@ export default function CookieBanner({ gaId }) {
     const defer = typeof queueMicrotask === "function" ? queueMicrotask : (callback) => window.setTimeout(callback, 0);
     defer(() => {
       setMounted(true);
-      setBannerOpen(saved === null);
+      setBannerOpen(saved === null && !isCookieBannerDismissed() && !isMobileCookieViewport());
     });
   }, [gaId]);
 
@@ -249,6 +281,11 @@ export default function CookieBanner({ gaId }) {
       }
     }
 
+    setBannerOpen(false);
+  };
+
+  const closeWithoutConsent = () => {
+    dismissCookieBannerFor24Hours();
     setBannerOpen(false);
   };
 
@@ -490,7 +527,7 @@ export default function CookieBanner({ gaId }) {
       {bannerOpen ? (
         <div role="dialog" aria-label="Préférences de confidentialité" className="dl-cookie">
           <div className="dl-cookie-inner">
-            <button type="button" className="dl-cookie-close" onClick={() => setBannerOpen(false)} aria-label="Fermer">
+            <button type="button" className="dl-cookie-close" onClick={closeWithoutConsent} aria-label="Fermer">
               <svg
                 width="14"
                 height="14"
