@@ -17,7 +17,7 @@ const defaultRideTime = "22:30";
 const announcementDismissKey = "drive-lady-announcement-dismissed-v1";
 const workshopPopupDismissKey = "drive-lady-self-defense-popup-dismissed-v1";
 const workshopPopupExpiresAt = Date.parse("2026-06-15T00:00:00+02:00");
-const workshopReservationUrl = "https://app-drivelady.fr/";
+const workshopReservationUrl = "https://lagrandeecole.bonkdo.com/fr/events/atelier-self-defense-au-feminin-1037/";
 const siteScriptUrl = document.currentScript?.src || document.querySelector('script[src$="script.js"], script[src$="site-script.js"]')?.src || window.location.href;
 let activeSchedulePicker = null;
 let schedulePickerGlobalsBound = false;
@@ -276,7 +276,17 @@ function initAnnouncementBanner() {
   banner.setAttribute("aria-label", "Annonce Drive Lady");
   banner.innerHTML = `
     <div class="announcement-banner__inner">
-      <a class="announcement-banner__message" href="${getAppHomeUrl()}">L&rsquo;application Drive Lady est l&agrave; !<br class="announcement-banner__mobile-break" /> Acc&egrave;de &agrave; l&rsquo;app d&egrave;s maintenant</a>
+      <div class="announcement-banner__messages">
+        <a class="announcement-banner__message" href="${getAppHomeUrl()}" data-announcement-message>
+          <span>L&rsquo;app est disponible</span>
+          <span class="announcement-banner__separator" aria-hidden="true">:</span>
+          <span class="announcement-banner__emphasis">acc&eacute;der &agrave; Drive Lady</span>
+        </a>
+        <a class="announcement-banner__message" href="${workshopReservationUrl}" data-announcement-message>
+          <span>&Eacute;v&eacute;nement &agrave; ne pas manquer&nbsp;:</span>
+          <span class="announcement-banner__emphasis">Cours de self-d&eacute;fense</span>
+        </a>
+      </div>
       <button class="announcement-banner__close" type="button" aria-label="Fermer le bandeau">
         <span aria-hidden="true"></span>
       </button>
@@ -284,8 +294,31 @@ function initAnnouncementBanner() {
   `;
 
   const closeButton = banner.querySelector(".announcement-banner__close");
+  const messages = Array.from(banner.querySelectorAll("[data-announcement-message]"));
+  let activeMessageIndex = 0;
+
+  const setActiveMessage = (nextIndex) => {
+    activeMessageIndex = nextIndex;
+    messages.forEach((message, index) => {
+      const isActive = index === activeMessageIndex;
+      message.classList.toggle("is-active", isActive);
+      message.setAttribute("aria-hidden", String(!isActive));
+      if (isActive) {
+        message.removeAttribute("tabindex");
+      } else {
+        message.setAttribute("tabindex", "-1");
+      }
+    });
+  };
+
+  setActiveMessage(0);
+
+  const messageRotationInterval = window.setInterval(() => {
+    setActiveMessage((activeMessageIndex + 1) % messages.length);
+  }, 10000);
 
   closeButton?.addEventListener("click", () => {
+    window.clearInterval(messageRotationInterval);
     persistAnnouncementDismissal();
     document.body.classList.remove("has-announcement-banner");
     banner.classList.add("is-hiding");

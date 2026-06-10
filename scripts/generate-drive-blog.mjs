@@ -716,6 +716,7 @@ function renderArticle(article) {
   const related = articles
     .filter((candidate) => candidate.slug !== article.slug && (candidate.category === article.category || candidate.cluster === article.cluster))
     .slice(0, 3);
+  const articleUrl = `${siteUrl}/blog/${article.slug}/`;
 
   const jsonLd = [
     {
@@ -728,8 +729,17 @@ function renderArticle(article) {
       author: { "@type": "Person", name: author.name },
       publisher: { "@type": "Organization", name: "Drive Lady", logo: { "@type": "ImageObject", url: `${siteUrl}/assets/drive-lady-logo.png` } },
       image: `${siteUrl}${articleImage(article)}`,
-      mainEntityOfPage: `${siteUrl}/blog/${article.slug}/`,
+      mainEntityOfPage: articleUrl,
       inLanguage: "fr-FR",
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Accueil", item: `${siteUrl}/` },
+        { "@type": "ListItem", position: 2, name: "Blog", item: `${siteUrl}/blog/` },
+        { "@type": "ListItem", position: 3, name: article.title, item: articleUrl },
+      ],
     },
     {
       "@context": "https://schema.org",
@@ -746,7 +756,13 @@ function renderArticle(article) {
   <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
   <article class="blog-article">
     <header class="article-hero">
-      <a class="article-back" href="/blog/">← Blog Drive Lady</a>
+      <nav class="article-breadcrumb" aria-label="Fil d'Ariane">
+        <a href="/">Accueil</a>
+        <span aria-hidden="true">/</span>
+        <a href="/blog/">Blog</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">${escapeHtml(article.title)}</span>
+      </nav>
       <div class="article-hero__grid">
         <div>
           <p class="eyebrow">${escapeHtml(article.category)} · ${escapeHtml(article.cluster)}</p>
@@ -760,16 +776,12 @@ function renderArticle(article) {
               <small>${escapeHtml(author.role)}</small>
             </div>
           </div>
-          <div class="article-meta"><span>${formatDate(today)}</span><span>${articleReadingTime(article)}</span><span>Mis à jour</span></div>
+          <div class="article-meta"><span>${formatDate(today)}</span><span>${articleReadingTime(article)}</span></div>
         </div>
         <div class="article-hero__aside">
           <figure class="article-hero__visual">
             <img src="${articleImage(article)}" alt="${escapeHtml(articleImageAlt(article))}" loading="eager"/>
           </figure>
-          <aside class="article-hero__card" aria-label="Résumé">
-            <span>À retenir</span>
-            <ul>${article.takeaways.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
-          </aside>
         </div>
       </div>
     </header>
@@ -782,6 +794,7 @@ function renderArticle(article) {
         <a href="#checklist">Checklist</a>
         <a href="#sources">Sources</a>
         <a href="#faq">FAQ</a>
+        <a href="#a-retenir">À retenir</a>
       </aside>
 
       <div class="article-content">
@@ -801,7 +814,7 @@ function renderArticle(article) {
           <p class="eyebrow">Checklist Drive Lady</p>
           <h2>Avant de valider le trajet</h2>
           <div class="article-checklist__grid">
-            ${article.checklist.map((item) => `<div><span>✓</span><p>${escapeHtml(item)}</p></div>`).join("")}
+            ${article.checklist.map((item, index) => `<label class="article-checklist__item"><input type="checkbox" name="checklist-${article.slug}" value="${index + 1}"/><span>${escapeHtml(item)}</span></label>`).join("")}
           </div>
         </section>
 
@@ -815,6 +828,12 @@ function renderArticle(article) {
           <p class="eyebrow">FAQ</p>
           <h2>Questions fréquentes</h2>
           ${article.faqs.map(([question, answer]) => `<details><summary>${escapeHtml(question)}</summary><p>${escapeHtml(answer)}</p></details>`).join("")}
+        </section>
+
+        <section id="a-retenir" class="article-takeaways">
+          <p class="eyebrow">À retenir</p>
+          <h2>L'essentiel avant de partir</h2>
+          <ul>${article.takeaways.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
         </section>
 
         <section class="article-next">
