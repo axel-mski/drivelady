@@ -532,13 +532,17 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  overflow-x: clip;
+}
+
 html {
   scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
-  overflow-x: hidden;
   color: var(--ink);
   background: var(--shell);
   font-family: "Inter", "Segoe UI", system-ui, sans-serif;
@@ -8229,36 +8233,33 @@ main > .legal-hero:first-child {
   }
 
   body.has-mobile-menu {
-    overflow: hidden;
+    overflow: clip;
   }
 
   body.has-mobile-menu::before {
     content: "";
     position: fixed;
-    inset: var(--announcement-offset, 0px) 0 0;
+    inset: 0;
     z-index: 70;
     background: #ffffff;
   }
 
   .site-header {
     --mobile-header-x: 1rem;
-    --mobile-header-top: calc(0.75rem + env(safe-area-inset-top, 0px));
-    position: fixed;
-    top: var(--mobile-header-top) !important;
-    inset-block-start: var(--mobile-header-top) !important;
-    right: var(--mobile-header-x);
-    left: var(--mobile-header-x);
-    width: auto;
-    max-width: none;
+    --mobile-header-gap: calc(0.75rem + env(safe-area-inset-top, 0px));
+    --mobile-header-top: var(--mobile-header-gap);
+    position: sticky;
+    top: var(--mobile-header-top);
+    width: calc(100vw - (var(--mobile-header-x) * 2));
+    max-width: 100%;
     height: 4.75rem;
     min-height: 4.75rem;
-    margin: 0;
+    margin: 0 auto calc(var(--header-height) * -1);
     padding: 0 1rem;
     border-color: transparent;
     background: transparent;
     backdrop-filter: none;
     box-shadow: none;
-    transform: translate3d(0, 0, 0);
     transition:
       background 0.24s var(--ease),
       box-shadow 0.24s var(--ease),
@@ -8266,8 +8267,6 @@ main > .legal-hero:first-child {
   }
 
   .site-header.is-scrolled {
-    top: var(--mobile-header-top) !important;
-    inset-block-start: var(--mobile-header-top) !important;
     height: 4.75rem;
     min-height: 4.75rem;
     border-color: rgba(255, 255, 255, 0.66);
@@ -8363,14 +8362,14 @@ main > .legal-hero:first-child {
 
   .nav-links {
     position: fixed;
-    inset: var(--announcement-offset, 0px) 0 0;
+    inset: 0;
     display: none;
     width: 100vw;
-    height: calc(100dvh - var(--announcement-offset, 0px));
+    height: 100dvh;
     max-height: none;
     align-content: start;
     overflow-y: auto;
-    padding: calc(var(--mobile-header-top) + var(--header-height) + 1rem) 1.35rem 2rem;
+    padding: calc(var(--menu-content-top, 6.5rem) + 1rem) 1.35rem 2rem;
     border: 0;
     border-radius: 0;
     background: #ffffff;
@@ -8833,8 +8832,8 @@ main > .legal-hero:first-child {
 
   .site-header {
     --mobile-header-x: 1rem;
-    --mobile-header-top: calc(0.75rem + env(safe-area-inset-top, 0px));
-    margin: 0;
+    --mobile-header-gap: calc(0.75rem + env(safe-area-inset-top, 0px));
+    --mobile-header-top: var(--mobile-header-gap);
   }
 
   .announcement-banner__inner {

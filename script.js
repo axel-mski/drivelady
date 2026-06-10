@@ -27,26 +27,25 @@ if (!appMode) {
 initAnnouncementBanner();
 initWorkshopPopup();
 
-const resetSiteHeaderInlinePosition = () => {
-  if (!header) return;
-  header.style.removeProperty("position");
-  header.style.removeProperty("top");
-  header.style.removeProperty("inset-block-start");
-  header.style.removeProperty("right");
-  header.style.removeProperty("left");
-};
-
 const setHeaderState = () => {
   if (!header) return;
-  resetSiteHeaderInlinePosition();
   header.classList.toggle("is-scrolled", window.scrollY > 12);
 };
 
 setHeaderState();
 window.addEventListener("scroll", setHeaderState, { passive: true });
-window.addEventListener("resize", resetSiteHeaderInlinePosition);
-window.visualViewport?.addEventListener("resize", resetSiteHeaderInlinePosition);
-window.visualViewport?.addEventListener("scroll", resetSiteHeaderInlinePosition, { passive: true });
+
+const syncMobileMenuContentTop = () => {
+  if (!header) return;
+  const rect = header.getBoundingClientRect();
+  document.documentElement.style.setProperty("--menu-content-top", `${Math.ceil(rect.bottom)}px`);
+};
+
+window.addEventListener("resize", () => {
+  if (document.body.classList.contains("has-mobile-menu")) {
+    syncMobileMenuContentTop();
+  }
+});
 
 const closeNavDropdowns = (exceptDropdown = null) => {
   navDropdowns.forEach((dropdown) => {
@@ -61,7 +60,9 @@ const setMobileMenuState = (isOpen) => {
   document.body.classList.toggle("has-mobile-menu", isOpen);
 
   if (isOpen) {
-    syncAnnouncementOffsetFromBanner();
+    syncMobileMenuContentTop();
+  } else {
+    document.documentElement.style.removeProperty("--menu-content-top");
   }
 };
 
@@ -265,12 +266,6 @@ currentYearTargets.forEach((target) => {
 initContactForms();
 }
 
-function syncAnnouncementOffsetFromBanner() {
-  const banner = document.querySelector("[data-announcement-banner]");
-  const visibleBottom = banner ? Math.max(0, banner.getBoundingClientRect().bottom) : 0;
-  document.documentElement.style.setProperty("--announcement-offset", `${Math.ceil(visibleBottom)}px`);
-}
-
 function initAnnouncementBanner() {
   const pageStage = document.querySelector(".page-stage");
   if (!pageStage || document.querySelector("[data-announcement-banner]") || isAnnouncementDismissed()) return;
@@ -289,25 +284,16 @@ function initAnnouncementBanner() {
   `;
 
   const closeButton = banner.querySelector(".announcement-banner__close");
-  const stopAnnouncementOffsetTracking = () => {
-    document.documentElement.style.setProperty("--announcement-offset", "0px");
-    document.body.classList.remove("has-announcement-banner");
-    window.removeEventListener("scroll", syncAnnouncementOffsetFromBanner);
-    window.removeEventListener("resize", syncAnnouncementOffsetFromBanner);
-  };
 
   closeButton?.addEventListener("click", () => {
     persistAnnouncementDismissal();
-    stopAnnouncementOffsetTracking();
+    document.body.classList.remove("has-announcement-banner");
     banner.classList.add("is-hiding");
     window.setTimeout(() => banner.remove(), 180);
   });
 
   pageStage.parentElement?.insertBefore(banner, pageStage);
   document.body.classList.add("has-announcement-banner");
-  syncAnnouncementOffsetFromBanner();
-  window.addEventListener("scroll", syncAnnouncementOffsetFromBanner, { passive: true });
-  window.addEventListener("resize", syncAnnouncementOffsetFromBanner);
 }
 
 function initWorkshopPopup() {
