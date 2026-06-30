@@ -15,3 +15,4 @@ Open `http://127.0.0.1:5173/`.
 - Current public site: `https://www.drivelady.fr/`
 - Current app shell: `https://app-drivelady.fr/`
 - Brand assets are stored in `assets/`.
+- Removed-but-reusable site elements should be stored in `docs/site-element-archive/`.

@@ -11,6 +11,7 @@ const contactForms = document.querySelectorAll("[data-contact-form]");
 const contactTopicLinks = document.querySelectorAll("[data-contact-topic]");
 const currentYearTargets = document.querySelectorAll("[data-current-year]");
 const selectedAddresses = new Map();
+const appBaseUrl = "https://app-drivelady.fr/";
 const appHost = "app.localhost";
 const defaultAppPort = "5173";
 const defaultRideTime = "22:30";
@@ -462,9 +463,7 @@ function getSiteAssetUrl(assetPath) {
 }
 
 function getAppHomeUrl() {
-  const protocol = window.location.protocol === "file:" ? "http:" : window.location.protocol;
-  const port = window.location.port || defaultAppPort;
-  return `${protocol}//${appHost}:${port}/`;
+  return appBaseUrl;
 }
 
 function initContactForms() {
@@ -1643,9 +1642,7 @@ function normalizeAddressItem(item, index, source) {
 }
 
 function buildAppSearchUrl(fromAddress, toAddress, schedule) {
-  const protocol = window.location.protocol === "file:" ? "http:" : window.location.protocol;
-  const port = window.location.port || defaultAppPort;
-  const url = new URL(`${protocol}//${appHost}:${port}/`);
+  const url = new URL(appBaseUrl);
 
   appendAddressParams(url.searchParams, "from", fromAddress);
   appendAddressParams(url.searchParams, "to", toAddress);

@@ -1,0 +1,56 @@
+<section class="search-band" aria-labelledby="search-title">
+  <div class="section-label">Trouver ou proposer</div>
+  <form class="ride-form" data-ride-form novalidate>
+    <div class="form-heading">
+      <h2 id="search-title">Prépare ton trajet</h2>
+      <p>Entre ton départ, ton arrivée et le moment du trajet pour lancer la recherche avec le bon contexte.</p>
+    </div>
+    <label class="address-field" data-address-field>
+      <span>Départ</span>
+      <input
+        type="text"
+        name="from"
+        value="Lorient"
+        autocomplete="off"
+        placeholder="Ville ou adresse"
+        data-address-input
+        data-address-role="from"
+        aria-expanded="false"
+        aria-controls="from-suggestions"
+      />
+      <div class="address-suggestions" id="from-suggestions" data-address-suggestions role="listbox"></div>
+    </label>
+    <label class="address-field" data-address-field>
+      <span>Arrivée</span>
+      <input
+        type="text"
+        name="to"
+        value="Saint-Denis"
+        autocomplete="off"
+        placeholder="Ville ou adresse"
+        data-address-input
+        data-address-role="to"
+        aria-expanded="false"
+        aria-controls="to-suggestions"
+      />
+      <div class="address-suggestions" id="to-suggestions" data-address-suggestions role="listbox"></div>
+    </label>
+    <div class="date-field ride-schedule-field">
+      <span>Date</span>
+      <input type="date" name="travelDate" data-travel-date />
+    </div>
+    <fieldset class="ride-time-field">
+      <legend>Heure</legend>
+      <div class="ride-time-grid">
+        <select name="timeMode" aria-label="Type d'heure">
+          <option value="departure">Départ</option>
+          <option value="arrival">Arrivée</option>
+        </select>
+        <input type="time" name="travelTime" value="22:30" aria-label="Heure" />
+      </div>
+    </fieldset>
+    <button class="button button--primary" type="submit">Chercher un trajet</button>
+    <p class="form-message" role="status" aria-live="polite" data-form-message>
+    </p>
+  </form>
+</section>

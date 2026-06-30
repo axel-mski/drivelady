@@ -80,18 +80,9 @@
       </div>
     </div>
     <div class="how-hero__visual">
-      <article class="phone-frame" aria-hidden="true">
-        <div class="phone-notch"></div>
-        <div class="phone-status"><span>9:41</span><span class="phone-status__icons"><svg class="status-icon status-icon--signal" viewBox="0 0 21 14"><rect x="1" y="8" width="3" height="5" rx="1.25"/><rect x="6" y="6" width="3" height="7" rx="1.25"/><rect x="11" y="3" width="3" height="10" rx="1.25"/><rect class="status-icon__muted" x="16" y="1" width="3" height="12" rx="1.25"/></svg></span></div>
-        <div class="phone-greeting">
-          <div><h2>Drive Lady</h2><p>Prêt en 3 gestes.</p></div>
-          <img src="../assets/drive-lady-logo.png" alt="" />
-        </div>
-        <div class="calendar-row"><span>Lun</span><span>Mar</span><span class="is-active">Mer</span><span>Jeu</span><span>Ven</span></div>
-        <div class="drive-orbit"><div><strong>Profil prêt</strong><span>En confiance</span></div></div>
-        <button type="button">Publier un trajet</button>
-        <div class="phone-tabs"><span class="is-active">Accueil</span><span>Trajets</span><span>Profil</span></div>
-      </article>
+      <figure class="how-hero__photo-card">
+        <img src="../assets/hero-trip-weekend-generated.webp" alt="Femmes qui se retrouvent pour un trajet Drive Lady" />
+      </figure>
     </div>
   </section>
 
@@ -106,10 +97,16 @@
         <h3>Crée ton profil</h3>
         <p>Prénom, e-mail et photo de ta pièce d'identité. La vérification garantit que toutes les membres de la communauté sont bien des femmes.</p>
         <span class="how-step-card__pill">≈ 2 minutes</span>
-        <div class="how-step-card__mock">
-          <div class="how-step-card__mock-row" style="width:60%"></div>
-          <div class="how-step-card__mock-row" style="width:80%"></div>
-          <div style="margin-top:.65rem;display:flex;gap:.5rem;align-items:center"><div style="width:2.2rem;height:2.2rem;border-radius:999px;background:var(--pink-200)"></div><div style="flex:1"><div class="how-step-card__mock-row" style="width:70%;margin-bottom:.35rem"></div><div class="how-step-card__mock-row" style="width:50%"></div></div><div style="width:1.4rem;height:1.4rem;border-radius:999px;background:var(--mint);display:flex;align-items:center;justify-content:center;font-size:.65rem;color:#0d5c24;font-weight:700">✓</div></div>
+        <div class="how-step-card__mock how-user-card">
+          <img class="how-user-card__avatar" src="../assets/mock-user-lina.jpg" alt="Portrait mock de Lina M." loading="lazy" />
+          <div class="how-user-card__body">
+            <div class="how-user-card__top">
+              <strong>Lina M.</strong>
+              <span>Vérifiée</span>
+            </div>
+            <p>Conductrice · Rouen</p>
+            <small>Pièce d'identité validée</small>
+          </div>
         </div>
       </article>
       <article class="how-step-card">
@@ -117,12 +114,21 @@
         <h3>Propose ou réserve</h3>
         <p>Départ, arrivée, horaire, nombre de places et contexte du trajet : tout est lisible sur un seul écran avant de valider.</p>
         <span class="how-step-card__pill">1 récap clair</span>
-        <div class="how-step-card__mock">
-          <div style="display:flex;justify-content:space-between;margin-bottom:.75rem"><div class="how-step-card__mock-row" style="width:40%;margin:0"></div><span style="font-size:.75rem;font-weight:700;color:var(--pink-600)">Vérifié</span></div>
-          <div style="display:flex;flex-direction:column;gap:.45rem">
-            <div style="display:flex;gap:.5rem;align-items:center"><div style="width:.55rem;height:.55rem;border-radius:999px;background:var(--pink-400);flex-shrink:0"></div><div class="how-step-card__mock-row" style="width:65%;margin:0"></div></div>
-            <div style="width:2px;height:.9rem;background:var(--pink-100);margin-left:.2rem"></div>
-            <div style="display:flex;gap:.5rem;align-items:center"><div style="width:.55rem;height:.55rem;border-radius:999px;border:2px solid var(--pink-400);flex-shrink:0"></div><div class="how-step-card__mock-row" style="width:75%;margin:0"></div></div>
+        <div class="how-step-card__mock how-ride-card">
+          <div class="how-ride-card__head">
+            <div class="how-avatar-stack" aria-label="Utilisatrices vérifiées">
+              <img src="../assets/mock-user-ines.jpg" alt="Portrait mock d'Inès B." loading="lazy" />
+              <img src="../assets/mock-user-jade.jpg" alt="Portrait mock de Jade R." loading="lazy" />
+            </div>
+            <span>Trajet vérifié</span>
+          </div>
+          <div class="how-ride-card__route">
+            <span>Rouen rive droite</span>
+            <span>Campus Mont-Saint-Aignan</span>
+          </div>
+          <div class="how-ride-card__meta">
+            <strong>Ce soir · 22:15</strong>
+            <small>2 places · 4,9/5 · retour partagé</small>
           </div>
         </div>
       </article>
@@ -131,13 +137,42 @@
         <h3>Avance en confiance</h3>
         <p>Messagerie intégrée, partage du trajet à un proche, bouton SOS et évaluation après le trajet : le cadre reste visible du début à la fin.</p>
         <span class="how-step-card__pill">Safety by default</span>
-        <div class="how-step-card__mock">
-          <svg viewBox="0 0 240 60" style="width:100%;height:3.5rem" aria-hidden="true">
-            <path d="M12 48 C55 14 108 56 152 22 C182 0 215 10 232 20" fill="none" stroke="var(--pink-200)" stroke-width="2.5" stroke-linecap="round"/>
-            <circle cx="12" cy="48" r="4" fill="var(--pink-400)"/>
-            <circle cx="232" cy="20" r="5" fill="var(--pink-400)"/>
-          </svg>
-          <div style="display:flex;justify-content:space-between;margin-top:.5rem"><span style="font-size:.72rem;color:var(--pink-400);font-weight:700">● Live</span><span style="font-size:.72rem;color:var(--muted);font-weight:600">ETA · 22:04</span></div>
+        <div class="how-step-card__mock how-live-card">
+          <div class="how-live-card__top">
+            <img src="../assets/mock-user-jade.jpg" alt="Portrait mock de Jade R." loading="lazy" />
+            <div>
+              <strong>Jade R.</strong>
+              <span>Trajet partagé avec Emma</span>
+            </div>
+            <b>SOS</b>
+          </div>
+          <div class="route-map route-map--how" role="img" aria-label="Carte mock du trajet Drive Lady en cours">
+            <span class="route-map__status">● Live</span>
+            <span class="route-map__eta"><strong>8</strong><small>min</small></span>
+            <svg viewBox="0 0 320 160" focusable="false" aria-hidden="true">
+              <rect class="route-map__landmark" x="18" y="18" width="104" height="58" rx="16" />
+              <rect class="route-map__landmark route-map__landmark--warm" x="218" y="18" width="78" height="48" rx="14" />
+              <rect class="route-map__area" x="28" y="104" width="86" height="38" rx="10" />
+              <rect class="route-map__area" x="214" y="104" width="84" height="36" rx="10" />
+              <path class="route-map__water" d="M-10 133 C42 109 78 126 128 96 C178 66 218 84 334 45" />
+              <path class="route-map__road route-map__road--wide" d="M-10 47 C46 54 88 42 132 56 C186 73 226 96 330 88" />
+              <path class="route-map__road" d="M66 -8 C91 32 102 72 96 166" />
+              <path class="route-map__road" d="M178 -8 C167 34 171 76 202 166" />
+              <path class="route-map__road route-map__road--minor" d="M12 114 L306 30" />
+              <path class="route-map__road route-map__road--minor" d="M0 86 L136 125 C184 139 224 131 320 124" />
+              <path class="route-map__route-halo" d="M43 116 L43 88 C43 69 58 58 80 58 L120 58 C144 58 154 45 174 42 L230 36 C252 34 268 27 282 18" />
+              <path class="route-map__route" d="M43 116 L43 88 C43 69 58 58 80 58 L120 58 C144 58 154 45 174 42 L230 36 C252 34 268 27 282 18" />
+              <circle class="route-map__pin route-map__pin--start" cx="43" cy="116" r="7" />
+              <g class="route-map__nav-marker" transform="translate(282 18) rotate(238)">
+                <circle class="route-map__nav-marker-base" cx="0" cy="0" r="13" />
+                <path class="route-map__nav-marker-arrow" d="M0 -9 L7 8 L0 4 L-7 8 Z" />
+              </g>
+            </svg>
+            <span class="route-map__callout route-map__callout--start">Départ</span>
+            <div class="route-map__sheet route-map__sheet--compact">
+              <p><strong>ETA · 22:04</strong><small>Position partagée</small></p>
+            </div>
+          </div>
         </div>
       </article>
     </div>
@@ -198,7 +233,7 @@
     </div>
     <div class="footer__bottom">
       <p>Copyright &copy; <span data-current-year>2026</span> Drive Lady. Tous droits réservés.</p>
-      <p class="footer__credit">R&eacute;alis&eacute; avec <span class="footer__heart" aria-hidden="true">&hearts;</span> par l'agence digitale <a href="https://scaly.co" target="_blank" rel="noreferrer noopener">Scaly</a></p>
+      <p class="footer__credit">Site internet r&eacute;alis&eacute; par l'agence digitale <a href="https://scaly.co" target="_blank" rel="noreferrer noopener">Scaly</a></p>
       <div class="footer__legal">
         <a href="../mentions-legales/">Mentions légales</a>
         <a href="../conditions-generales-utilisation/">CGU</a>

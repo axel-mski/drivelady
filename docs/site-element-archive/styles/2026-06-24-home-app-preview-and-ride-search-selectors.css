@@ -1,0 +1,30 @@
+/*
+Archived selectors for the homepage app preview and ride-search form removed on 2026-06-24.
+
+Original live sources:
+- index.html: .hero__showcase and .search-band
+- styles.css: .hero__showcase, .app-panel, .phone-frame, .search-band, .ride-form, .address-field
+- script.js: [data-ride-form], [data-form-message], [data-address-input], [data-address-suggestions]
+
+The live /comment-ca-marche/ hero no longer reuses the phone screenshot selectors; it uses a temporary photo card instead.
+
+Core homepage-only selectors to review if restoring:
+- .hero__showcase
+- .app-panel
+- .app-panel--history
+- .app-panel--feed
+- .route-bars
+- .mini-card
+- .mini-chart
+- .search-pill
+- .feed-tabs
+- .search-band
+- .ride-form
+- .ride-time-field
+- .address-field
+- .address-suggestions
+
+Temporary homepage photo-strip backdrop removed from live styles:
+- .hero::before
+- .hero background radial-gradient(ellipse at 50% 111%, rgba(255, 128, 188, 0.42) 0 27rem, transparent 27.2rem)
+*/
