@@ -290,7 +290,7 @@
 .bars-howto-step strong { display: block; margin-bottom: .3rem; font-size: .95rem; font-weight: 700; }
 .bars-howto-step span { color: var(--muted); font-size: .88rem; line-height: 1.55; }
 .bars-howto__visual { margin: 0; overflow: hidden; border-radius: 1.1rem; border: 1px solid rgba(191,31,114,.16); background: #1d101d; box-shadow: 0 30px 82px -52px rgba(141,15,85,.62); }
-.bars-howto__visual img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+.bars-howto__visual img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; object-position: center; }
 
 /* ══ FESTIVALS/CAMPUS ════════════════════════════════ */
 .campus-hero { padding: calc(5rem + var(--header-height)) 7.8% 4.5rem; background: radial-gradient(circle at 8% 15%,rgba(255,228,238,.7) 0,transparent 20rem),radial-gradient(circle at 92% 80%,rgba(242,239,255,.8) 0,transparent 20rem),var(--paper-soft); text-align: center; }
