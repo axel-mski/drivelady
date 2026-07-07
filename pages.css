@@ -589,7 +589,7 @@
 
 /* ══ SUPPORT ═════════════════════════════════════════ */
 .support-hero { padding: calc(5rem + var(--header-height)) 7.8% 4.5rem; background: radial-gradient(circle at 8% 15%,rgba(242,239,255,.8) 0,transparent 20rem),radial-gradient(circle at 88% 72%,rgba(255,228,238,.7) 0,transparent 18rem),var(--paper-soft); text-align: center; }
-.support-hero h1 { max-width: 46rem; margin: .75rem auto 0; font-family: "DM Sans", system-ui, sans-serif; font-size: clamp(2.2rem,4vw,3.4rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.025em; }
+.support-hero h1 { max-width: 54rem; margin: .75rem auto 0; font-family: "DM Sans", system-ui, sans-serif; font-size: clamp(2.2rem,4vw,3.4rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.025em; }
 .support-hero p { max-width: 38rem; margin: 1rem auto 0; color: var(--muted); font-size: 1rem; line-height: 1.7; }
 .support-categories { padding: 5rem 7.8%; background: var(--section-soft); }
 .support-categories__header { max-width: 44rem; margin-bottom: 3rem; }

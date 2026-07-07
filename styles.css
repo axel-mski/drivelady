@@ -6745,6 +6745,36 @@ main > .legal-hero:first-child {
   font-weight: 750;
 }
 
+.legal-card--part {
+  background: linear-gradient(135deg, #fff2fa 0%, #fff8ed 100%);
+  border-color: rgba(191, 31, 114, 0.22);
+}
+
+.legal-card--part .eyebrow {
+  margin-bottom: 0.4rem;
+  color: var(--pink-600);
+}
+
+.legal-card--part h2 {
+  margin-bottom: 0;
+  color: var(--pink-600);
+}
+
+.legal-card--part p {
+  margin-bottom: 0;
+}
+
+.legal-card--part h2:not(:last-child) {
+  margin-bottom: 0.6rem;
+}
+
+.legal-card .legal-updated {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  font-weight: 650;
+  color: var(--pink-800);
+}
+
 .footer {
   margin: 0 var(--section-gap) var(--section-gap);
   overflow: hidden;
