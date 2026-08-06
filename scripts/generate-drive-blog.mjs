@@ -46,6 +46,16 @@ const sources = {
     url: "https://www.culture.gouv.fr/themes/Festivals",
     fact: "Le ministère de la Culture estime que la France compte plusieurs milliers de festivals ; environ 70 % des festivals existants ont vu le jour après les années 2000.",
   },
+  nuitFemmes: {
+    label: "OpinionWay pour Lime, Les femmes urbaines et le sentiment d'insécurité dans les villes la nuit (juin 2024)",
+    url: "https://www.opinion-way.com/wp-content/uploads/2025/01/OpinionWay-pour-Lime-Les-femmes-urbaines-et-le-sentiment-dinsecurite-dans-les-villes-la-nuit-Juin-2024.pdf",
+    fact: "87 % des femmes urbaines aimeraient davantage de mesures pour pouvoir se déplacer seules et en sécurité lorsqu'il fait nuit ; 77 % déclarent ne pas se sentir libres de se déplacer seules comme elles le souhaitent lorsqu'il fait nuit.",
+  },
+  sortiesCulturelles: {
+    label: "Ministère de la Culture, DEPS, Les sorties culturelles des Français en 2024",
+    url: "https://www.culture.gouv.fr/mc/content/download/391055/file/Chiffres%20cl%C3%A9s%202025_DEPS_Les%20sorties%20culturelles%20des%20Francais%20en%202024_Fiche.pdf?inLanguage=fre-FR&version=1",
+    fact: "36 % des Français déclarent avoir assisté à un concert en 2024, contre 24 % en 2023.",
+  },
   cnil: {
     label: "CNIL, principes RGPD",
     url: "https://cnil.fr/fr/comprendre-le-rgpd/les-six-grands-principes-du-rgpd",
@@ -81,12 +91,17 @@ const articles = [
     intent: "Comment rentrer de soirée en sécurité quand on ne veut pas rentrer seule ?",
     title: "Comment rentrer de soirée en sécurité sans improviser au dernier moment ?",
     metaTitle: "Comment rentrer de soirée en sécurité ? Checklist femmes | Drive Lady",
-    metaDescription: "Méthode pratique pour préparer un retour de soirée plus rassurant : horaire, point de rendez-vous, profil vérifié, partage du trajet et réflexes d'urgence.",
+    metaDescription: "Méthode pratique pour préparer un retour de soirée plus rassurant : horaire, point de rendez-vous, profil vérifié et réflexes d'urgence.",
     summary: "Un retour de soirée sûr se décide avant que le groupe soit fatigué, séparé ou pressé. La bonne méthode consiste à choisir une heure, nommer un point de rendez-vous visible, vérifier les informations du trajet et garder une solution de repli.",
-    answer: "Pour rentrer de soirée avec moins de stress, fixe ton heure de départ avant la fin de l'événement, choisis un point de rendez-vous éclairé et facile à expliquer, vérifie l'identité et le véhicule de la conductrice, partage le trajet à une proche, puis garde les numéros d'urgence accessibles. L'objectif n'est pas de tout contrôler, mais de supprimer les décisions floues au moment où tu es la moins disponible.",
+    answer: "Pour rentrer de soirée avec moins de stress, fixe ton heure de départ avant la fin de l'événement, choisis un point de rendez-vous éclairé et facile à expliquer, vérifie l'identité et le véhicule de la conductrice, puis garde les numéros d'urgence accessibles. L'objectif n'est pas de tout contrôler, mais de supprimer les décisions floues au moment où tu es la moins disponible.",
+    answerExtra: [
+      "Rentrer de soirée, ce n'est pas seulement « trouver un moyen de transport ». C'est aussi pouvoir profiter de sa soirée sans passer la dernière heure à calculer : « Qui rentre par où ? Est-ce qu'il y a encore des transports ? Est-ce que je vais devoir rentrer seule ? »",
+      "Chez Drive Lady, on pense que le retour fait partie de la soirée. Et qu'il mérite d'être anticipé avec autant de soin que le choix de la tenue, du lieu ou des personnes avec qui l'on sort.",
+    ],
+    sourceNote: "87 % des femmes urbaines aimeraient davantage de mesures pour pouvoir se déplacer seules et en sécurité lorsqu'il fait nuit. 77 % des femmes urbaines déclarent ne pas se sentir libres de se déplacer seules comme elles le souhaitent lorsqu'il fait nuit.",
     stat: {
-      number: "1 250",
-      label: "décès liés à l'alcool ou aux stupéfiants au volant sont estimés en 2024. Prévoir son retour évite de devoir choisir sous pression.",
+      number: "87 %",
+      label: "des femmes urbaines aimeraient davantage de mesures pour pouvoir se déplacer seules et en sécurité lorsqu'il fait nuit.",
     },
     takeaways: [
       "L'heure de départ doit être décidée avant la fatigue, pas au moment de sortir.",
@@ -95,16 +110,16 @@ const articles = [
     ],
     sections: [
       {
-        title: "Pourquoi le dernier quart d'heure est le plus risqué pour l'organisation",
+        title: "Pourquoi le dernier quart d'heure est le plus risqué pour l'organisation ?",
         body: [
           "Le problème d'un retour de soirée vient rarement d'un manque de volonté. Il vient d'une accumulation de micro-décisions prises trop tard : une amie part avant les autres, le téléphone passe sous les 10 %, le réseau devient mauvais, le lieu ferme, la rue se remplit et personne ne sait exactement qui rentre avec qui.",
-          "Une application comme Drive Lady doit donc aider à déplacer la décision en amont. Quand l'heure, le lieu de départ, la conductrice et l'itinéraire sont déjà lisibles, le retour demande moins d'énergie. C'est ce qui transforme une promesse de sécurité en usage concret.",
+          "Une application comme Drive Lady aide donc à déplacer la décision en amont. Quand l'heure, le lieu de départ, la conductrice et l'itinéraire sont déjà lisibles, le retour demande moins d'énergie. C'est ce qui transforme une promesse de sécurité en usage concret.",
         ],
         steps: [
           ["Choisir l'heure cible", "Décide l'heure de départ avant le début de la soirée ou au moment où le programme devient clair."],
           ["Nommer le point de rendez-vous", "Utilise un repère stable : pharmacie, hall d'hôtel, entrée latérale, parking identifié, arrêt éclairé."],
-          ["Vérifier le trajet", "Relis le prénom, la plaque, le modèle du véhicule, la destination et le nombre de passagères."],
-          ["Partager l'information", "Envoie l'heure, le point de départ et le suivi de trajet à une proche si tu en ressens le besoin."],
+          ["Vérifier le trajet", "Relis le prénom, la plaque, le modèle du véhicule, la destination, l'heure de départ et le nombre de passagères."],
+          ["Partager l'information", "Envoie l'heure, le point de départ et l'arrivée à une proche si tu en ressens le besoin."],
         ],
       },
       {
@@ -116,32 +131,18 @@ const articles = [
           ["Véhicule", "Plaque, modèle, couleur", "Évite de monter dans la mauvaise voiture."],
           ["Lieu", "Point précis et éclairé", "Limite l'attente seule dehors."],
           ["Trajet", "Destination et éventuels arrêts", "Évite les ambiguïtés pendant le retour."],
-          ["Contact", "Partage du trajet ou message à une proche", "Donne un repère extérieur si le plan change."],
+          ["Contact", "Partage du trajet ou message à une proche", "Adapte la situation selon ton besoin pour être rassurée."],
         ],
       },
       {
-        title: "Que faire si le plan change ?",
+        title: "Prévoir, ce n'est pas renoncer à la spontanéité",
         body: [
-          "Un bon plan de retour doit accepter les imprévus : retard, annulation, groupe séparé, amie malade, fermeture plus tardive que prévu. Dans ces cas, la bonne réaction est de revenir à une règle simple : se déplacer vers un endroit visible, prévenir quelqu'un, puis choisir la solution la plus claire.",
-          "Si la situation devient urgente ou menaçante, il faut sortir du cadre applicatif. Drive Lady peut aider à organiser un trajet, mais les canaux officiels sont les seuls bons relais en danger immédiat.",
+          "On associe souvent l'anticipation à quelque chose de contraignant. Pourtant, prévoir son retour permet justement d'être plus libre pendant la soirée. On sait que l'on a une solution, ou au moins que l'on a cherché les options possibles avant de se retrouver dehors à minuit.",
+          "Drive Lady ne remplace pas toutes les solutions de mobilité. Elle en ajoute une, plus adaptée à certaines situations : soirées, événements, campus, retours tardifs, trajets entre amies ou covoiturages depuis des lieux partenaires.",
         ],
-        compare: {
-          goodTitle: "À privilégier",
-          badTitle: "À éviter",
-          good: [
-            "Attendre dans un lieu éclairé ou avec du personnel.",
-            "Envoyer un message clair au groupe : heure, lieu, trajet.",
-            "Annuler et refaire un trajet si une information ne correspond pas.",
-          ],
-          bad: [
-            "Changer de point de rendez-vous sans prévenir.",
-            "Monter si la plaque, le prénom ou le trajet ne correspondent pas.",
-            "Se forcer à conduire après alcool ou forte fatigue.",
-          ],
-        },
       },
       {
-        title: "Ce que Drive Lady doit apporter dans ce moment",
+        title: "Ce que Drive Lady apporte",
         body: "La valeur de Drive Lady n'est pas de promettre un monde sans risque. C'est de rendre visibles les bons signaux au bon moment : profils vérifiés, informations de trajet compréhensibles, partage possible, règles communautaires et signalement accessible. Une marque rassurante parle vrai, sans dramatiser la sortie ni minimiser les situations vécues.",
       },
     ],
@@ -153,7 +154,17 @@ const articles = [
       "Trajet partagé si besoin",
       "Solution de repli identifiée",
     ],
-    sourceKeys: ["route", "aide"],
+    afterChecklist: [
+      {
+        title: "Le covoiturage entre femmes comme solution de retour",
+        body: [
+          "Drive Lady permet alors de mettre en relation des femmes qui se déplacent au même moment, vers une même zone ou depuis un même événement. L'idée n'est pas de promettre que tout sera toujours disponible partout, tout le temps. L'idée est de créer une alternative supplémentaire, pensée pour les usages réels des femmes.",
+          "Quand une conductrice propose un trajet, elle peut permettre à une ou plusieurs passagères de ne pas rentrer seules. Quand une passagère réserve, elle rejoint une femme vérifiée, avec un trajet clair et un cadre défini.",
+          "C'est simple, mais ça change beaucoup : le retour n'est plus une question improvisée à la sortie. Il devient une étape organisée de la soirée.",
+        ],
+      },
+    ],
+    sourceKeys: ["nuitFemmes", "aide"],
     faqs: [
       ["Quand réserver son retour de soirée ?", "Le plus simple est de le prévoir avant le début de la soirée ou dès que l'heure de fin devient claire. La réservation tardive reste possible, mais elle expose davantage aux décisions prises dans la fatigue, la foule ou l'urgence."],
       ["Quel point de rendez-vous choisir ?", "Choisis un endroit visible, éclairé, accessible en voiture et facile à décrire. Évite la sortie principale d'un lieu bondé si elle crée de la confusion. Un repère stable vaut mieux qu'une adresse vague."],
@@ -168,8 +179,11 @@ const articles = [
     title: "Harcèlement dans les transports : comment prévoir une alternative de retour ?",
     metaTitle: "Harcèlement transports : prévoir une alternative de retour | Drive Lady",
     metaDescription: "Guide utile pour anticiper une alternative aux transports le soir : signaux d'inconfort, covoiturage entre femmes, point de rendez-vous, signalement et urgences.",
-    summary: "Les transports restent indispensables, mais certaines femmes veulent une alternative sur certains horaires, correspondances ou retours. La bonne réponse n'est pas de faire peur : c'est de préparer un plan clair avant de se retrouver seule avec peu d'options.",
-    answer: "Quand un trajet en transport ne te rassure pas, prépare une alternative avant le départ : identifie le segment qui pose problème, vérifie l'horaire du dernier transport, choisis un point de pickup visible, préviens une proche et garde les canaux de signalement. Le covoiturage entre femmes peut être une option complémentaire lorsque le besoin principal est la visibilité du profil, du lieu de départ et du trajet.",
+    summary: [
+      "Pour beaucoup de femmes, se déplacer implique parfois de calculer son trajet autrement : éviter certaines stations, changer d'itinéraire, appeler quelqu'un en marchant, rester près d'un groupe, attendre dans une zone éclairée ou renoncer à sortir trop tard.",
+      "Ces habitudes ne devraient pas être banales. Pourtant, elles font partie du quotidien de nombreuses femmes.",
+    ],
+    answer: "Pour rentrer plus sereinement, l'idéal est d'anticiper son trajet avant le départ : vérifier les horaires, repérer un point de rendez-vous facile à identifier, prévenir une proche si besoin et garder en tête les dispositifs de signalement disponibles. Le covoiturage entre femmes peut alors devenir une option complémentaire rassurante, notamment lorsque l'on souhaite connaître à l'avance le profil de la personne, le lieu de départ et les conditions du trajet.",
     stat: {
       number: "107 080",
       label: "victimes de vols, violences, escroqueries ou fraudes ont été enregistrées dans les transports en commun en 2024.",
@@ -195,21 +209,17 @@ const articles = [
       },
       {
         title: "Quand le covoiturage devient une option logique",
-        body: "Le covoiturage entre femmes n'a pas vocation à remplacer tous les transports. Il devient pertinent quand l'utilisatrice cherche une information plus lisible sur la personne avec qui elle rentre, l'heure de départ, le point de pickup et le trajet exact.",
+        body: "Le covoiturage entre femmes n'a pas vocation à remplacer tous les transports. Il devient pertinent quand l'utilisatrice cherche une information plus lisible sur la personne avec qui elle rentre, l'heure de départ, le point de rencontre et le trajet exact.",
         table: [
           ["Situation", "Alternative à préparer", "Point de vigilance"],
           ["Dernier transport incertain", "Trajet Drive Lady réservé plus tôt", "Ne pas attendre la fermeture du lieu."],
-          ["Correspondance longue", "Pickup près d'un repère éclairé", "Éviter les zones sans personnel."],
+          ["Correspondance longue", "Rencontre près d'un repère éclairé", "Éviter les zones sans personnel."],
           ["Retour après concert", "Point à l'écart du flux principal", "Nommer le lieu dans le groupe."],
           ["Marche finale isolée", "Dépose plus proche ou accompagnée", "Partager l'heure d'arrivée."],
         ],
       },
       {
-        title: "Ne pas confondre alternative et silence",
-        body: [
-          "Prévoir une alternative ne signifie pas accepter le harcèlement comme une fatalité. Si un outrage, une menace, un geste déplacé ou une agression survient, le signalement peut compter pour la victime, les témoins et les prochains trajets.",
-          "Le bon discours de Drive Lady doit donc tenir deux idées ensemble : proposer une option plus confortable pour rentrer, et rappeler que les violences sexistes et sexuelles relèvent de dispositifs officiels lorsqu'elles surviennent.",
-        ],
+        body: "Le bon discours de Drive Lady doit donc tenir deux idées ensemble : proposer une option plus confortable pour rentrer, et rappeler que les violences sexistes et sexuelles relèvent de dispositifs officiels lorsqu'elles surviennent.",
         compare: {
           goodTitle: "Réflexes utiles",
           badTitle: "Faux bons réflexes",
@@ -226,8 +236,12 @@ const articles = [
         },
       },
       {
-        title: "Ce que l'article doit rassurer sans survendre",
-        body: "Une marque de mobilité féminine crédible ne vend pas une sécurité absolue. Elle explique les limites, montre les bons signaux et donne un plan simple. C'est cette sobriété qui rend le contenu utile pour Google, les IA et surtout les utilisatrices.",
+        title: "Les bons réflexes en cas de situation inconfortable à adopter",
+        body: [
+          "Les bons réflexes à adopter si vous êtes témoin d'une agression : prévenez du monde autour de vous, appelez immédiatement la police ou la gendarmerie et assurez-vous que la victime se porte bien. Appelez les secours (pompiers, SAMU) : au-delà des violences physiques subies, les violences verbales et psychologiques existent.",
+          "Si vous êtes victime ou témoin d'une situation de harcèlement ou de violence dans les transports, des dispositifs existent. Dans les transports ferroviaires, bus ou métros RATP (en Île-de-France), il est possible de contacter le 3117 ou d'envoyer un SMS au 31177 pour demander l'assistance de la SNCF, de la RATP ou des forces de l'ordre.",
+          "Prévoir une alternative de retour ne remplace évidemment pas ces dispositifs. Mais cela peut faire partie d'une organisation plus globale : savoir comment l'on rentre, avec qui, depuis quel point, et quoi faire si l'option initiale ne fonctionne plus.",
+        ],
       },
     ],
     checklist: [
@@ -253,8 +267,11 @@ const articles = [
     title: "Profil vérifié en covoiturage : quels signaux regarder avant de réserver ?",
     metaTitle: "Profil vérifié en covoiturage : signaux de confiance | Drive Lady",
     metaDescription: "Les signaux concrets à regarder avant un covoiturage entre femmes : identité, véhicule, avis, historique, cohérence du trajet et données utiles sans surveillance excessive.",
-    summary: "Un badge de vérification ne suffit pas à créer la confiance. Avant un trajet, il faut plusieurs signaux cohérents : identité lisible, véhicule renseigné, avis récents, règles du trajet et possibilité de signaler.",
-    answer: "Un profil de covoiturage devient plus rassurant quand plusieurs signaux se recoupent : identité vérifiée, photo cohérente, véhicule renseigné, plaque visible avant le départ, avis récents, historique de trajets et échange clair sur le point de rendez-vous. Aucun badge ne garantit tout ; la confiance vient de la cohérence des informations et d'un signalement facile si quelque chose ne va pas.",
+    summary: "Réserver un covoiturage, ce n'est pas seulement choisir un horaire et un prix. C'est aussi choisir une personne avec qui l'on va partager un trajet, parfois de nuit, parfois depuis un lieu que l'on ne connaît pas, parfois seule.",
+    answer: "Un profil de covoiturage devient plus rassurant quand plusieurs signaux se recoupent : identité vérifiée, photo cohérente, véhicule renseigné, plaque visible avant le départ, avis publiés, historique de trajets et échange clair sur le point de rendez-vous. Aucun badge ne garantit tout ; la confiance vient de la cohérence des informations et d'un signalement facile si quelque chose ne va pas.",
+    answerExtra: [
+      "Sur la plateforme, les profils sont vérifiés afin de créer un cadre plus rassurant pour les utilisatrices. Mais au-delà de la vérification, certains signaux peuvent vous aider à réserver plus sereinement.",
+    ],
     stat: {
       number: "6",
       label: "principes RGPD encadrent la collecte de données, dont la minimisation et la transparence.",
@@ -269,46 +286,20 @@ const articles = [
         title: "Un bon profil répond à trois questions simples",
         body: [
           "Avant de réserver, l'utilisatrice cherche rarement un long discours. Elle veut savoir qui conduit, dans quelle voiture, sur quel trajet et avec quel historique. Si ces informations sont dispersées, la vérification perd de sa valeur.",
-          "Drive Lady doit donc hiérarchiser les signaux de confiance dans l'ordre de décision : identité, trajet, véhicule, comportement observé par la communauté, puis règles de contact et de signalement.",
+          "Un profil rassurant est généralement un profil complet : prénom, photo, informations cohérentes, trajet bien renseigné, horaire précis, nombre de places disponibles, lieu de départ et d'arrivée clairement indiqués.",
         ],
         steps: [
           ["Qui est la conductrice ?", "Prénom, photo, vérification et ancienneté doivent être lisibles sans fouiller l'écran."],
           ["Quel véhicule arrive ?", "Modèle, couleur et plaque évitent les confusions au point de rendez-vous."],
-          ["Que dit l'historique ?", "Des avis récents et précis valent mieux qu'une note moyenne isolée."],
+          ["Que dit l'historique ?", "Des avis récents et précis reflètent un trajet en toute confiance."],
         ],
       },
       {
-        title: "Les signaux à regarder avant de confirmer",
-        body: "Les meilleurs signaux sont ceux qui réduisent une incertitude précise. Une information utile doit servir à reconnaître, comprendre ou décider ; sinon elle ajoute de la friction sans créer de confiance.",
-        table: [
-          ["Signal", "Ce qu'il rassure", "Limite à garder en tête"],
-          ["Identité vérifiée", "La personne existe et a passé un contrôle", "Ce n'est pas une garantie de comportement."],
-          ["Avis récents", "Le trajet a été vécu par d'autres", "Les avis doivent rester factuels."],
-          ["Véhicule renseigné", "La voiture est identifiable", "La plaque doit correspondre au départ."],
-          ["Trajet précis", "Les arrêts et horaires sont compris", "Un changement doit être confirmé."],
-          ["Signalement visible", "Un recours existe après le trajet", "L'urgence reste hors application."],
-        ],
-      },
-      {
-        title: "La donnée de sécurité doit rester proportionnée",
+        title: "La vérification : une première base de confiance",
         body: [
-          "Une application de mobilité manipule des données sensibles par contexte : localisation, habitudes, horaires, lieux de sortie. Demander trop d'informations peut paradoxalement diminuer la confiance si l'utilisatrice ne comprend pas pourquoi elles sont nécessaires.",
-          "La bonne ambition pour Drive Lady est claire : collecter ce qui aide réellement au trajet, expliquer l'usage et éviter de transformer la sécurité en surveillance permanente.",
+          "Sur Drive Lady, les comptes sont vérifiés afin de renforcer la sécurité de la communauté. Cette étape permet de créer un cadre plus sérieux qu'une simple mise en relation informelle sur un groupe ou une conversation privée.",
+          "La vérification ne doit pas être vue comme une formalité administrative. Elle fait partie de l'ADN de Drive Lady : permettre aux femmes de covoiturer dans un environnement pensé pour elles, avec des profils identifiés et une communauté encadrée.",
         ],
-        compare: {
-          goodTitle: "Donnée utile",
-          badTitle: "Donnée excessive",
-          good: [
-            "Identité, contact, véhicule et informations de trajet.",
-            "Historique nécessaire à la confiance communautaire.",
-            "Conservation limitée et expliquée.",
-          ],
-          bad: [
-            "Demander des informations sans finalité claire.",
-            "Afficher plus de données que nécessaire aux passagères.",
-            "Rendre la sécurité opaque sous prétexte de rassurer.",
-          ],
-        },
       },
       {
         title: "Pourquoi les avis comptent autant que la vérification",
@@ -322,6 +313,15 @@ const articles = [
       "Avis récents lus",
       "Point de rendez-vous confirmé",
       "Bouton signalement identifié",
+    ],
+    afterChecklist: [
+      {
+        title: "Réserver, oui. Mais réserver en étant informée.",
+        body: [
+          "Un bon covoiturage commence avant de monter dans la voiture. Il commence avec un profil vérifié, un trajet clair, une communication simple et une confiance progressive.",
+          "Drive Lady a été pensée pour faciliter cette mise en relation entre femmes, mais chaque utilisatrice garde un rôle essentiel : regarder, poser les bonnes questions, signaler si nécessaire, et contribuer à une communauté fiable.",
+        ],
+      },
     ],
     sourceKeys: ["cnil", "aide"],
     faqs: [
@@ -339,7 +339,11 @@ const articles = [
     metaTitle: "Premier trajet Drive Lady : guide passagère et conductrice",
     metaDescription: "Guide pratique pour réussir son premier trajet Drive Lady : profil, message, point de rendez-vous, règles à poser, paiement, avis et signalement.",
     summary: "Le premier trajet doit réduire les hésitations des deux côtés. La passagère veut être rassurée, la conductrice veut éviter les imprévus, et la communauté a besoin de règles simples pour créer une confiance durable.",
-    answer: "Pour un premier trajet Drive Lady, complète ton profil, choisis un trajet simple, confirme le point de rendez-vous, relis les informations du véhicule, envoie un message court si un détail manque, puis laisse un avis factuel après l'arrivée. Côté conductrice, l'essentiel est d'annoncer clairement l'horaire, les arrêts possibles, les règles du trajet et le canal de contact.",
+    answer: "Le premier trajet est souvent celui qui soulève le plus de questions.",
+    answerExtra: [
+      "Où se retrouver ? Que faut-il vérifier ? Comment se passe le paiement ? Est-ce que je dois envoyer un message avant ? Est-ce que je peux proposer un trajet même si je ne connais pas encore bien la plateforme ?",
+      "Bonne nouvelle : un premier trajet Drive Lady se prépare simplement. L'objectif est que chacune se sente à l'aise, que ce soit comme passagère ou comme conductrice.",
+    ],
     stat: {
       number: "12 M",
       label: "de trajets ont été réalisés via plateformes de covoiturage en 2024, signe que l'usage devient plus courant.",
@@ -351,17 +355,16 @@ const articles = [
     ],
     sections: [
       {
-        title: "Avant de réserver : choisir un trajet facile",
-        body: [
-          "Pour une première expérience, il vaut mieux éviter le trajet le plus complexe. Un itinéraire connu, un horaire confortable et un point de rendez-vous clair permettent de tester le service sans ajouter de stress.",
-          "Drive Lady doit encourager cette logique progressive : commencer par un trajet lisible, comprendre les signaux de confiance, puis utiliser la plateforme sur des contextes plus sensibles une fois les réflexes installés.",
-        ],
+        title: "Les petits détails qui rassurent tout le monde",
+        body: "Un premier trajet se passe souvent mieux quand les choses sont clairement posées.",
         list: [
-          "Un trajet déjà connu ou facile à expliquer.",
-          "Une heure qui laisse une marge de 10 à 15 minutes.",
-          "Un point de rendez-vous avec un repère visible.",
-          "Une conductrice avec profil complet et avis lisibles.",
+          "Confirmer l'heure.",
+          "Définir un point de rendez-vous visible.",
+          "Prévenir en cas de retard.",
+          "Vérifier la destination.",
+          "Rester joignable avant le départ.",
         ],
+        outro: "Ces réflexes peuvent paraître évidents, mais ils évitent la majorité des petits stress de dernière minute.",
       },
       {
         title: "Passagère : ce qu'il faut vérifier",
@@ -370,7 +373,7 @@ const articles = [
           ["Moment", "Action", "Message recommandé"],
           ["Avant réservation", "Lire profil, avis, trajet", "Je vérifie que le trajet correspond à mon besoin."],
           ["Après confirmation", "Envoyer une précision si besoin", "Bonjour, je serai devant l'entrée côté pharmacie à 23 h 10."],
-          ["Au départ", "Comparer plaque et modèle", "Je monte uniquement si les informations correspondent."],
+          ["Au départ", "Comparer la plaque et le modèle indiqués", "Je monte uniquement si les informations correspondent."],
           ["Après arrivée", "Laisser un avis factuel", "Ponctualité, communication, respect du trajet."],
         ],
       },
@@ -379,17 +382,23 @@ const articles = [
         body: [
           "La conductrice rassure quand elle annonce simplement ce qui est possible et ce qui ne l'est pas : heure de départ, retard accepté, détour, bagage, musique, place disponible et point exact de prise en charge.",
           "Le bon ton n'est ni autoritaire ni flou. Il donne des repères. C'est précisément ce qui permet à Drive Lady d'aspirer à une communauté fiable plutôt qu'à une simple marketplace de sièges libres.",
+          "Privilégiez un lieu de rendez-vous simple à identifier : entrée principale d'un lieu, parking, gare, arrêt connu, devanture visible. Plus le point est clair, plus le départ est fluide.",
+          "Si une passagère vous écrit, répondez de façon simple et précise. Cela permet de créer un climat de confiance avant même le trajet.",
         ],
         steps: [
           ["Créer le trajet", "Renseigne l'itinéraire, l'heure, le véhicule et les arrêts possibles."],
           ["Confirmer les demandes", "Vérifie que chaque passagère comprend le point de départ."],
-          ["Prévenir en cas de retard", "Un message court suffit : nouvelle heure, raison, option d'annulation."],
+          ["Prévenir en cas de retard", "Un message court suffit : nouvelle heure, raison, option d'ajustement."],
           ["Clôturer proprement", "Confirme l'arrivée et laisse un avis si le trajet s'est bien passé."],
         ],
       },
       {
         title: "Après le trajet : l'avis n'est pas décoratif",
-        body: "Un avis utile ne cherche pas à juger la personne. Il décrit l'expérience : ponctualité, communication, respect du point de rendez-vous, conduite, ambiance. Cette mémoire permet aux nouvelles utilisatrices de décider plus vite et donne à la communauté une forme de responsabilité partagée.",
+        body: [
+          "Un avis utile ne cherche pas à juger la personne. Il décrit l'expérience : ponctualité, communication, respect du point de rendez-vous, conduite, ambiance. Cette mémoire permet aux nouvelles utilisatrices de décider plus vite et donne à la communauté une forme de responsabilité partagée.",
+          "Une fois le trajet terminé, prenez quelques instants pour laisser un avis si la fonctionnalité est disponible. Cela aide les prochaines utilisatrices et contribue à renforcer la confiance au sein de la communauté.",
+          "Un commentaire simple suffit : trajet agréable, conductrice ponctuelle, passagère respectueuse, bonne communication. Chaque retour compte.",
+        ],
       },
     ],
     checklist: [
@@ -399,6 +408,15 @@ const articles = [
       "Véhicule vérifié avant de monter",
       "Règles du trajet clarifiées",
       "Avis laissé après l'arrivée",
+    ],
+    afterChecklist: [
+      {
+        title: "Le premier trajet, c'est le début de la communauté",
+        body: [
+          "Drive Lady n'est pas seulement un outil pour aller d'un point A à un point B. C'est une manière de rendre les déplacements plus solidaires, plus accessibles et plus adaptés aux besoins des femmes.",
+          "Alors, que vous soyez passagère ou conductrice, votre premier trajet compte. Il permet à une autre femme de sortir, rentrer, étudier, travailler ou profiter d'un événement avec une solution en plus.",
+        ],
+      },
     ],
     sourceKeys: ["covoiturage", "cnil"],
     faqs: [
@@ -415,11 +433,16 @@ const articles = [
     title: "Festival ou campus : comment organiser les retours avec Drive Lady ?",
     metaTitle: "Retour festival et campus : organiser les trajets avec Drive Lady",
     metaDescription: "Méthode concrète pour intégrer Drive Lady dans un festival, un campus ou une soirée étudiante : point pickup, communication, horaires, référent et sécurité.",
-    summary: "Un événement réussit mieux ses retours quand la mobilité est pensée avant la sortie. Pour un festival, un campus ou une soirée étudiante, Drive Lady doit être visible dans le parcours : lien, horaires, point pickup, consignes et relais humain.",
-    answer: "Pour organiser les retours d'un festival ou d'un campus, il faut décider le point pickup avant l'événement, le rendre visible dans les emails, affiches et stories, recommander des créneaux de départ, nommer un référent sur place et prévoir un canal de signalement. Drive Lady apporte surtout une brique de confiance : profils lisibles, trajets anticipés et retour moins improvisé à la fermeture.",
+    summary: "Un événement anticipe mieux ses retours quand la mobilité est pensée avant la sortie. Pour un festival, un campus ou une soirée étudiante, Drive Lady doit être visible dans le parcours : lien, horaires, point pickup, consignes et relais humain.",
+    answer: "Un festival, un campus, une soirée étudiante, un concert, un afterwork ou un événement associatif ont souvent un point commun : tout le monde arrive à peu près au même endroit, mais personne ne rentre exactement de la même façon.",
+    answerExtra: [
+      "Certaines participantes ont une voiture. D'autres dépendent des transports. Certaines dorment sur place. D'autres doivent rentrer dans une ville voisine, parfois tard, parfois seules.",
+      "C'est précisément dans ces moments que Drive Lady devient utile.",
+    ],
+    sourceNote: "36 % des Français déclarent avoir assisté à un concert en 2024, contre 24 % en 2023 : les sorties reprennent fortement, donc la question du retour devient encore plus centrale.",
     stat: {
-      number: "2,97 M",
-      label: "d'étudiantes et étudiants étaient inscrits dans l'enseignement supérieur en 2023-2024.",
+      number: "36 %",
+      label: "des Français déclarent avoir assisté à un concert en 2024, contre 24 % en 2023.",
     },
     takeaways: [
       "Le retour doit être intégré au parcours événementiel dès l'annonce.",
@@ -427,6 +450,14 @@ const articles = [
       "Le partenaire doit parler de mobilité pratique, pas seulement de sécurité abstraite.",
     ],
     sections: [
+      {
+        title: "Le retour, un sujet souvent sous-estimé",
+        body: [
+          "Quand on organise un événement, on pense naturellement à la programmation, à la billetterie, à l'accueil, à la sécurité sur place ou à la communication. Mais le retour est parfois traité comme un sujet secondaire.",
+          "Pourtant, l'expérience d'une participante ne s'arrête pas quand elle quitte le lieu. Si elle ne sait pas comment rentrer, si elle doit attendre seule, si elle renonce à venir parce que le retour est trop compliqué, cela fait partie de son expérience globale.",
+          "Un événement réussi, c'est aussi un événement auquel on peut venir, et dont on peut repartir, plus sereinement.",
+        ],
+      },
       {
         title: "Pourquoi les événements demandent une organisation spécifique",
         body: [
@@ -442,44 +473,40 @@ const articles = [
         ],
       },
       {
-        title: "Choisir le bon point de pickup",
-        body: "Le point de pickup ne doit pas être le lieu le plus symbolique. Il doit être le plus compréhensible. Une sortie principale peut sembler évidente, mais devenir inutilisable si elle concentre foule, taxis, livreurs, barrières et bruit.",
-        steps: [
-          ["Repérer sur plan", "Choisir une zone accessible aux véhicules et facile à expliquer."],
-          ["Tester le chemin", "Vérifier qu'une participante peut s'y rendre sans traverser une zone confuse."],
-          ["Nommer le repère", "Utiliser un bâtiment, une entrée, une rue ou un parking identifié."],
-          ["Communiquer partout", "Mettre le même libellé dans les emails, stories, affiches et écrans."],
-        ],
-      },
-      {
-        title: "Le kit de communication partenaire",
+        title: "Drive Lady pour les festivals",
         body: [
-          "Le message doit être sobre. Il ne faut pas dire aux participantes qu'elles sont en danger ; il faut leur donner une solution lisible pour rentrer. Cette nuance change tout : elle respecte l'expérience des femmes sans instrumentaliser la peur.",
-          "Le meilleur contenu partenaire tient en quatre éléments : pourquoi Drive Lady est proposé, comment réserver, où se trouve le point pickup et qui contacter en cas de problème sur place.",
-        ],
-        list: [
-          "Un QR code vers la page ou l'application Drive Lady.",
-          "Un visuel du point de rendez-vous.",
-          "Deux ou trois horaires de départ recommandés.",
-          "Un message de rappel envoyé avant le dernier temps fort.",
-          "Un référent identifié côté événement ou campus.",
+          "Dans le cadre d'un festival, Drive Lady peut permettre aux participantes de proposer ou de rechercher des trajets entre femmes autour de l'événement.",
+          "Une conductrice qui vient depuis Rouen, Le Havre, Caen ou une ville voisine peut proposer des places. Une passagère qui hésitait à venir faute de solution peut trouver une alternative.",
+          "Le covoiturage devient alors un prolongement naturel de l'événement : plus économique, plus convivial et plus rassurant pour celles qui ne veulent pas rentrer seules.",
         ],
       },
       {
-        title: "Ce que Drive Lady peut aspirer à devenir pour ces lieux",
-        body: "Pour les festivals, campus et lieux de sortie, Drive Lady peut devenir la couche de mobilité féminine qui rend le retour aussi pensé que l'entrée. Ce positionnement est plus fort qu'un simple partenariat logo : il relie communauté, usage concret et responsabilité sans transformer l'événement en discours anxiogène.",
+        title: "Drive Lady pour les campus",
+        body: [
+          "Sur un campus, les problématiques sont souvent récurrentes : retours de soirées étudiantes, trajets entre logement et école, événements associatifs, horaires décalés, stages, alternances ou transports limités selon les villes.",
+          "Drive Lady peut aider à créer des habitudes de mobilité entre étudiantes. Une même conductrice peut publier un trajet régulier. Plusieurs passagères peuvent se regrouper. Les associations peuvent relayer l'outil avant un événement.",
+          "L'objectif n'est pas de remplacer les transports existants, mais de proposer une solution complémentaire, surtout aux moments où les options sont limitées.",
+        ],
+      },
+      {
+        title: "Ce que cela change pour les participantes",
+        body: [
+          "Pour une participante, savoir qu'une solution de retour existe peut lever un vrai frein.",
+          "Cela peut permettre de venir même si aucune amie ne rentre dans la même direction. De partager les frais. De ne pas attendre seule. De rencontrer d'autres femmes. De prolonger l'expérience de l'événement dans un cadre plus collectif.",
+          "Et pour les conductrices, cela permet d'optimiser un trajet déjà prévu tout en aidant d'autres femmes à se déplacer.",
+        ],
         compare: {
-          goodTitle: "Bon partenariat",
+          goodTitle: "Partenariat visible",
           badTitle: "Partenariat faible",
           good: [
             "Drive Lady apparaît avant, pendant et après l'événement.",
-            "Le point pickup est nommé et répété.",
+            "Le point de rencontre est nommé et répété.",
             "Le message parle d'organisation, de confiance et de choix.",
           ],
           bad: [
             "Un logo ajouté en bas d'affiche sans explication.",
             "Un lien partagé uniquement après la fermeture.",
-            "Un discours qui fait peur sans donner d'action concrète.",
+            "Un discours qui ne rassure pas, sans donner d'action concrète.",
           ],
         },
       },
@@ -492,7 +519,7 @@ const articles = [
       "Référent partenaire nommé",
       "Canal signalement et urgence rappelé",
     ],
-    sourceKeys: ["festivals", "campus", "vssEsr", "aide"],
+    sourceKeys: ["sortiesCulturelles", "campus", "vssEsr", "aide"],
     faqs: [
       ["Quand communiquer Drive Lady pour un événement ?", "Avant l'événement, puis à nouveau quelques heures avant la sortie. Un lien découvert au moment de rentrer est beaucoup moins utile qu'une option déjà connue."],
       ["Où placer le point de rendez-vous ?", "Dans une zone proche, éclairée, accessible aux véhicules et distincte du flux principal. Le lieu doit être facile à nommer et identique dans toutes les communications."],
@@ -503,12 +530,12 @@ const articles = [
     slug: "partenariat-marque-securite-femmes",
     category: "Partenaires",
     cluster: "Communication",
-    intent: "Comment parler de sécurité des femmes sans faire peur dans une communication partenaire ?",
-    title: "Partenariat sécurité femmes : comment parler de Drive Lady sans faire peur ?",
-    metaTitle: "Partenariat sécurité femmes : message Drive Lady sans anxiété",
-    metaDescription: "Guide de communication pour bars, campus, festivals et marques : parler de Drive Lady avec un message utile, rassurant et non anxiogène.",
+    intent: "Comment accompagner le retour des femmes dans une communication partenaire ?",
+    title: "Partenariat sécurité femmes : comment mieux accompagner le retour des femmes ?",
+    metaTitle: "Partenariat sécurité femmes : accompagner le retour des femmes",
+    metaDescription: "Guide de communication pour bars, campus, festivals et marques : accompagner le retour des femmes avec un message utile, rassurant et non anxiogène.",
     summary: "Le sujet de la sécurité des femmes demande une communication précise. Un partenaire doit reconnaître le besoin sans dramatiser chaque sortie, expliquer l'usage sans promettre l'impossible et donner une action simple.",
-    answer: "Pour parler de Drive Lady sans faire peur, le partenaire doit partir de l'usage : rentrer plus facilement, choisir une conductrice, vérifier les informations du trajet et éviter l'improvisation de fin de soirée. Le message doit être concret, calme et orienté action. Il peut reconnaître les situations d'inconfort sans transformer la communication en campagne anxiogène.",
+    answer: "Pour intégrer Drive Lady à un événement, le plus important est de partir de l'usage : permettre aux participantes de rentrer plus facilement, de choisir un trajet entre femmes, de vérifier les informations avant le départ et d'éviter l'improvisation de fin de soirée. Le message doit rester concret, calme et orienté action.",
     stat: {
       number: "15 %",
       label: "des outrages sexistes enregistrés par la police nationale ont lieu dans les transports en commun en 2024.",
@@ -522,21 +549,21 @@ const articles = [
       {
         title: "La ligne éditoriale : reconnaître, puis rendre actionnable",
         body: [
-          "Une communication partenaire échoue quand elle tombe dans l'un des deux extrêmes : minimiser les situations vécues par les femmes ou faire de chaque sortie un danger. Drive Lady doit occuper une troisième voie : reconnaître le besoin, puis proposer un geste simple.",
-          "La phrase centrale peut être très courte : « Pour ton retour, Drive Lady te permet de réserver un trajet entre femmes avec des informations visibles avant le départ. » Elle dit l'usage, la cible et le bénéfice sans exagérer.",
+          "Une communication partenaire fonctionne lorsqu'elle trouve le bon équilibre. Elle ne doit ni minimiser les situations vécues par les femmes, ni présenter chaque sortie comme un danger. Drive Lady doit occuper une troisième voie : reconnaître le besoin, puis proposer un geste simple.",
+          "La phrase centrale peut être très courte : « Pour votre retour, Drive Lady vous permet de réserver un trajet entre femmes avec des informations visibles avant le départ. » Elle dit l'usage, la cible et le bénéfice sans exagérer. Elle permet au partenaire de montrer qu'il accompagne l'expérience des participantes avant, pendant et après l'événement.",
         ],
         compare: {
           goodTitle: "À dire",
           badTitle: "À éviter",
           good: [
-            "Prépare ton retour avant la fin de la soirée.",
-            "Choisis un trajet entre femmes avec des informations visibles.",
-            "Retrouve le point pickup indiqué par l'événement.",
+            "Préparez votre retour avant la fin de la soirée.",
+            "Choisissez un trajet entre femmes avec des informations visibles.",
+            "Retrouvez le point de rendez-vous indiqué par l'événement.",
           ],
           bad: [
-            "Ne rentre jamais seule.",
-            "Avec Drive Lady, il ne peut rien arriver.",
-            "Les transports sont dangereux, prends notre solution.",
+            "Ne rentrez jamais seule.",
+            "Avec Drive Lady, il ne peut rien vous arriver.",
+            "Les transports sont dangereux, utilisez notre solution.",
           ],
         },
       },
@@ -544,16 +571,16 @@ const articles = [
         title: "Les quatre composants d'un message partenaire",
         body: "Un message partenaire doit pouvoir tenir sur une affiche, une story, un email ou un écran sur place. Plus il est simple, plus il a de chances d'être utilisé au bon moment.",
         steps: [
-          ["Contexte", "Pourquoi Drive Lady est proposé ici : retour tardif, événement, campus, lieu de sortie."],
-          ["Action", "Ce que la personne doit faire : scanner, réserver, rejoindre le point pickup."],
-          ["Repère", "Où et quand le service est le plus utile : horaires, lieu, QR code."],
-          ["Limite", "Rappel sobre : en urgence, appeler les canaux officiels."],
+          ["Contexte", "Pourquoi Drive Lady est proposé ici : retour tardif, événement, campus, lieu de sortie, horaires décalés."],
+          ["Action", "Ce que la personne doit faire : scanner le QR code, rechercher un trajet, proposer une place, réserver ou rejoindre un point de rendez-vous."],
+          ["Repère", "Où et quand le service est le plus utile : horaires, lieu, QR code visibles."],
+          ["Limite", "Rappel sobre : Drive Lady est une solution de mobilité complémentaire. En cas d'urgence, il faut contacter les canaux officiels."],
         ],
       },
       {
         title: "Adapter le ton selon le partenaire",
         body: [
-          "Un bar, une école, une association étudiante et un festival ne parlent pas de la même façon. Mais le fond reste identique : Drive Lady n'est pas un gadget de communication. C'est un service qui doit rendre le retour plus lisible.",
+          "Un bar, une école, une association étudiante et un festival ne parlent pas exactement de la même façon. Mais le fond reste le même : Drive Lady n'est pas un simple outil de communication. C'est un service concret pour rendre les déplacements plus lisibles, plus organisés et plus rassurants.",
           "L'adaptation se fait sur le vocabulaire, pas sur la promesse. Le partenaire peut être chaleureux, institutionnel ou communautaire ; il ne doit jamais promettre une sécurité absolue.",
         ],
         table: [
@@ -565,8 +592,12 @@ const articles = [
         ],
       },
       {
-        title: "Pourquoi cette rigueur sert aussi le SEO et les IA",
-        body: "Les contenus citables par Google et les IA répondent clairement à une question, donnent des étapes, citent leurs sources et évitent les promesses floues. C'est aussi la bonne manière de construire la marque Drive Lady : moins de slogans, plus d'utilité vérifiable.",
+        title: "Pourquoi cette approche valorise aussi le partenaire",
+        body: [
+          "Proposer Drive Lady ne signifie pas que l'événement ou le lieu est dangereux. Au contraire, cela montre que le partenaire prend en compte l'expérience complète des participantes.",
+          "Un événement ne commence pas seulement à l'entrée du lieu, et ne se termine pas au dernier morceau, au dernier verre ou au dernier discours. Il inclut aussi la manière dont les participantes viennent, repartent et s'organisent.",
+          "En intégrant Drive Lady, un partenaire montre qu'il pense à la mobilité, au confort, à l'accessibilité et à la sécurité ressentie de son public féminin.",
+        ],
       },
     ],
     checklist: [
@@ -696,12 +727,12 @@ function renderBlogIndex() {
 
 function renderArticleCard(article) {
   const author = articleAuthor(article);
-  const searchText = [article.title, article.summary, article.intent, article.category, article.cluster, author.name].join(" ");
+  const searchText = [article.title, summaryText(article), article.intent, article.category, article.cluster, author.name].join(" ");
   return `<article class="blog-post-card" data-blog-card data-blog-category="${normalizeId(article.category)}" data-blog-search="${escapeHtml(searchText)}">
     <a href="/blog/${article.slug}/" aria-label="Lire ${escapeHtml(article.title)}">
       <img class="blog-post-card__image" src="${articleImage(article)}" alt="${escapeHtml(articleImageAlt(article))}" loading="lazy"/>
       <h3>${escapeHtml(article.title)}</h3>
-      <p>${escapeHtml(article.summary)}</p>
+      <p>${escapeHtml(summaryText(article))}</p>
       <div class="blog-post-card__author">
         <img src="${author.image}" alt="" loading="lazy"/>
         <span>Par <strong>${escapeHtml(author.name)}</strong></span>
@@ -767,7 +798,7 @@ function renderArticle(article) {
         <div>
           <p class="eyebrow">${escapeHtml(article.category)} · ${escapeHtml(article.cluster)}</p>
           <h1>${escapeHtml(article.title)}</h1>
-          <p class="article-hero__lead">${escapeHtml(article.summary)}</p>
+          ${(Array.isArray(article.summary) ? article.summary : [article.summary]).map((paragraph) => `<p class="article-hero__lead">${escapeHtml(paragraph)}</p>`).join("\n          ")}
           <div class="article-author">
             <img src="${author.image}" alt="" loading="lazy"/>
             <div>
@@ -800,9 +831,10 @@ function renderArticle(article) {
       <div class="article-content">
         <section id="probleme" class="article-intro">
           <p class="article-chapo">${escapeHtml(article.answer)}</p>
+          ${article.answerExtra ? renderParagraphs(article.answerExtra) : ""}
           <div class="article-source-note">
             <strong>Pourquoi ce sujet compte</strong>
-            <p>${renderSourceFacts(article)}</p>
+            <p>${article.sourceNote ? escapeHtml(article.sourceNote) : renderSourceFacts(article)}</p>
           </div>
         </section>
 
@@ -817,11 +849,11 @@ function renderArticle(article) {
             ${article.checklist.map((item, index) => `<label class="article-checklist__item"><input type="checkbox" name="checklist-${article.slug}" value="${index + 1}"/><span>${escapeHtml(item)}</span></label>`).join("")}
           </div>
         </section>
-
+${renderAfterChecklist(article)}
         <section class="article-citation" id="sources">
           <p class="eyebrow">Sources officielles</p>
           <h2>Les références utilisées</h2>
-          <ul>${article.sourceKeys.map((key) => `<li><a href="${sources[key].url}" target="_blank" rel="noreferrer noopener">${escapeHtml(sources[key].label)}</a><span>${escapeHtml(sources[key].fact)}</span></li>`).join("")}</ul>
+          <ul>${article.sourceKeys.map((key) => `<li><a href="${escapeHtml(sources[key].url)}" target="_blank" rel="noreferrer noopener">${escapeHtml(sources[key].label)}</a><span>${escapeHtml(sources[key].fact)}</span></li>`).join("")}</ul>
         </section>
 
         <section id="faq" class="article-faq">
@@ -861,12 +893,13 @@ function renderArticle(article) {
 function renderSection(section, index) {
   const id = index === 0 ? "section-principale" : `section-${index + 1}`;
   return `<section class="article-section" id="${id}">
-    <h2>${escapeHtml(section.title)}</h2>
+    ${section.title ? `<h2>${escapeHtml(section.title)}</h2>` : ""}
     ${renderParagraphs(section.body)}
     ${section.steps ? renderSteps(section.steps) : ""}
     ${section.list ? `<ul class="article-list">${section.list.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>` : ""}
     ${section.table ? renderTable(section.table) : ""}
     ${section.compare ? renderCompare(section.compare) : ""}
+    ${section.outro ? renderParagraphs(section.outro) : ""}
   </section>`;
 }
 
@@ -876,7 +909,27 @@ function renderParagraphs(body) {
 }
 
 function renderSteps(steps) {
-  return `<ul class="article-list">${steps.map(([title, text], index) => `<li>${index + 1}. ${escapeHtml(title)} — ${escapeHtml(text)}</li>`).join("")}</ul>`;
+  return `<ul class="article-list">${steps.map(([title, text], index) => {
+    const isQuestion = title.trim().endsWith("?");
+    const separator = isQuestion ? " " : " : ";
+    const value = isQuestion ? text : `${text.charAt(0).toLowerCase()}${text.slice(1)}`;
+    return `<li>${index + 1}. ${escapeHtml(title)}${separator}${escapeHtml(value)}</li>`;
+  }).join("")}</ul>`;
+}
+
+function renderAfterChecklist(article) {
+  return (article.afterChecklist || [])
+    .map((section) => `
+        <section class="article-section" id="${normalizeId(section.title)}">
+          <h2>${escapeHtml(section.title)}</h2>
+          ${renderParagraphs(section.body)}
+        </section>
+`)
+    .join("");
+}
+
+function summaryText(article) {
+  return Array.isArray(article.summary) ? article.summary.join(" ") : article.summary;
 }
 
 function renderCompare(compare) {
@@ -897,7 +950,7 @@ function articleImage(article) {
     "profil-verifie-covoiturage-femmes": "/assets/site-stat-safe.png",
     "premier-trajet-drive-lady": "/assets/journey-daily.png",
     "retour-festival-campus-covoiturage": "/assets/journey-weekend.png",
-    "partenariat-marque-securite-femmes": "/assets/partner-cosmo.avif",
+    "partenariat-marque-securite-femmes": "/assets/partner-so-rouen.jpg",
   };
 
   return images[article.slug] || defaultBlogImage;
@@ -924,7 +977,7 @@ function articleReadingTime(article) {
   const words = [
     article.title,
     article.intent,
-    article.summary,
+    summaryText(article),
     article.answer,
     article.stat.number,
     article.stat.label,

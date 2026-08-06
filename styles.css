@@ -1630,7 +1630,7 @@ main > section:first-child {
 .hero {
   min-height: clamp(47rem, 88vh, 56rem);
   margin-top: -1px;
-  padding: calc(4.2rem + var(--header-height)) 7.8% clamp(15.5rem, 20vw, 20rem);
+  padding: calc(4.2rem + var(--header-height)) 7.8% 4.2rem;
   position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -9153,7 +9153,7 @@ main > .legal-hero:first-child {
   .hero {
     min-height: 48rem;
     padding-top: calc(3rem + var(--header-height));
-    padding-bottom: 15rem;
+    padding-bottom: 3rem;
   }
 
   .hero h1 {
@@ -9543,7 +9543,7 @@ main > .legal-hero:first-child {
 
   .hero {
     min-height: 45rem;
-    padding-bottom: 14.4rem;
+    padding-bottom: 3rem;
   }
 
   .hero-title-shell {
