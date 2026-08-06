@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
 const STORAGE_KEY = "drive-lady-cookie-consent";
-const DISMISSAL_STORAGE_KEY = "drive-lady-cookie-banner-dismissed-until";
-const DISMISSAL_DURATION_MS = 24 * 60 * 60 * 1000;
+const SCROLL_HIDE_THRESHOLD = 8;
 
 function normalizeConsent(value) {
   return value === "granted" || value === "denied" ? value : null;
@@ -187,36 +186,6 @@ function safeStorageSet(key, value) {
   }
 }
 
-function isCookieBannerDismissed() {
-  try {
-    const dismissedUntil = Number(localStorage.getItem(DISMISSAL_STORAGE_KEY));
-
-    if (!Number.isFinite(dismissedUntil)) return false;
-
-    if (Date.now() < dismissedUntil) {
-      return true;
-    }
-
-    localStorage.removeItem(DISMISSAL_STORAGE_KEY);
-    return false;
-  } catch {
-    return false;
-  }
-}
-
-function dismissCookieBannerFor24Hours() {
-  try {
-    localStorage.setItem(DISMISSAL_STORAGE_KEY, String(Date.now() + DISMISSAL_DURATION_MS));
-  } catch {
-    // If storage is unavailable, the close action still hides the banner for this render.
-  }
-}
-
-function isMobileCookieViewport() {
-  if (typeof window === "undefined" || !window.matchMedia) return false;
-  return window.matchMedia("(max-width: 640px)").matches;
-}
-
 function CookieGlyph({ size = 18 }) {
   return (
     <svg
@@ -243,6 +212,7 @@ export default function CookieBanner({ gaId }) {
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
   const [bannerOpen, setBannerOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const saved = safeStorageGet(STORAGE_KEY);
@@ -258,9 +228,23 @@ export default function CookieBanner({ gaId }) {
     const defer = typeof queueMicrotask === "function" ? queueMicrotask : (callback) => window.setTimeout(callback, 0);
     defer(() => {
       setMounted(true);
-      setBannerOpen(saved === null && !isCookieBannerDismissed() && !isMobileCookieViewport());
     });
   }, [gaId]);
+
+  // The banner never opens on its own: only the toggle is shown, and it disappears
+  // as soon as the page scrolls so it never sits on top of the content.
+  useEffect(() => {
+    const syncScrolled = () => {
+      setScrolled(window.scrollY > SCROLL_HIDE_THRESHOLD);
+    };
+
+    syncScrolled();
+    window.addEventListener("scroll", syncScrolled, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", syncScrolled);
+    };
+  }, []);
 
   useEffect(() => {
     if (!mounted || !gaId || safeStorageGet(STORAGE_KEY) !== "granted") return;
@@ -285,7 +269,6 @@ export default function CookieBanner({ gaId }) {
   };
 
   const closeWithoutConsent = () => {
-    dismissCookieBannerFor24Hours();
     setBannerOpen(false);
   };
 
@@ -570,7 +553,7 @@ export default function CookieBanner({ gaId }) {
             </div>
           </div>
         </div>
-      ) : (
+      ) : scrolled ? null : (
         <button
           type="button"
           className="dl-cookie-toggle"
