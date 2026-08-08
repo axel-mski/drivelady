@@ -1628,13 +1628,13 @@ main > section:first-child {
 }
 
 .hero {
-  min-height: 51rem;
+  min-height: clamp(47rem, 88vh, 56rem);
   margin-top: -1px;
-  padding: calc(4.55rem + var(--header-height)) 7.8% 0;
+  padding: calc(4.2rem + var(--header-height)) 7.8% 4.2rem;
   position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  align-content: start;
+  align-content: center;
   justify-items: center;
   overflow: hidden;
   border-top: 0;
@@ -1642,23 +1642,11 @@ main > section:first-child {
   background:
     radial-gradient(circle at 8% 12%, rgba(255, 228, 238, 0.78) 0, rgba(255, 228, 238, 0.38) 7rem, transparent 15rem),
     radial-gradient(circle at 92% 84%, rgba(255, 228, 238, 0.76) 0, rgba(255, 228, 238, 0.34) 7.5rem, transparent 16rem),
-    radial-gradient(ellipse at 50% 111%, rgba(255, 128, 188, 0.42) 0 27rem, transparent 27.2rem),
     #ffe6f3;
 }
 
 .hero::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: -15rem;
-  z-index: 0;
-  width: 66rem;
-  height: 31rem;
-  border-radius: 50% 50% 0 0;
-  background:
-    radial-gradient(circle at 50% 18%, rgba(255, 255, 255, 0.9), transparent 17rem),
-    linear-gradient(180deg, rgba(255, 196, 224, 0.76), rgba(255, 229, 239, 0.22));
-  transform: translateX(-50%);
+  content: none;
 }
 
 .hero::after {
@@ -1666,9 +1654,9 @@ main > section:first-child {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -4.4rem;
-  z-index: 4;
-  height: 18rem;
+  bottom: -2.4rem;
+  z-index: 1;
+  height: 9rem;
   pointer-events: none;
   background: linear-gradient(
     180deg,
@@ -2372,19 +2360,6 @@ main > section:first-child {
   border-radius: 1rem;
   background: #ffe5f0;
   filter: saturate(0.96) brightness(1.02);
-}
-
-.hero__scroll {
-  position: absolute;
-  z-index: 3;
-  left: 50%;
-  bottom: 1.35rem;
-  width: 1rem;
-  height: 1rem;
-  border-right: 2px solid rgba(191, 31, 114, 0.62);
-  border-bottom: 2px solid rgba(191, 31, 114, 0.62);
-  transform: translateX(-50%) rotate(45deg);
-  animation: arrow-breathe 1.8s var(--ease) infinite;
 }
 
 .section-label,
@@ -9176,8 +9151,9 @@ main > .legal-hero:first-child {
   }
 
   .hero {
-    min-height: 49rem;
+    min-height: 48rem;
     padding-top: calc(3rem + var(--header-height));
+    padding-bottom: 3rem;
   }
 
   .hero h1 {
@@ -9566,7 +9542,8 @@ main > .legal-hero:first-child {
   }
 
   .hero {
-    min-height: 48rem;
+    min-height: 45rem;
+    padding-bottom: 3rem;
   }
 
   .hero-title-shell {
