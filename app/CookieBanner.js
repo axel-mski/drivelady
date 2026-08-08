@@ -301,9 +301,9 @@ export default function CookieBanner({ gaId }) {
           max-width: 440px;
           border-radius: 18px;
           background: #ffffff;
-          border: 1px solid rgba(141, 15, 85, 0.08);
-          box-shadow: 0 20px 60px rgba(141, 15, 85, 0.16), 0 4px 16px rgba(23, 15, 22, 0.06);
-          font-family: var(--font-display, "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+          border: 1px solid rgba(108, 48, 78, 0.08);
+          box-shadow: 0 20px 60px rgba(108, 48, 78, 0.16), 0 4px 16px rgba(23, 15, 19, 0.06);
+          font-family: var(--font-display, "Arimo", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
           animation: dl-cookie-in .4s cubic-bezier(.16,1,.3,1);
         }
 
@@ -336,8 +336,8 @@ export default function CookieBanner({ gaId }) {
 
         .dl-cookie-close:hover,
         .dl-cookie-close:focus-visible {
-          background: #fff0f8;
-          color: #170f16;
+          background: #faf8f5;
+          color: #170f13;
         }
 
         .dl-cookie-head {
@@ -352,12 +352,12 @@ export default function CookieBanner({ gaId }) {
           width: 36px;
           height: 36px;
           border-radius: 10px;
-          background: linear-gradient(135deg, #ffb2e1 24%, #ffd1ed 100%);
+          background: linear-gradient(135deg, #e4cdd9 24%, #eee2e8 100%);
           display: flex;
           align-items: center;
           justify-content: center;
           flex-shrink: 0;
-          box-shadow: 0 4px 12px rgba(255, 178, 225, 0.42);
+          box-shadow: 0 4px 12px rgba(228, 205, 217, 0.42);
         }
 
         .dl-cookie-eyebrow {
@@ -373,7 +373,7 @@ export default function CookieBanner({ gaId }) {
           font-weight: 800;
           line-height: 1.25;
           margin: 0 0 .5rem;
-          color: #170f16;
+          color: #170f13;
           letter-spacing: 0;
         }
 
@@ -385,7 +385,7 @@ export default function CookieBanner({ gaId }) {
         }
 
         .dl-cookie-link {
-          color: #bf1f72;
+          color: #8e4b6d;
           text-decoration: none;
           font-weight: 700;
           position: relative;
@@ -398,7 +398,7 @@ export default function CookieBanner({ gaId }) {
           right: 0;
           bottom: -1px;
           height: 1px;
-          background: linear-gradient(90deg, #ffb2e1, #ffd1ed);
+          background: linear-gradient(90deg, #e4cdd9, #eee2e8);
           opacity: .45;
           transition: opacity .15s;
         }
@@ -412,7 +412,7 @@ export default function CookieBanner({ gaId }) {
           display: flex;
           gap: .8rem;
           padding-top: 1.1rem;
-          border-top: 1px solid #f5d7e7;
+          border-top: 1px solid #ece0e6;
         }
 
         .dl-cookie-btn {
@@ -438,31 +438,31 @@ export default function CookieBanner({ gaId }) {
         }
 
         .dl-cookie-btn.ghost {
-          color: var(--pink-800, #8d0f55);
-          border-color: rgba(191, 31, 114, 0.2);
-          background: #fff6fb;
+          color: var(--pink-800, #6c304e);
+          border-color: rgba(142, 75, 109, 0.2);
+          background: #fcfbf9;
         }
 
         .dl-cookie-btn.ghost:hover,
         .dl-cookie-btn.ghost:focus-visible {
-          border-color: rgba(191, 31, 114, 0.38);
-          background: #ffe6f3;
+          border-color: rgba(142, 75, 109, 0.38);
+          background: #f7f2ec;
         }
 
         .dl-cookie-btn.primary {
           color: #ffffff;
-          background: linear-gradient(180deg, #ff66b1, #e63892);
+          background: linear-gradient(180deg, #9d5679, #8e4b6d);
           box-shadow:
-            0 16px 30px -18px rgba(188, 31, 114, 0.7),
+            0 16px 30px -18px rgba(142, 75, 109, 0.7),
             inset 0 1px 0 rgba(255, 255, 255, 0.42);
         }
 
         .dl-cookie-btn.primary:hover,
         .dl-cookie-btn.primary:focus-visible {
-          background: linear-gradient(180deg, #ff78bd, #c91f7d);
+          background: linear-gradient(180deg, #a05a7c, #7d4160);
           transform: translateY(-1px);
           box-shadow:
-            0 20px 40px -20px rgba(188, 31, 114, 0.88),
+            0 20px 40px -20px rgba(142, 75, 109, 0.88),
             inset 0 1px 0 rgba(255, 255, 255, 0.46);
         }
 
@@ -474,13 +474,13 @@ export default function CookieBanner({ gaId }) {
           width: 52px;
           height: 52px;
           border-radius: 50%;
-          background: linear-gradient(135deg, #ffb2e1 24%, #ffd1ed 100%);
+          background: linear-gradient(135deg, #e4cdd9 24%, #eee2e8 100%);
           border: none;
           cursor: pointer;
           display: flex;
           align-items: center;
           justify-content: center;
-          box-shadow: 0 8px 24px rgba(191, 31, 114, 0.32), 0 2px 8px rgba(23, 15, 22, 0.1);
+          box-shadow: 0 8px 24px rgba(142, 75, 109, 0.32), 0 2px 8px rgba(23, 15, 19, 0.1);
           transition: transform .2s ease, box-shadow .2s ease;
           animation: dl-cookie-toggle-in .35s cubic-bezier(.16,1,.3,1);
         }
@@ -492,12 +492,12 @@ export default function CookieBanner({ gaId }) {
 
         .dl-cookie-toggle:hover {
           transform: scale(1.08);
-          box-shadow: 0 12px 32px rgba(191, 31, 114, 0.42), 0 2px 8px rgba(23, 15, 22, 0.14);
+          box-shadow: 0 12px 32px rgba(142, 75, 109, 0.42), 0 2px 8px rgba(23, 15, 19, 0.14);
         }
 
         .dl-cookie-toggle:focus-visible,
         .dl-cookie-btn:focus-visible {
-          outline: 2px solid #bf1f72;
+          outline: 2px solid #8e4b6d;
           outline-offset: 3px;
         }
 

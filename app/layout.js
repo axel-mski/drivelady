@@ -8,7 +8,7 @@ const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 export const viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#f8b6de",
+  themeColor: "#8e4b6d",
 };
 
 export default function RootLayout({ children }) {
@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link
-          href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@700&family=Inter:wght@400;500;600;700;800&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=DM+Sans:wght@700&display=swap"
           rel="stylesheet"
         />
       </head>
