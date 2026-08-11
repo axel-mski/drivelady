@@ -583,6 +583,15 @@ h6 {
   font-family: var(--font-title);
 }
 
+/* Capitales a partir du H3. H1 et H2 restent en casse normale.
+   text-transform se transmet aux spans internes des titres. */
+h3,
+h4,
+h5,
+h6 {
+  text-transform: uppercase;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -746,371 +755,6 @@ img {
   position: absolute;
   inset: 0;
   rotate: 90deg;
-}
-
-body.has-workshop-popup {
-  overflow: hidden;
-}
-
-.workshop-popup {
-  position: fixed;
-  inset: 0;
-  z-index: 220;
-  display: grid;
-  place-items: center;
-  padding: clamp(1rem, 3vw, 2.5rem);
-  background: rgba(23, 13, 18, 0.56);
-  backdrop-filter: blur(14px);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 220ms var(--ease);
-}
-
-.workshop-popup.is-visible {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.workshop-popup.is-hiding {
-  opacity: 0;
-}
-
-.workshop-popup__panel {
-  position: relative;
-  width: min(50.7rem, calc(100vw - 2rem));
-  max-height: calc(100vh - 2rem);
-  min-height: min(31.95rem, calc(100vh - 2rem));
-  display: grid;
-  grid-template-columns: minmax(0, 0.98fr) minmax(0, 1.02fr);
-  overflow: hidden;
-  border-radius: 0.35rem;
-  background: #ffffff;
-  box-shadow:
-    0 3.2rem 6rem -3rem rgba(39, 19, 29, 0.8),
-    0 0 0 1px rgba(255, 255, 255, 0.16);
-  transform: translateY(0.8rem) scale(0.985);
-  transition: transform 260ms var(--ease);
-}
-
-.workshop-popup.is-visible .workshop-popup__panel {
-  transform: translateY(0) scale(1);
-}
-
-.workshop-popup__copy {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: clamp(2.2rem, 4.1vw, 3.55rem);
-  color: #0f0c10;
-  background: #ffffff;
-}
-
-.workshop-popup__copy h2 {
-  max-width: 18rem;
-  margin: 0 0 1.35rem;
-  color: #793a5a;
-  font-family: var(--font-title);
-  font-size: clamp(1.85rem, 3vw, 2.08rem);
-  font-weight: 400;
-  line-height: 1.16;
-  letter-spacing: 0;
-}
-
-.workshop-popup__intro {
-  max-width: 19rem;
-  margin: 0;
-  color: #050505;
-  font-size: 1rem;
-  line-height: 1.38;
-}
-
-.workshop-popup__intro strong {
-  display: block;
-  font-weight: 800;
-}
-
-.workshop-popup__details {
-  display: grid;
-  gap: 0.52rem;
-  margin: 1.22rem 0 0;
-  padding: 0;
-  color: #090607;
-  font-size: 0.85rem;
-  line-height: 1.24;
-  list-style: none;
-}
-
-.workshop-popup__details li {
-  display: grid;
-  grid-template-columns: 1.2rem minmax(0, 1fr);
-  align-items: center;
-  gap: 0.42rem;
-  min-height: 1rem;
-}
-
-.workshop-popup__detail-icon {
-  position: relative;
-  display: inline-block;
-  width: 0.92rem;
-  height: 0.92rem;
-  justify-self: center;
-}
-
-.workshop-popup__detail-icon::before,
-.workshop-popup__detail-icon::after {
-  content: "";
-  position: absolute;
-  display: block;
-}
-
-.workshop-popup__detail-icon--calendar {
-  border: 1.5px solid #c9b0d7;
-  border-radius: 0.14rem;
-  background: #f6f5f7;
-}
-
-.workshop-popup__detail-icon--calendar::before {
-  top: 0.17rem;
-  right: 0.12rem;
-  left: 0.12rem;
-  height: 1.5px;
-  background: #c9b0d7;
-}
-
-.workshop-popup__detail-icon--calendar::after {
-  top: 0.39rem;
-  left: 0.2rem;
-  width: 0.14rem;
-  height: 0.14rem;
-  border-radius: 999px;
-  background: #b26c8f;
-  box-shadow: 0.24rem 0 #b26c8f, 0.48rem 0 #b26c8f;
-}
-
-.workshop-popup__detail-icon--time {
-  border: 1.6px solid #776d76;
-  border-radius: 999px;
-}
-
-.workshop-popup__detail-icon--time::before {
-  top: 0.23rem;
-  left: 0.42rem;
-  width: 1.6px;
-  height: 0.29rem;
-  border-radius: 999px;
-  background: #776d76;
-}
-
-.workshop-popup__detail-icon--time::after {
-  top: 0.49rem;
-  left: 0.42rem;
-  width: 0.24rem;
-  height: 1.6px;
-  border-radius: 999px;
-  background: #776d76;
-  transform-origin: left center;
-  rotate: 28deg;
-}
-
-.workshop-popup__detail-icon--pin {
-  width: 0.82rem;
-  height: 0.82rem;
-  border-radius: 50% 50% 50% 0;
-  background: #b26d90;
-  rotate: -45deg;
-}
-
-.workshop-popup__detail-icon--pin::before {
-  inset: 0.22rem;
-  border-radius: 999px;
-  background: #ffffff;
-}
-
-.workshop-popup__detail-icon--ticket {
-  width: 0.95rem;
-  height: 0.62rem;
-  border-radius: 0.15rem;
-  background: #b26d90;
-}
-
-.workshop-popup__detail-icon--ticket::before,
-.workshop-popup__detail-icon--ticket::after {
-  top: 50%;
-  width: 0.18rem;
-  height: 0.18rem;
-  border-radius: 999px;
-  background: #ffffff;
-  transform: translateY(-50%);
-}
-
-.workshop-popup__detail-icon--ticket::before {
-  left: -0.08rem;
-}
-
-.workshop-popup__detail-icon--ticket::after {
-  right: -0.08rem;
-}
-
-.workshop-popup__note {
-  max-width: 20rem;
-  margin: 1.55rem 0 1.9rem;
-  color: #070506;
-  font-size: 0.87rem;
-  font-style: italic;
-  line-height: 1.48;
-}
-
-.workshop-popup__cta {
-  align-self: center;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.48rem;
-  width: 8.4rem;
-  min-height: 2.7rem;
-  border: 1px solid #c8a2b5;
-  color: #a0557a;
-  background: #ffffff;
-  font-size: 0.95rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-decoration: none;
-  transition: color 180ms var(--ease), border-color 180ms var(--ease), background 180ms var(--ease), transform 180ms var(--ease);
-}
-
-.workshop-popup__cta span {
-  width: 0.42rem;
-  height: 0.42rem;
-  border-top: 2px solid currentColor;
-  border-right: 2px solid currentColor;
-  rotate: 45deg;
-}
-
-.workshop-popup__cta:hover,
-.workshop-popup__cta:focus-visible {
-  border-color: #793a5a;
-  color: #ffffff;
-  background: #793a5a;
-  transform: translateY(-1px);
-}
-
-.workshop-popup__media {
-  min-height: 0;
-  margin: 0;
-  background: #24131c;
-}
-
-.workshop-popup__media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-
-.workshop-popup__close {
-  position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
-  z-index: 2;
-  width: 2.15rem;
-  height: 2.15rem;
-  display: grid;
-  place-items: center;
-  border: 1px solid rgba(255, 255, 255, 0.36);
-  border-radius: 999px;
-  color: #ffffff;
-  background: rgba(18, 10, 14, 0.56);
-  backdrop-filter: blur(8px);
-  transition: background 180ms var(--ease), transform 180ms var(--ease);
-}
-
-.workshop-popup__close:hover,
-.workshop-popup__close:focus-visible {
-  background: rgba(18, 10, 14, 0.78);
-  transform: translateY(-1px);
-}
-
-.workshop-popup__close span,
-.workshop-popup__close span::before {
-  width: 0.82rem;
-  height: 2px;
-  display: block;
-  border-radius: 999px;
-  background: currentColor;
-}
-
-.workshop-popup__close span {
-  position: relative;
-  rotate: 45deg;
-}
-
-.workshop-popup__close span::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  rotate: 90deg;
-}
-
-@media (max-width: 760px) {
-  .workshop-popup {
-    padding: 0.75rem;
-  }
-
-  .workshop-popup__panel {
-    width: min(30rem, 100%);
-    min-height: 0;
-    max-height: calc(100vh - 1.5rem);
-    grid-template-columns: 1fr;
-    overflow-y: auto;
-  }
-
-  .workshop-popup__media {
-    order: -1;
-    height: clamp(11rem, 42vw, 15rem);
-  }
-
-  .workshop-popup__copy {
-    padding: 1.45rem;
-  }
-
-  .workshop-popup__copy h2 {
-    max-width: 100%;
-    margin-bottom: 0.95rem;
-    font-size: clamp(1.62rem, 8vw, 2rem);
-  }
-
-  .workshop-popup__intro,
-  .workshop-popup__note {
-    max-width: 100%;
-  }
-
-  .workshop-popup__details {
-    margin-top: 1rem;
-  }
-
-  .workshop-popup__note {
-    margin: 1.2rem 0 1.35rem;
-  }
-
-  .workshop-popup__cta {
-    width: 100%;
-    max-width: 14rem;
-  }
-}
-
-@media (max-width: 420px) {
-  .workshop-popup__copy {
-    padding: 1.2rem;
-  }
-
-  .workshop-popup__media {
-    height: 10.8rem;
-  }
-
-  .workshop-popup__details {
-    font-size: 0.82rem;
-  }
 }
 
 .page-stage {
@@ -6810,11 +6454,13 @@ main > .legal-hero:first-child {
   color: var(--pink-800);
 }
 
+/* Footer pleine largeur sur toutes les pages, comme sur l'accueil :
+   ni marge laterale, ni bordure, ni arrondi. */
 .footer {
-  margin: 0 var(--section-gap) var(--section-gap);
+  margin: 0;
   overflow: hidden;
-  border: 1px solid rgba(234, 221, 227, 0.82);
-  border-radius: 1.2rem;
+  border: 0;
+  border-radius: 0;
   background: #ffffff;
   box-shadow: none;
 }
@@ -6896,6 +6542,8 @@ main > .legal-hero:first-child {
   font-size: 1.03rem;
   line-height: 1.2;
   font-weight: 600;
+  /* Intitules de groupe du footer : capitales, comme les H3. */
+  text-transform: uppercase;
 }
 
 .footer__column ul {
@@ -8890,7 +8538,10 @@ main > .legal-hero:first-child {
     display: block;
     box-sizing: border-box;
     justify-self: center;
-    padding-inline: 1.6rem;
+    /* Reserve la place du bouton de fermeture (right .75rem + 2rem de large),
+       sinon le texte passe dessous sur les ecrans etroits. Symetrique pour
+       garder le centrage. */
+    padding-inline: 2.9rem;
     font-size: 0.86rem;
     text-align: center;
   }
@@ -9536,12 +9187,29 @@ main > .legal-hero:first-child {
 }
 
 @media (max-width: 520px) {
+  /* Sur mobile le contenu va d'un bord a l'autre : on retire l'inset
+     lateral de la scene et l'arrondi des sections. Le padding interne
+     des sections (1rem) est conserve plus bas. */
   .page-stage {
-    padding: 0.6rem;
+    padding: 0.6rem 0;
   }
 
   main {
     padding-inline: 0;
+  }
+
+  main > section,
+  main > section:first-child {
+    border-inline: 0;
+    border-radius: 0;
+  }
+
+  /* Ces sections debordaient en negatif pour compenser l'inset de la
+     scene. Celui-ci ayant disparu, le decalage collerait le texte aux
+     bords. */
+  .home-main > .process,
+  .home-main > .process ~ section {
+    margin-inline: 0;
   }
 
   .site-header {

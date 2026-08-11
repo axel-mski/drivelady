@@ -16,17 +16,12 @@ const appHost = "app.localhost";
 const defaultAppPort = "5173";
 const defaultRideTime = "22:30";
 const announcementDismissKey = "drive-lady-announcement-dismissed-v1";
-const workshopPopupDismissKey = "drive-lady-self-defense-popup-dismissed-v1";
-const workshopPopupExpiresAt = Date.parse("2026-06-15T00:00:00+02:00");
-const workshopReservationUrl = "https://lagrandeecole.bonkdo.com/fr/events/atelier-self-defense-au-feminin-1037/";
-const siteScriptUrl = document.currentScript?.src || document.querySelector('script[src$="script.js"], script[src$="site-script.js"]')?.src || window.location.href;
 let activeSchedulePicker = null;
 let schedulePickerGlobalsBound = false;
 const appMode = renderLocalAppIfNeeded();
 
 if (!appMode) {
 initAnnouncementBanner();
-initWorkshopPopup();
 
 const setHeaderState = () => {
   if (!header) return;
@@ -283,10 +278,6 @@ function initAnnouncementBanner() {
           <span class="announcement-banner__separator" aria-hidden="true">:</span>
           <span class="announcement-banner__emphasis">acc&eacute;der &agrave; Drive Lady</span>
         </a>
-        <a class="announcement-banner__message" href="${workshopReservationUrl}" data-announcement-message>
-          <span>&Eacute;v&eacute;nement &agrave; ne pas manquer&nbsp;:</span>
-          <span class="announcement-banner__emphasis">Cours de self-d&eacute;fense</span>
-        </a>
       </div>
       <button class="announcement-banner__close" type="button" aria-label="Fermer le bandeau">
         <span aria-hidden="true"></span>
@@ -314,9 +305,12 @@ function initAnnouncementBanner() {
 
   setActiveMessage(0);
 
-  const messageRotationInterval = window.setInterval(() => {
-    setActiveMessage((activeMessageIndex + 1) % messages.length);
-  }, 10000);
+  const messageRotationInterval =
+    messages.length > 1
+      ? window.setInterval(() => {
+          setActiveMessage((activeMessageIndex + 1) % messages.length);
+        }, 10000)
+      : null;
 
   closeButton?.addEventListener("click", () => {
     window.clearInterval(messageRotationInterval);
@@ -328,98 +322,6 @@ function initAnnouncementBanner() {
 
   pageStage.parentElement?.insertBefore(banner, pageStage);
   document.body.classList.add("has-announcement-banner");
-}
-
-function initWorkshopPopup() {
-  const pageStage = document.querySelector(".page-stage");
-  if (!pageStage || document.querySelector("[data-workshop-popup]") || isWorkshopPopupDismissed() || isWorkshopPopupExpired()) return;
-
-  const previouslyFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-  const popup = document.createElement("section");
-  popup.className = "workshop-popup";
-  popup.dataset.workshopPopup = "";
-  popup.setAttribute("role", "dialog");
-  popup.setAttribute("aria-modal", "true");
-  popup.setAttribute("aria-labelledby", "workshop-popup-title");
-  popup.setAttribute("aria-describedby", "workshop-popup-description");
-  popup.innerHTML = `
-    <div class="workshop-popup__panel" role="presentation">
-      <button class="workshop-popup__close" type="button" aria-label="Fermer la popup">
-        <span aria-hidden="true"></span>
-      </button>
-      <div class="workshop-popup__copy">
-        <h2 id="workshop-popup-title">Pr&ecirc;te &agrave; apprendre les bons r&eacute;flexes&nbsp;?</h2>
-        <p id="workshop-popup-description" class="workshop-popup__intro"><strong>Drive Lady x La Grande &Eacute;cole</strong> organisent un cours de self-d&eacute;fense.</p>
-        <ul class="workshop-popup__details" aria-label="D&eacute;tails du cours">
-          <li><span class="workshop-popup__detail-icon workshop-popup__detail-icon--calendar" aria-hidden="true"></span><strong>Dimanche 14 juin</strong></li>
-          <li><span class="workshop-popup__detail-icon workshop-popup__detail-icon--time" aria-hidden="true"></span><span>10h &agrave; 11h45</span></li>
-          <li><span class="workshop-popup__detail-icon workshop-popup__detail-icon--pin" aria-hidden="true"></span><span>La Grande &Eacute;cole</span></li>
-          <li><span class="workshop-popup__detail-icon workshop-popup__detail-icon--ticket" aria-hidden="true"></span><span>Places limit&eacute;es</span></li>
-        </ul>
-        <p class="workshop-popup__note">1h45 pour apprendre les bons r&eacute;flexes, mieux comprendre ses r&eacute;actions et repartir avec des cl&eacute;s concr&egrave;tes.</p>
-        <a class="workshop-popup__cta" href="${workshopReservationUrl}">R&eacute;server <span aria-hidden="true"></span></a>
-      </div>
-      <figure class="workshop-popup__media">
-        <img src="${getSiteAssetUrl("assets/self-defense-workshop.png")}" alt="Atelier de self-d&eacute;fense entre femmes" />
-      </figure>
-    </div>
-  `;
-
-  const closePopup = () => {
-    persistWorkshopPopupDismissal();
-    document.removeEventListener("keydown", handleKeydown);
-    document.body.classList.remove("has-workshop-popup");
-    popup.classList.add("is-hiding");
-    window.setTimeout(() => {
-      popup.remove();
-      previouslyFocused?.focus?.();
-    }, 220);
-  };
-
-  const getFocusableElements = () => Array.from(popup.querySelectorAll("a[href], button:not([disabled])"))
-    .filter((element) => element instanceof HTMLElement && !element.hasAttribute("hidden"));
-
-  const handleKeydown = (event) => {
-    if (event.key === "Escape") {
-      event.preventDefault();
-      closePopup();
-      return;
-    }
-
-    if (event.key !== "Tab") return;
-
-    const focusableElements = getFocusableElements();
-    if (!focusableElements.length) return;
-
-    const firstElement = focusableElements[0];
-    const lastElement = focusableElements[focusableElements.length - 1];
-
-    if (event.shiftKey && document.activeElement === firstElement) {
-      event.preventDefault();
-      lastElement.focus();
-      return;
-    }
-
-    if (!event.shiftKey && document.activeElement === lastElement) {
-      event.preventDefault();
-      firstElement.focus();
-    }
-  };
-
-  popup.addEventListener("click", (event) => {
-    if (event.target === popup) closePopup();
-  });
-
-  popup.querySelector(".workshop-popup__close")?.addEventListener("click", closePopup);
-  popup.querySelector(".workshop-popup__cta")?.addEventListener("click", persistWorkshopPopupDismissal);
-  document.addEventListener("keydown", handleKeydown);
-  document.body.append(popup);
-  document.body.classList.add("has-workshop-popup");
-
-  window.requestAnimationFrame(() => {
-    popup.classList.add("is-visible");
-    popup.querySelector(".workshop-popup__close")?.focus?.();
-  });
 }
 
 function isAnnouncementDismissed() {
@@ -438,29 +340,6 @@ function persistAnnouncementDismissal() {
   }
 }
 
-function isWorkshopPopupDismissed() {
-  try {
-    return window.localStorage.getItem(workshopPopupDismissKey) === "true";
-  } catch {
-    return false;
-  }
-}
-
-function persistWorkshopPopupDismissal() {
-  try {
-    window.localStorage.setItem(workshopPopupDismissKey, "true");
-  } catch {
-    // The popup should still close when storage is unavailable.
-  }
-}
-
-function isWorkshopPopupExpired() {
-  return Number.isFinite(workshopPopupExpiresAt) && Date.now() >= workshopPopupExpiresAt;
-}
-
-function getSiteAssetUrl(assetPath) {
-  return new URL(assetPath, siteScriptUrl).toString();
-}
 
 function getAppHomeUrl() {
   return appBaseUrl;
