@@ -3012,349 +3012,51 @@ main > section:first-child {
   align-items: center;
 }
 
+/* Sans paragraphe au-dessus, cette marge decalait les boutons vers le bas
+   au lieu de les aligner sur le titre. Le gap de .process__intro assure
+   deja la separation en colonne unique. */
+.process__summary > .process__actions:first-child {
+  margin-top: 0;
+}
+
+/* Accueil : les boutons passent sous le titre. Le bloc CTA de la page
+   Comment ca marche garde sa mise en page en deux colonnes. */
+#fonctionnement .process__intro {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.6rem;
+  align-items: start;
+}
+
+#fonctionnement .process__summary {
+  justify-self: start;
+  align-self: start;
+}
+
+/* Le titre n'est plus bride a 48rem par la colonne de droite : il tient
+   sur une ligne en desktop et se replie tout seul plus bas. */
+#fonctionnement .process__title-block {
+  max-width: none;
+}
+
+/* Pastille blanche pour detacher le lien du fond creme. Meme hauteur et
+   meme rayon que .button pour qu'il s'aligne avec le bouton principal. */
 .process__link {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.9rem;
+  padding: 0 1.35rem;
+  border: 1px solid rgba(236, 224, 230, 0.9);
+  border-radius: 999px;
   color: #1d1418;
+  background: #ffffff;
   font-size: 0.9rem;
   font-weight: 550;
   text-decoration: none;
 }
 
-.process-steps {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.3rem;
-  align-items: stretch;
-}
-
-.process-steps::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  left: 5.5%;
-  right: 5.5%;
-  top: 53%;
-  border-top: 2px dashed rgba(193, 136, 164, 0.45);
-  transform: rotate(-2.5deg);
-}
-
-.process-step {
-  position: relative;
-  min-height: 17.5rem;
-  padding: 2.25rem 1.45rem 1.3rem;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid rgba(236, 224, 230, 0.82);
-  border-radius: 1.1rem;
-  background: rgba(255, 255, 255, 0.96);
-  box-shadow:
-    0 28px 62px -46px rgba(100, 42, 71, 0.48),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9);
-}
-
-.process-step__number {
-  position: absolute;
-  top: -1.28rem;
-  left: 1.5rem;
-  width: 3.05rem;
-  height: 3.05rem;
-  display: grid;
-  place-items: center;
-  border: 1px solid rgba(234, 221, 227, 0.78);
-  border-radius: 999px;
-  color: var(--pink-600);
-  background: #ffffff;
-  font-size: 1rem;
-  font-weight: 700;
-  box-shadow: 0 16px 38px -28px rgba(100, 42, 71, 0.52);
-}
-
-.process-step__label {
-  color: #a79aa4;
-  font-size: 0.72rem;
-  font-weight: 750;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-}
-
-.process-step h3 {
-  margin: 0.52rem 0 0;
-  color: #24171d;
-  font-size: 1.23rem;
-  font-weight: 740;
-  line-height: 1.15;
-  letter-spacing: 0;
-}
-
-.process-step p {
-  margin: 0.62rem 0 0;
-  padding-bottom: 0.82rem;
-  border-bottom: 1px dashed rgba(167, 154, 164, 0.34);
-  color: #776b74;
-  font-size: 0.92rem;
-  font-weight: 500;
-  line-height: 1.48;
-}
-
-.process-step__pill {
-  width: max-content;
-  max-width: 100%;
-  margin-top: 0.82rem;
-  padding: 0.32rem 0.58rem;
-  border: 1px solid rgba(193, 136, 164, 0.28);
-  border-radius: 999px;
-  color: #5b2540;
-  background: #faf8f5;
-  font-size: 0.72rem;
-  font-weight: 750;
-}
-
-.process-mock {
-  box-sizing: border-box;
-  height: 10.9rem;
-  margin-top: 1.18rem;
-  padding: 1rem;
-  overflow: hidden;
-  border: 0;
-  border-radius: 0.9rem;
-  background: var(--paper-soft);
-}
-
-.process-mock--profile {
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-}
-
-.process-mock__photo-avatar,
-.process-mock__live-top img,
-.process-mock__avatar-stack img {
-  display: block;
-  flex-shrink: 0;
-  border-radius: 999px;
-  object-fit: cover;
-  box-shadow: 0 0 0 3px #ffffff;
-}
-
-.process-mock__photo-avatar {
-  width: 3.3rem;
-  height: 3.3rem;
-}
-
-.process-mock__profile-body {
-  min-width: 0;
-  flex: 1;
-}
-
-.process-mock__profile-top {
-  margin-bottom: 0.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.65rem;
-}
-
-.process-mock__profile-top strong,
-.process-mock__ride-meta strong,
-.process-mock__live-top strong {
-  overflow: hidden;
-  color: #171014;
-  font-size: 0.88rem;
-  font-weight: 800;
-  line-height: 1.15;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.process-mock__profile-top span,
-.process-mock__ride-head > span {
-  flex-shrink: 0;
-  padding: 0.22rem 0.48rem;
-  border-radius: 999px;
-  color: var(--pink-600);
-  background: #ffffff;
-  font-size: 0.68rem;
-  font-weight: 800;
-}
-
-.process-mock p,
-.process-mock small,
-.process-mock__live-top span,
-.process-mock__live-top em {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  color: var(--muted);
-  font-size: 0.72rem;
-  font-weight: 600;
-  line-height: 1.35;
-}
-
-.process-mock__profile-tags,
-.process-mock__ride-actions {
-  margin-top: 0.58rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.34rem;
-}
-
-.process-mock__profile-tags span,
-.process-mock__ride-actions span {
-  min-width: 0;
-  padding: 0.26rem 0.48rem;
-  overflow: hidden;
-  border: 1px solid rgba(193, 136, 164, 0.23);
-  border-radius: 999px;
-  color: #5b2540;
-  background: rgba(250, 248, 245, 0.96);
-  font-size: 0.58rem;
-  font-weight: 820;
-  line-height: 1;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.process-mock--trip {
-  display: grid;
-  align-content: start;
-  gap: 0.52rem;
-}
-
-.process-mock__ride-head,
-.process-mock__live-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.7rem;
-}
-
-.process-mock__avatar-stack {
-  padding-left: 0.35rem;
-  display: flex;
-  align-items: center;
-}
-
-.process-mock__avatar-stack img {
-  width: 2.35rem;
-  height: 2.35rem;
-  margin-left: -0.35rem;
-}
-
-.process-mock__ride-route {
-  position: relative;
-  padding-left: 0.95rem;
-  display: grid;
-  gap: 0.38rem;
-  color: #33272d;
-  font-size: 0.74rem;
-  font-weight: 650;
-  letter-spacing: 0;
-}
-
-.process-mock__ride-route::before {
-  content: "";
-  position: absolute;
-  left: 0.22rem;
-  top: 0.42rem;
-  bottom: 0.42rem;
-  width: 2px;
-  border-radius: 999px;
-  background: var(--pink-200);
-}
-
-.process-mock__ride-route span {
-  position: relative;
-  display: block;
-  min-width: 0;
-  padding: 0.18rem 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.process-mock__ride-route span::before {
-  content: "";
-  position: absolute;
-  left: -1rem;
-  top: 50%;
-  width: 0.48rem;
-  height: 0.48rem;
-  border-radius: 999px;
-  background: var(--pink-400);
-  transform: translateY(-50%);
-}
-
-.process-mock__ride-route span:last-child::before {
-  background: #ffffff;
-  box-shadow: inset 0 0 0 2px var(--pink-400);
-}
-
-.process-mock__ride-meta {
-  display: grid;
-  gap: 0.1rem;
-}
-
-.process-mock--return {
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
-  gap: 0.55rem;
-}
-
-.process-mock__live-top {
-  justify-content: flex-start;
-}
-
-.process-mock__live-top img {
-  width: 2.25rem;
-  height: 2.25rem;
-}
-
-.process-mock__live-top div {
-  min-width: 0;
-  flex: 1;
-}
-
-.process-mock__live-top span {
-  display: block;
-  margin-top: 0.12rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.process-mock__live-top em {
-  display: inline-flex;
-  max-width: 100%;
-  margin-top: 0.18rem;
-  padding: 0.18rem 0.42rem;
-  overflow: hidden;
-  border: 1px solid rgba(193, 136, 164, 0.23);
-  border-radius: 999px;
-  color: #5b2540;
-  background: rgba(250, 248, 245, 0.96);
-  font-style: normal;
-  font-weight: 820;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.process-mock__live-top b {
-  flex-shrink: 0;
-  width: 1.85rem;
-  height: 1.85rem;
-  display: grid;
-  place-items: center;
-  border-radius: 999px;
-  color: var(--pink-600);
-  background: #ffffff;
-  box-shadow: 0 0 0 1px rgba(142, 75, 109, 0.14);
-  font-size: 0.62rem;
-  font-weight: 900;
-}
-
+/* Cartes de trajet : utilisees par la page Comment ca marche et par le
+   panneau Confiance de l'accueil. */
 .route-map {
   --route-blue: #3478f6;
   --route-blue-dark: #1658cf;
@@ -3703,115 +3405,735 @@ main > section:first-child {
   padding: 0.28rem 0.36rem;
 }
 
-.route-map--home-live {
-  min-height: 0;
-  height: 100%;
-  border-radius: 0.68rem;
-  background-size: 1.45rem 1.45rem;
+.route-map--trust {
+  min-height: 10rem;
 }
 
-.route-map--home-live .route-map__water {
-  stroke-width: 15;
+.process-steps {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.3rem;
+  align-items: stretch;
 }
 
-.route-map--home-live .route-map__road--wide {
-  stroke-width: 11;
+/* Sous 1080 px les trois colonnes tombent a ~130 px : les maquettes d'app
+   y deviennent illisibles. On empile plutot que de comprimer. */
+@media (max-width: 1080px) {
+  .process-steps {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.2rem;
+  }
 }
 
-.route-map--home-live .route-map__road {
-  stroke-width: 6;
+/* Le trait pointille reliait les cartes quand le texte etait en haut.
+   Avec la maquette en premier, il tombait au milieu et faisait salissure. */
+
+/* Carte en trois temps : la maquette occupe le haut et se fond dans le
+   blanc, puis le numero et le titre sur une meme ligne, puis le texte.
+   La grille evite de toucher au markup pour reordonner. */
+.process-step {
+  position: relative;
+  padding: 1.15rem 1.35rem 1.6rem;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    "mock  mock"
+    "num   title"
+    "desc  desc";
+  align-content: start;
+  column-gap: 0.65rem;
+  border: 1px solid rgba(236, 224, 230, 0.82);
+  border-radius: 1.5rem;
+  background: #ffffff;
+  box-shadow:
+    0 28px 62px -46px rgba(100, 42, 71, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
-.route-map--home-live .route-map__road--minor {
-  stroke-width: 4.8;
-  opacity: 0.78;
+/* Numero a gauche du titre, dans la couleur et la police de titre de la
+   page Comment ca marche, mais cale sur la ligne du H3. */
+.process-step__number {
+  grid-area: num;
+  align-self: center;
+  color: var(--pink-400);
+  font-family: var(--font-title);
+  font-size: 1.85rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  letter-spacing: -0.03em;
 }
 
-.route-map--home-live .route-map__route-halo {
-  stroke-width: 8;
+/* Le titre reprend l'information de l'ancien intitule : on l'ecarte du
+   flux plutot que de le retirer du markup. */
+.process-step__label {
+  display: none;
 }
 
-.route-map--home-live .route-map__route {
-  stroke-width: 4.4;
+/* Capitales comme les autres H3 du site, dont ceux de Comment ca marche. */
+.process-step h3 {
+  grid-area: title;
+  align-self: center;
+  margin: 0;
+  color: #24171d;
+  font-size: 1.34rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0;
+  text-transform: uppercase;
 }
 
-.route-map--home-live .route-map__pin {
-  stroke-width: 3;
+/* Enfant direct uniquement : sinon la regle capture aussi les paragraphes
+   des maquettes, qui heritaient de la taille et de la zone de grille. */
+.process-step > p {
+  grid-area: desc;
+  margin: 0.85rem 0 0;
+  color: #776b74;
+  font-size: 0.92rem;
+  font-weight: 500;
+  line-height: 1.55;
 }
 
-.route-map--home-live .route-map__nav-marker {
-  filter: drop-shadow(0 5px 7px rgba(26, 72, 148, 0.28));
+/* La maquette deborde volontairement et s'estompe en bas, comme si le
+   contenu continuait sous la carte. */
+.process-mock {
+  position: relative;
+  grid-area: mock;
+  box-sizing: border-box;
+  height: 20.2rem;
+  margin: 0 0 1.25rem;
+  padding: 1.05rem;
+  overflow: hidden;
+  border: 0;
+  border-radius: 1.05rem;
+  background: var(--paper-soft);
 }
 
-.route-map--home-live .route-map__nav-marker-base {
-  fill: #ffffff;
-  stroke: rgba(39, 80, 146, 0.2);
-  stroke-width: 1.2;
+/* Degrade pose par-dessus le contenu plutot qu'un mask : le fondu rejoint
+   le blanc de la carte, sans dependre du fond herite.
+   En absolu pour ne pas devenir un item des maquettes en flex ou grid. */
+.process-mock::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 30%;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #ffffff 86%);
+  pointer-events: none;
 }
 
-.route-map--home-live .route-map__nav-marker-arrow {
-  fill: #3478f6;
-  stroke: #ffffff;
-  stroke-linejoin: round;
-  stroke-width: 1.6;
+/* ---------------------------------------------------------------------
+   Maquettes d'application (prefixe pm-)
+   Reprennent le vocabulaire de l'app Drive Lady : carte de trajet en
+   degrade prune, timeline a deux pastilles (depart blanc, arrivee corail)
+   et pastilles roses. Chaque maquette est une tranche d'ecran, calee en
+   haut, dont le bas passe sous le fondu de la carte.
+   --------------------------------------------------------------------- */
+
+.process-mock--profile,
+.process-mock--trip {
+  display: grid;
+  align-content: start;
+  gap: 0.65rem;
 }
 
-.route-map--home-live .route-map__status {
-  top: 0.38rem;
-  left: 0.38rem;
-  padding: 0.24rem 0.44rem;
+.process-mock--return {
+  display: grid;
+  align-content: start;
+  gap: 0.65rem;
+}
+
+/* Panneau blanc : l'unite de base des ecrans de l'app. */
+.pm-panel {
+  padding: 0.9rem 0.95rem;
+  border-radius: 0.8rem;
+  background: #ffffff;
+  box-shadow: 0 10px 24px -22px rgba(100, 42, 71, 0.55);
+}
+
+.pm-panel__label {
+  margin: 0 0 0.75rem;
   color: var(--pink-600);
-  font-size: 0.48rem;
-  font-weight: 900;
+  font-size: 0.6rem;
+  font-weight: 750;
+  letter-spacing: 0.13em;
+  line-height: 1;
+  text-transform: uppercase;
 }
 
-.route-map--home-live .route-map__eta {
-  top: 0.38rem;
-  right: 0.38rem;
-  min-width: 2.05rem;
-  padding: 0.2rem 0.3rem;
-  border-radius: 0.36rem;
+/* --- Identite (etape 01) ---
+   Volontairement en blanc : le degre prune est garde pour l'etape 03, ou
+   il marque l'aboutissement du parcours. */
+.pm-id {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.9rem 0.95rem;
+  border-radius: 0.8rem;
+  background: #ffffff;
+  color: #24171d;
+  box-shadow: 0 10px 24px -22px rgba(100, 42, 71, 0.55);
 }
 
-.route-map--home-live .route-map__eta strong {
+.pm-id__avatar {
+  width: 2.7rem;
+  height: 2.7rem;
+  flex: none;
+  border-radius: 999px;
+  border: 2px solid rgba(193, 136, 164, 0.4);
+  object-fit: cover;
+}
+
+.pm-id__body {
+  min-width: 0;
+  display: grid;
+  gap: 0.18rem;
+}
+
+.pm-id__body strong {
+  font-size: 0.98rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.pm-id__rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
+  color: #4a3641;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.pm-id__body small {
+  color: #8b7d86;
   font-size: 0.68rem;
 }
 
-.route-map--home-live .route-map__eta small,
-.route-map--home-live .route-map__callout,
-.route-map--home-live .route-map__sheet small {
-  font-size: 0.44rem;
+.pm-star {
+  width: 0.72rem;
+  height: 0.72rem;
+  flex: none;
+  fill: #e0a63f;
 }
 
-.route-map--home-live .route-map__callout--start {
-  top: 58%;
-  left: 8%;
+/* Sur le degrade prune, l'etoile reprend le ton clair de l'app. */
+.pm-trip .pm-star {
+  fill: #ffd8a8;
 }
 
-.route-map--home-live .route-map__sheet {
-  left: 0.38rem;
-  right: 0.38rem;
-  bottom: 0.34rem;
-  min-height: 1.58rem;
-  padding: 0.32rem 0.42rem;
-  border-radius: 0.5rem;
+/* --- Verification (etape 01) --- */
+.pm-check {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.62rem;
 }
 
-.route-map--home-live .route-map__sheet strong {
-  overflow: hidden;
-  font-size: 0.58rem;
-  text-overflow: ellipsis;
+.pm-check li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+}
+
+.pm-check span {
+  color: #3b2a33;
+  font-weight: 600;
+}
+
+.pm-check em {
+  color: var(--pink-600);
+  font-size: 0.64rem;
+  font-style: normal;
+  font-weight: 750;
+}
+
+.pm-check__icon {
+  width: 0.95rem;
+  height: 0.95rem;
+  fill: none;
+  stroke: #4c9a72;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.6;
+}
+
+/* Etat en attente : icone distincte, pas seulement une autre couleur. */
+.pm-check__icon--wait {
+  stroke: #b98a3d;
+  stroke-width: 2;
+}
+
+/* Libelle et etat tiennent sur une seule ligne : les corps sont calibres
+   sur les 215 px disponibles une fois l'icone et les gouttieres deduites. */
+.pm-check .is-pending span {
+  color: #6b6069;
+}
+
+.pm-check .is-pending em {
+  color: #a9803c;
+  font-size: 0.6rem;
   white-space: nowrap;
 }
 
-.route-map--home-live .route-map__sheet p {
+/* Seuls les tres petits ecrans ne peuvent pas tenir la ligne entiere :
+   l'etat y passe sous le libelle plutot que de couper celui-ci. */
+@media (max-width: 360px) {
+  .pm-check .is-pending {
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+      "icon  label"
+      ".     etat";
+    row-gap: 0.1rem;
+  }
+
+  .pm-check .is-pending .pm-check__icon {
+    grid-area: icon;
+  }
+
+  .pm-check .is-pending span {
+    grid-area: label;
+  }
+
+  .pm-check .is-pending em {
+    grid-area: etat;
+  }
+}
+
+/* --- Timeline de trajet : la signature --- */
+.pm-route {
+  position: relative;
+  display: grid;
+  gap: 0.68rem;
+}
+
+/* Le rail relie les deux pastilles sans dependre d'un element dedie. */
+.pm-route::before {
+  content: "";
+  position: absolute;
+  top: 0.42rem;
+  bottom: 0.42rem;
+  left: 0.24rem;
+  border-left: 1.5px solid rgba(142, 75, 109, 0.24);
+}
+
+.pm-route__stop {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 0.55rem;
+}
+
+.pm-route__dot {
+  width: 0.52rem;
+  height: 0.52rem;
+  align-self: center;
+  border-radius: 999px;
+}
+
+.pm-route__dot--start {
+  background: var(--pink-600);
+}
+
+.pm-route__dot--end {
+  background: var(--corail);
+}
+
+.pm-route__place {
   min-width: 0;
+  display: grid;
+  gap: 0.02rem;
 }
 
-.route-map--home-live .route-map__sheet small {
+.pm-route__place strong {
   overflow: hidden;
+  color: #24171d;
+  font-size: 0.84rem;
+  font-weight: 700;
+  line-height: 1.2;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.pm-route__place small {
+  color: #8b7d86;
+  font-size: 0.68rem;
+}
+
+.pm-route__time {
+  display: grid;
+  justify-items: end;
+  gap: 0.02rem;
+  text-align: right;
+}
+
+.pm-route__time strong {
+  color: #24171d;
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.pm-route__time small {
+  color: #8b7d86;
+  font-size: 0.64rem;
+}
+
+/* --- Historique de trajets (etape 01) --- */
+.pm-history {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.pm-history li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pm-history strong {
+  display: block;
+  overflow: hidden;
+  color: #24171d;
+  font-size: 0.73rem;
+  font-weight: 700;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pm-history small {
+  color: #8b7d86;
+  font-size: 0.62rem;
+}
+
+.pm-history em {
+  padding: 0.22rem 0.46rem;
+  border-radius: 999px;
+  color: #6b6069;
+  background: #f2eef1;
+  font-size: 0.6rem;
+  font-style: normal;
+  font-weight: 700;
+}
+
+/* --- Barre de prix (etape 02) ---
+   Reprend le bandeau de reservation de l'app, pose sous la carte. */
+.pm-price {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: 0.8rem;
+  background: #ffffff;
+  box-shadow: 0 10px 24px -22px rgba(100, 42, 71, 0.55);
+}
+
+.pm-price div {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.pm-price strong {
+  color: var(--pink-600);
+  font-size: 0.95rem;
+  font-weight: 750;
+}
+
+.pm-price small {
+  color: #8b7d86;
+  font-size: 0.64rem;
+}
+
+.pm-price em {
+  flex-basis: 100%;
+  color: var(--corail);
+  font-size: 0.61rem;
+  font-style: normal;
+  font-weight: 650;
+}
+
+.pm-price__cta {
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  color: #ffffff;
+  background: var(--pink-600);
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+/* Chevron de la carte de trajet, comme dans l'app. */
+.pm-chevron {
+  width: 0.85rem;
+  height: 0.85rem;
+  margin-left: auto;
+  flex: none;
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.72);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.4;
+}
+
+.pm-trip__head small {
+  display: block;
+  margin-top: 0.1rem;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.68rem;
+}
+
+/* --- Onglets de recherche (etape 02) ---
+   Reprennent les trois entrees du texte : chercher, demander, proposer. */
+.pm-tabs {
+  display: flex;
+  gap: 0.36rem;
+}
+
+.pm-tabs span {
+  padding: 0.4rem 0.7rem;
+  border-radius: 999px;
+  color: #8b7d86;
+  background: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 650;
+}
+
+.pm-tabs .is-active {
+  color: #ffffff;
+  background: var(--pink-600);
+}
+
+/* --- Liste des amies (etape 03) --- */
+.pm-friends {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.8rem;
+}
+
+.pm-friends li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.68rem;
+}
+
+.pm-friends img {
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 999px;
+  border: 1.5px solid rgba(193, 136, 164, 0.34);
+  object-fit: cover;
+}
+
+.pm-friends strong {
+  display: block;
+  margin-bottom: 0.1rem;
+  overflow: hidden;
+  color: #24171d;
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pm-friends small {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.22rem;
+  color: #8b7d86;
+  font-size: 0.67rem;
+}
+
+/* Etoile de note dans la liste : ton dore sur fond clair. */
+.pm-friends .pm-star {
+  width: 0.66rem;
+  height: 0.66rem;
+  fill: #e0a63f;
+}
+
+.pm-friends em {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.22rem;
+  padding: 0.26rem 0.5rem;
+  border: 1px solid rgba(193, 136, 164, 0.34);
+  border-radius: 999px;
+  color: var(--pink-600);
+  font-size: 0.62rem;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.pm-friends .is-added {
+  border-color: transparent;
+  color: #4c7a5f;
+  background: #eaf3ed;
+}
+
+.pm-friend__icon {
+  width: 0.7rem;
+  height: 0.7rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-width: 2.6;
+}
+
+.pm-friends .pm-check__icon {
+  width: 0.7rem;
+  height: 0.7rem;
+  stroke: #4c7a5f;
+}
+
+/* --- Ajout d'une amie par Ladycode (etape 03) --- */
+.pm-code {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.34rem 0.34rem 0.34rem 0.6rem;
+  border: 1.5px dashed rgba(193, 136, 164, 0.5);
+  border-radius: 0.65rem;
+  background: #fdf8fa;
+}
+
+.pm-code__value {
+  color: var(--pink-600);
+  font-size: 0.76rem;
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+}
+
+.pm-code__cta {
+  padding: 0.3rem 0.62rem;
+  border-radius: 999px;
+  color: #ffffff;
+  background: var(--pink-600);
+  font-size: 0.64rem;
+  font-weight: 700;
+}
+
+.pm-code__hint {
+  display: block;
+  margin-top: 0.45rem;
+  color: #8b7d86;
+  font-size: 0.62rem;
+  line-height: 1.35;
+}
+
+/* --- Pastilles de caracteristiques (etape 02) --- */
+.pm-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.42rem;
+}
+
+.pm-pills span {
+  padding: 0.38rem 0.66rem;
+  border-radius: 999px;
+  color: #6c304e;
+  background: #f7e8ef;
+  font-size: 0.7rem;
+  font-weight: 650;
+}
+
+/* --- Carte de trajet en degrade (etape 03) --- */
+/* Carte de trajet encastree dans la maquette, pas plein cadre : elle reste
+   un element parmi d'autres de l'ecran de recherche. */
+.pm-trip {
+  padding: 0.85rem 0.9rem;
+  display: grid;
+  align-content: start;
+  gap: 0.75rem;
+  border-radius: 0.9rem;
+  background: linear-gradient(152deg, #a5708d 0%, var(--pink-600) 62%, #7d3f5f 100%);
+  color: #ffffff;
+  box-shadow: 0 14px 30px -24px rgba(100, 42, 71, 0.8);
+}
+
+.pm-trip__head span {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.pm-trip__head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.pm-trip__head img {
+  width: 2.5rem;
+  height: 2.5rem;
+  flex: none;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  object-fit: cover;
+}
+
+.pm-trip__head strong {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.pm-trip__head span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+/* Sur le degrade, la timeline s'inverse : filet et textes en blanc. */
+.pm-trip .pm-route {
+  padding-top: 0.7rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.pm-trip .pm-route::before {
+  top: 1.04rem;
+  border-left-color: rgba(255, 255, 255, 0.34);
+}
+
+.pm-trip .pm-route__dot--start {
+  background: #ffffff;
+}
+
+.pm-trip .pm-route__place strong,
+.pm-trip .pm-route__time strong {
+  color: #ffffff;
+}
+
+.pm-trip .pm-route__place small,
+.pm-trip .pm-route__time small {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.pm-trip__meta {
+  display: flex;
+  gap: 1.05rem;
+  padding-top: 0.7rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.7rem;
+  font-weight: 600;
 }
 
 .route-map--trust {
@@ -9151,16 +9473,15 @@ main > .legal-hero:first-child {
     gap: 2.55rem;
   }
 
-  .process-steps::before {
-    display: none;
-  }
-
   .process-step {
     min-height: auto;
   }
 
+  /* La maquette s'etale en largeur sur mobile : moins haute, sinon la
+     carte 01, au contenu court, parait vide. */
   .process-mock {
-    min-height: 4.2rem;
+    height: 16.8rem;
+    min-height: 0;
   }
 
   .faq {

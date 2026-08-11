@@ -69,9 +69,14 @@
 .how-step-card { padding: 2rem; border-radius: 1.35rem; background: #fff; border: 1px solid rgba(236, 224, 230,.9); box-shadow: 0 20px 50px -40px rgba(136, 69, 103,.25); }
 .how-step-card__num { display: block; margin-bottom: 1.2rem; color: var(--pink-400); font-family: var(--font-title); font-size: 2.8rem; font-weight: 700; line-height: 1; letter-spacing: -0.04em; }
 .how-step-card h3 { margin: 0 0 .6rem; font-size: 1.2rem; font-weight: 700; }
-.how-step-card p { margin: 0; color: var(--muted); font-size: .93rem; line-height: 1.6; }
+/* Enfant direct uniquement : sinon la regle capture aussi les libelles des
+   maquettes pm-, qui heritaient de la taille et de la couleur du texte. */
+.how-step-card > p { margin: 0; color: var(--muted); font-size: .93rem; line-height: 1.6; }
 .how-step-card__pill { display: inline-block; margin-top: 1.2rem; padding: .3rem .75rem; border-radius: 999px; background: var(--pink-50); color: var(--pink-600); font-size: .8rem; font-weight: 600; }
 .how-step-card__mock { box-sizing: border-box; height: 10.9rem; margin-top: 1.5rem; padding: 1rem; border-radius: .9rem; background: var(--paper-soft); }
+/* Les maquettes reprennent celles de la home (prefixe pm-). Ici elles sont
+   posees en bas de carte : seules la hauteur et la marge changent. */
+.how-step-card .process-mock { height: 21.5rem; margin: 1.15rem 0 0; }
 .how-step-card__mock-row { height: .55rem; border-radius: 999px; background: linear-gradient(90deg,var(--pink-200),var(--pink-100)); margin-bottom: .5rem; }
 .how-step-card__mock-row:nth-child(2) { width: 70%; }
 .how-step-card__mock-row:nth-child(3) { width: 85%; }
@@ -353,7 +358,8 @@
 .partner-steps { padding: 5rem 7.8%; background: var(--section-cream); }
 .partner-steps__header { max-width: 44rem; margin-bottom: 3rem; }
 .partner-steps__header h2 { margin: .5rem 0 0; font-family: var(--font-title); font-size: clamp(1.6rem,2.5vw,2.4rem); font-weight: 700; letter-spacing: -0.02em; }
-.partner-steps__grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+/* 4 etapes : 2x2 plutot que 3 + 1 orpheline, et les textes respirent mieux. */
+.partner-steps__grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.5rem; }
 .partner-step { padding: 2rem; border-radius: 1.25rem; background: #fff; border: 1px solid rgba(236, 224, 230,.9); display: flex; flex-direction: column; gap: .75rem; }
 .partner-step__num { font-family: var(--font-title); font-size: 3rem; font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: var(--pink-400); }
 .partner-step h3 { margin: 0; font-size: 1.1rem; font-weight: 700; }
