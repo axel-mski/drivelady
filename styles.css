@@ -1,4 +1,19 @@
+/* Typographie de marque : Antique Olive pour les titres, Arimo pour le reste.
+   Une seule graisse est fournie : la plage 100-900 evite les faux gras. */
+@font-face {
+  font-family: "Antique Olive";
+  src:
+    url("./assets/fonts/antique-olive-bold.woff2") format("woff2"),
+    url("./assets/fonts/antique-olive-bold.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
+  --font-title: "Antique Olive", "Arimo", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Arimo", "Segoe UI", system-ui, sans-serif;
+
   /* Palette de marque
      Principales : prune + ivoire/blanc — Secondaires : lilas + corail */
   --prune: #8e4b6d;
@@ -460,7 +475,7 @@
 .local-app button,
 .local-app input,
 .local-app select {
-  font-family: "Arimo", "Segoe UI", system-ui, sans-serif;
+  font-family: var(--font-body);
 }
 
 .local-nav,
@@ -554,8 +569,18 @@ body {
   margin: 0;
   color: var(--ink);
   background: var(--shell);
-  font-family: "Arimo", "Segoe UI", system-ui, sans-serif;
+  font-family: var(--font-body);
   letter-spacing: 0;
+}
+
+/* Tous les titres en Antique Olive, quel que soit le niveau. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-title);
 }
 
 a {
@@ -785,7 +810,7 @@ body.has-workshop-popup {
   max-width: 18rem;
   margin: 0 0 1.35rem;
   color: #793a5a;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-title);
   font-size: clamp(1.85rem, 3vw, 2.08rem);
   font-weight: 400;
   line-height: 1.16;
@@ -1715,7 +1740,7 @@ main > section:first-child {
   z-index: 1;
   margin: 0;
   color: var(--pink-600);
-  font-family: "Antique Olive", "DM Sans", "Segoe UI", system-ui, sans-serif;
+  font-family: var(--font-title);
   font-size: 3.95rem;
   line-height: 1.08;
   font-weight: 700;
@@ -3135,7 +3160,7 @@ main > section:first-child {
 .faq h2 {
   margin: 0.45rem 0 0;
   color: var(--pink-600);
-  font-family: "Arimo", "Segoe UI", system-ui, sans-serif;
+  font-family: var(--font-title);
   font-size: 2.8rem;
   line-height: 1.12;
   font-weight: 700;
@@ -3156,7 +3181,7 @@ main > section:first-child {
 .journeys__header h2 {
   max-width: 42rem;
   color: var(--pink-600);
-  font-family: "Arimo", "Segoe UI", system-ui, sans-serif;
+  font-family: var(--font-title);
   font-size: clamp(2.15rem, 3.5vw, 3.05rem);
   font-weight: 700;
   line-height: 1.08;
@@ -4587,7 +4612,7 @@ main > section:first-child {
   max-width: 43rem;
   margin: 0;
   color: var(--pink-600);
-  font-family: "Arimo", "Segoe UI", system-ui, sans-serif;
+  font-family: var(--font-title);
   font-size: clamp(2.2rem, 3.9vw, 3.35rem);
   font-weight: 700;
   line-height: 1.08;
@@ -4655,7 +4680,7 @@ main > section:first-child {
 
 .partners__stats dt {
   color: #1b1320;
-  font-family: "Antique Olive", "DM Sans", "Segoe UI", system-ui, sans-serif;
+  font-family: var(--font-title);
   font-size: clamp(1.9rem, 2.7vw, 2.35rem);
   font-weight: 700;
   line-height: 1;
@@ -5337,7 +5362,7 @@ main > .contact-hero:first-child {
   max-width: 48rem;
   margin: 0;
   color: var(--ink);
-  font-family: "Antique Olive", "DM Sans", "Arimo", sans-serif;
+  font-family: var(--font-title);
   font-size: clamp(3rem, 7vw, 6.6rem);
   line-height: 0.92;
   letter-spacing: 0;
@@ -5533,7 +5558,7 @@ main > .contact-hero:first-child {
 .dl-product-translation h2 {
   margin: 0.55rem 0 0;
   color: var(--ink);
-  font-family: "Antique Olive", "DM Sans", "Arimo", sans-serif;
+  font-family: var(--font-title);
   font-size: clamp(2rem, 3.3vw, 3.25rem);
   line-height: 1;
   letter-spacing: 0;
@@ -5975,7 +6000,7 @@ main > .contact-hero:first-child {
 .dl-custom-page h2 {
   margin: 0;
   color: var(--ink);
-  font-family: "Antique Olive", "DM Sans", "Arimo", sans-serif;
+  font-family: var(--font-title);
   letter-spacing: 0;
 }
 
@@ -10158,7 +10183,7 @@ h1,
 .local-app .local-detail-main h1,
 .local-app .local-results__bar h1,
 .local-app[data-view="map"] .local-results__bar h1 {
-  font-family: "Antique Olive", "DM Sans", "Segoe UI", system-ui, sans-serif;
+  font-family: var(--font-title);
   font-weight: 700;
   letter-spacing: -0.03em;
 }

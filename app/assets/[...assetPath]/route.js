@@ -9,6 +9,9 @@ const CONTENT_TYPES = new Map([
   [".png", "image/png"],
   [".svg", "image/svg+xml; charset=utf-8"],
   [".webp", "image/webp"],
+  [".woff2", "font/woff2"],
+  [".woff", "font/woff"],
+  [".ttf", "font/ttf"],
 ]);
 
 export async function GET(_request, { params }) {

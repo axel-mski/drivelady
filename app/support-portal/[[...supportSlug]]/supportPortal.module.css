@@ -17,7 +17,7 @@
   background:
     linear-gradient(180deg, #fdfcfa 0%, #fbfaf8 34%, #fbf9f6 100%);
   color: var(--support-ink);
-  font-family: "Arimo", "Segoe UI", system-ui, sans-serif;
+  font-family: var(--font-body);
 }
 
 .supportApp *,
@@ -86,7 +86,7 @@
   gap: 10px;
   min-height: 54px;
   color: var(--support-ink);
-  font-family: "Antique Olive", "DM Sans", "Segoe UI", system-ui, sans-serif;
+  font-family: var(--font-title);
   font-size: 23px;
   font-weight: 800;
   line-height: 1;
@@ -178,7 +178,7 @@
   max-width: 720px;
   margin: 0;
   color: var(--support-rose-strong);
-  font-family: "Antique Olive", "DM Sans", "Segoe UI", system-ui, sans-serif;
+  font-family: var(--font-title);
   font-size: clamp(2.15rem, 4.2vw, 4rem);
   font-weight: 800;
   line-height: 1.06;
@@ -288,7 +288,7 @@
   max-width: 650px;
   margin: 0.25rem 0 0.45rem;
   color: var(--support-ink);
-  font-family: "Antique Olive", "DM Sans", "Segoe UI", system-ui, sans-serif;
+  font-family: var(--font-title);
   font-size: clamp(1.35rem, 2.2vw, 2rem);
   line-height: 1.12;
   letter-spacing: 0;
@@ -383,7 +383,7 @@
 
 .categoryTile span:last-child {
   color: var(--support-ink);
-  font-family: "Antique Olive", "DM Sans", "Segoe UI", system-ui, sans-serif;
+  font-family: var(--font-title);
   font-size: 1.08rem;
   font-weight: 900;
   line-height: 1.16;
@@ -506,7 +506,7 @@
 .categoryTitleRow h1 {
   margin: 0;
   color: var(--support-ink);
-  font-family: "Antique Olive", "DM Sans", "Segoe UI", system-ui, sans-serif;
+  font-family: var(--font-title);
   font-size: clamp(1.7rem, 2.5vw, 2.25rem);
   font-weight: 900;
   line-height: 1.12;
@@ -534,7 +534,7 @@
   min-height: 54px;
   padding: 0.9rem 1rem;
   color: var(--support-ink);
-  font-family: "Antique Olive", "DM Sans", "Segoe UI", system-ui, sans-serif;
+  font-family: var(--font-title);
   font-size: 1.16rem;
   font-weight: 900;
   line-height: 1.2;
@@ -602,7 +602,7 @@
 .articleContent h1 {
   margin: 0 0 1rem;
   color: var(--support-ink);
-  font-family: "Antique Olive", "DM Sans", "Segoe UI", system-ui, sans-serif;
+  font-family: var(--font-title);
   font-size: clamp(2rem, 3.2vw, 3rem);
   font-weight: 800;
   line-height: 1.08;
@@ -612,7 +612,7 @@
 .articleContent h2 {
   margin: 1.2rem 0 0.45rem;
   color: var(--support-ink);
-  font-family: "Antique Olive", "DM Sans", "Segoe UI", system-ui, sans-serif;
+  font-family: var(--font-title);
   font-size: 1.35rem;
   font-weight: 900;
   line-height: 1.18;
@@ -1254,7 +1254,7 @@
 .chatbotIntro h2 {
   margin: 0;
   color: var(--support-plum);
-  font-family: "Antique Olive", "DM Sans", "Segoe UI", system-ui, sans-serif;
+  font-family: var(--font-title);
   font-size: 1.55rem;
   line-height: 1.12;
   letter-spacing: 0;
