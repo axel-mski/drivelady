@@ -757,6 +757,193 @@ img {
   rotate: 90deg;
 }
 
+/* Carte signature de l'agence : charte Scaly (papier, encre, rouge #ff1616,
+   boutons rouge et verre), en bas a droite, refermable. */
+.scaly-card {
+  position: fixed;
+  right: 1.6rem;
+  bottom: 1.6rem;
+  z-index: 90;
+  width: 23.5rem;
+  max-width: calc(100vw - 3.2rem);
+  padding: 1.15rem 1.15rem 1.25rem;
+  border-radius: 1.25rem;
+  color: #171418;
+  background: #fdfbf8;
+  box-shadow:
+    0 0 0 1px rgba(52, 29, 41, 0.06),
+    0 2px 4px rgba(52, 29, 41, 0.04),
+    0 12px 32px rgba(52, 29, 41, 0.06),
+    0 32px 64px rgba(52, 29, 41, 0.05);
+  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(0.7rem);
+  transition: opacity 0.32s var(--ease), transform 0.32s var(--ease);
+}
+
+.scaly-card.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.scaly-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.scaly-card__logo {
+  width: auto;
+  height: 1.55rem;
+  display: block;
+}
+
+.scaly-card__text {
+  margin: 0.9rem 0 0;
+  color: rgba(23, 20, 24, 0.62);
+  font-size: 0.86rem;
+  line-height: 1.6;
+}
+
+.scaly-card__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 1.15rem;
+}
+
+.scaly-card__button,
+.scaly-card__ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.58rem 0.9rem;
+  border-radius: 0.9rem;
+  font-size: 0.82rem;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: transform 0.3s var(--ease), filter 0.3s var(--ease);
+}
+
+/* Bouton rouge Scaly : degrade de surface + halo. */
+.scaly-card__button {
+  color: #ffffff;
+  background:
+    radial-gradient(
+      ellipse 95% 115% at 50% -36%,
+      rgba(255, 255, 255, 0.23) 0%,
+      rgba(255, 255, 255, 0.105) 31%,
+      rgba(255, 255, 255, 0) 66%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.085) 0%,
+      rgba(255, 255, 255, 0.018) 44%,
+      rgba(130, 0, 0, 0.05) 100%
+    ),
+    #ff1616;
+  font-weight: 600;
+  box-shadow:
+    inset 0 -1px rgba(0, 0, 0, 0.2),
+    inset 0 1px rgba(255, 255, 255, 0.25),
+    0 8px 16px rgba(255, 22, 22, 0.08),
+    0 0 50px rgba(255, 22, 22, 0.12);
+}
+
+/* Bouton verre Scaly : fond blanc degrade, filet a 12 %. */
+.scaly-card__ghost {
+  color: #341d29;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.62) 0%, rgba(52, 29, 41, 0.04) 100%),
+    rgba(52, 29, 41, 0.05);
+  font-weight: 500;
+  box-shadow:
+    inset 0 0 0 1px rgba(52, 29, 41, 0.12),
+    0 10px 24px rgba(52, 29, 41, 0.05);
+}
+
+.scaly-card__button:hover,
+.scaly-card__button:focus-visible,
+.scaly-card__ghost:hover,
+.scaly-card__ghost:focus-visible {
+  transform: translateY(-1px);
+  filter: brightness(1.03);
+}
+
+.scaly-card__button:active,
+.scaly-card__ghost:active {
+  transform: translateY(1px);
+}
+
+.scaly-card__button span,
+.scaly-card__ghost span {
+  transition: transform 0.3s var(--ease);
+}
+
+.scaly-card__button:hover span {
+  transform: translateX(0.15rem);
+}
+
+.scaly-card__ghost:hover span {
+  transform: translate(0.1rem, -0.1rem);
+}
+
+.scaly-card__close {
+  width: 1.6rem;
+  height: 1.6rem;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  border: 0;
+  border-radius: 0.625rem;
+  color: rgba(23, 20, 24, 0.45);
+  background: transparent;
+  transition: color 0.18s var(--ease), background 0.18s var(--ease);
+}
+
+.scaly-card__close:hover,
+.scaly-card__close:focus-visible {
+  color: #171418;
+  background: rgba(52, 29, 41, 0.06);
+}
+
+.scaly-card__close span,
+.scaly-card__close span::before {
+  width: 0.7rem;
+  height: 2px;
+  display: block;
+  border-radius: 999px;
+  background: currentColor;
+}
+
+.scaly-card__close span {
+  position: relative;
+  rotate: 45deg;
+}
+
+.scaly-card__close span::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  rotate: 90deg;
+}
+
+@media (max-width: 899px) {
+  .scaly-card {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scaly-card {
+    transform: none;
+    transition: opacity 0.01s linear;
+  }
+}
+
 .page-stage {
   min-height: 100vh;
   overflow: visible;
@@ -3895,7 +4082,8 @@ main > section:first-child {
 }
 
 /* --- Onglets de recherche (etape 02) ---
-   Reprennent les trois entrees du texte : chercher, demander, proposer. */
+   Reprennent les entrees du texte : chercher, proposer. L'onglet "Demander"
+   revient a la sortie de l'app. */
 .pm-tabs {
   display: flex;
   gap: 0.36rem;
@@ -4000,7 +4188,8 @@ main > section:first-child {
   stroke: #4c7a5f;
 }
 
-/* --- Ajout d'une amie par Ladycode (etape 03) --- */
+/* --- Ajout d'une amie par Ladycode (etape 03) ---
+   Styles conserves : la maquette revient a la sortie de l'app. */
 .pm-code {
   display: flex;
   align-items: center;

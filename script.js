@@ -16,12 +16,15 @@ const appHost = "app.localhost";
 const defaultAppPort = "5173";
 const defaultRideTime = "22:30";
 const announcementDismissKey = "drive-lady-announcement-dismissed-v1";
+const scalyCardDismissKey = "drive-lady-scaly-card-dismissed-v1";
+const scalyCardDelay = 3600;
 let activeSchedulePicker = null;
 let schedulePickerGlobalsBound = false;
 const appMode = renderLocalAppIfNeeded();
 
 if (!appMode) {
 initAnnouncementBanner();
+initScalyCard();
 
 const setHeaderState = () => {
   if (!header) return;
@@ -337,6 +340,74 @@ function persistAnnouncementDismissal() {
     window.localStorage.setItem(announcementDismissKey, "true");
   } catch {
     // The banner should still close when storage is unavailable.
+  }
+}
+
+function initScalyCard() {
+  if (document.querySelector("[data-scaly-card]") || isScalyCardDismissed()) return;
+  if (!window.matchMedia("(min-width: 900px)").matches) return;
+
+  const fromScaly = isVisitFromScaly();
+  const card = document.createElement("aside");
+  card.className = "scaly-card";
+  card.dataset.scalyCard = "";
+  card.setAttribute("aria-label", "Scaly, l'agence qui a réalisé ce site");
+  card.innerHTML = `
+    <div class="scaly-card__head">
+      <img class="scaly-card__logo" src="/assets/scaly-logo.svg" alt="Scaly" width="133" height="41" />
+      <button class="scaly-card__close" type="button" aria-label="Fermer">
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+    <p class="scaly-card__text">${
+      fromScaly
+        ? "Vous arrivez depuis scaly.co : Drive Lady fait partie de nos r&eacute;alisations. Prenez le temps de le parcourir."
+        : "Ce site a &eacute;t&eacute; con&ccedil;u et d&eacute;velopp&eacute; par Scaly, agence digitale, du premier &eacute;cran jusqu&rsquo;&agrave; la mise en ligne."
+    }</p>
+    <div class="scaly-card__actions">
+      <a class="scaly-card__button" href="https://scaly.co" target="_blank" rel="noreferrer noopener">${
+        fromScaly ? "Revenir sur Scaly" : "D&eacute;couvrir Scaly"
+      } <span aria-hidden="true">&rarr;</span></a>
+      <a class="scaly-card__ghost" href="https://scaly.co/contact" target="_blank" rel="noreferrer noopener">R&eacute;server un appel <span aria-hidden="true">&#8599;</span></a>
+    </div>
+  `;
+
+  const revealTimeout = window.setTimeout(() => card.classList.add("is-visible"), scalyCardDelay);
+
+  card.querySelector(".scaly-card__close")?.addEventListener("click", () => {
+    window.clearTimeout(revealTimeout);
+    persistScalyCardDismissal();
+    card.classList.remove("is-visible");
+    window.setTimeout(() => card.remove(), 240);
+  });
+
+  document.body.appendChild(card);
+}
+
+/** Le site Scaly marque ses liens sortants avec ?from_scaly. */
+function isVisitFromScaly() {
+  try {
+    if (new URLSearchParams(window.location.search).has("from_scaly")) return true;
+    const referrerHost = document.referrer ? new URL(document.referrer).hostname : "";
+    return /(^|\.)scaly\.co$/.test(referrerHost);
+  } catch {
+    return false;
+  }
+}
+
+function isScalyCardDismissed() {
+  try {
+    return window.localStorage.getItem(scalyCardDismissKey) === "true";
+  } catch {
+    return false;
+  }
+}
+
+function persistScalyCardDismissal() {
+  try {
+    window.localStorage.setItem(scalyCardDismissKey, "true");
+  } catch {
+    // The card should still close when storage is unavailable.
   }
 }
 
