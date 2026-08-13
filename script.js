@@ -343,11 +343,13 @@ function persistAnnouncementDismissal() {
   }
 }
 
+// La carte n'est montree qu'aux visiteurs arrivant de scaly.co : c'est la
+// condition prevue au contrat de cession, elle reste invisible pour les autres.
 function initScalyCard() {
   if (document.querySelector("[data-scaly-card]") || isScalyCardDismissed()) return;
+  if (!isVisitFromScaly()) return;
   if (!window.matchMedia("(min-width: 900px)").matches) return;
 
-  const fromScaly = isVisitFromScaly();
   const card = document.createElement("aside");
   card.className = "scaly-card";
   card.dataset.scalyCard = "";
@@ -359,15 +361,9 @@ function initScalyCard() {
         <span aria-hidden="true"></span>
       </button>
     </div>
-    <p class="scaly-card__text">${
-      fromScaly
-        ? "Vous arrivez depuis scaly.co : Drive Lady fait partie de nos r&eacute;alisations. Prenez le temps de le parcourir."
-        : "Ce site a &eacute;t&eacute; con&ccedil;u et d&eacute;velopp&eacute; par Scaly, agence digitale, du premier &eacute;cran jusqu&rsquo;&agrave; la mise en ligne."
-    }</p>
+    <p class="scaly-card__text">Vous arrivez depuis scaly.co : Drive Lady fait partie de nos r&eacute;alisations. Prenez le temps de le parcourir.</p>
     <div class="scaly-card__actions">
-      <a class="scaly-card__button" href="https://scaly.co" target="_blank" rel="noreferrer noopener">${
-        fromScaly ? "Revenir sur Scaly" : "D&eacute;couvrir Scaly"
-      } <span aria-hidden="true">&rarr;</span></a>
+      <a class="scaly-card__button" href="https://scaly.co" target="_blank" rel="noreferrer noopener">Revenir sur Scaly <span aria-hidden="true">&rarr;</span></a>
       <a class="scaly-card__ghost" href="https://scaly.co/contact" target="_blank" rel="noreferrer noopener">R&eacute;server un appel <span aria-hidden="true">&#8599;</span></a>
     </div>
   `;
