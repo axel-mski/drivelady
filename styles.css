@@ -4465,6 +4465,7 @@ main > section:first-child {
 .trust-mock__profile,
 .trust-mock__share,
 .trust-mock__watchers,
+.trust-thread,
 .trust-report,
 .trust-rating {
   border-radius: 0.72rem;
@@ -4481,6 +4482,7 @@ main > section:first-child {
 
 .trust-mock__profile > span,
 .trust-mock__watchers span,
+.trust-thread__msg > span,
 .trust-rating__avatar,
 .trust-report span {
   width: 2rem;
@@ -4566,6 +4568,32 @@ main > section:first-child {
 .trust-mock__watchers strong {
   margin-left: 0.45rem;
   font-size: 0.78rem;
+}
+
+/* Fil de discussion de l'etape « En route » : la messagerie interne remplace
+   la carte de navigation, qui n'existe pas dans l'app. */
+.trust-thread {
+  padding: 0.85rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.trust-thread__msg {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 0.65rem;
+  align-items: start;
+}
+
+.trust-thread__msg--self > span {
+  background: #4cc5a1;
+}
+
+.trust-thread__msg em {
+  color: var(--trust-muted);
+  font-size: 0.68rem;
+  font-style: normal;
+  font-weight: 650;
 }
 
 .trust-mock__sos {
