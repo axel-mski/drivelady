@@ -5,6 +5,7 @@ import "../pages.css";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 
 // Base absolue necessaire pour que l'image d'apercu soit servie avec une URL
 // complete : les crawlers (WhatsApp, Facebook, X) rejettent les URL relatives.
@@ -57,7 +58,7 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         {children}
-        <CookieBanner gaId={GA_ID} />
+        <CookieBanner gaId={GA_ID} gtmId={GTM_ID} />
         <Script src="/site-script.js" strategy="afterInteractive" />
       </body>
     </html>

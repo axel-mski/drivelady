@@ -64,7 +64,8 @@ function deleteGoogleAnalyticsCookies() {
           name === "_gid" ||
           name === "_gat" ||
           name.startsWith("_ga_") ||
-          name.startsWith("_gat_")),
+          name.startsWith("_gat_") ||
+          name.startsWith("_gcl_")),
     );
 
   const expires = "Thu, 01 Jan 1970 00:00:00 GMT";
@@ -97,6 +98,68 @@ function removeGoogleAnalyticsScripts(gaId) {
   });
 }
 
+function removeGoogleTagManagerScripts(gtmId) {
+  if (typeof document === "undefined") return;
+
+  document.querySelectorAll("script[data-drive-lady-gtm]").forEach((script) => {
+    if (script.dataset.driveLadyGtm === gtmId) {
+      script.remove();
+    }
+  });
+
+  document.querySelectorAll('script[src*="googletagmanager.com/gtm.js"]').forEach((script) => {
+    const source = script.getAttribute("src") || "";
+    if (source.includes(`id=${gtmId}`) || source.includes(`id=${encodeURIComponent(gtmId)}`)) {
+      script.remove();
+    }
+  });
+}
+
+function ensureGoogleTagStub() {
+  window.dataLayer = window.dataLayer || [];
+  window.gtag =
+    window.gtag ||
+    function gtag() {
+      // Google Tag expects the native arguments object here.
+      // eslint-disable-next-line prefer-rest-params
+      window.dataLayer?.push(arguments);
+    };
+}
+
+// Le conteneur GTM n'est injecte qu'apres accord explicite : tant que le
+// visiteur n'a pas accepte, aucune requete Google n'est emise et aucun cookie
+// n'est depose. Le consentement par defaut est pose avant tout chargement,
+// pour que les balises du conteneur qui verifient le consent mode le voient.
+function loadGoogleTagManager(gtmId, consent) {
+  if (typeof window === "undefined" || typeof document === "undefined") return;
+
+  ensureGoogleTagStub();
+  window.gtag("consent", "default", consentPayload(consent));
+
+  if (consent !== "granted") {
+    deleteGoogleAnalyticsCookies();
+    return;
+  }
+
+  if (document.querySelector(`script[data-drive-lady-gtm="${gtmId}"]`)) return;
+
+  window.dataLayer.push({ "gtm.start": Date.now(), event: "gtm.js" });
+
+  const script = document.createElement("script");
+  script.async = true;
+  script.src = `https://www.googletagmanager.com/gtm.js?id=${encodeURIComponent(gtmId)}`;
+  script.dataset.driveLadyGtm = gtmId;
+  document.head.appendChild(script);
+}
+
+function disableGoogleTagManager(gtmId) {
+  applyConsent("denied");
+  removeGoogleTagManagerScripts(gtmId);
+  deleteGoogleAnalyticsCookies();
+  window.setTimeout(deleteGoogleAnalyticsCookies, 250);
+  window.setTimeout(deleteGoogleAnalyticsCookies, 1000);
+}
+
 function setGoogleAnalyticsDisabled(gaId, disabled) {
   if (typeof window === "undefined") return;
   window[`ga-disable-${gaId}`] = disabled;
@@ -120,13 +183,7 @@ function trackGoogleAnalyticsPageView(gaId, force = false) {
   window.__driveLadyGaPreviousPageLocation = pageLocation;
 }
 
-function disableGoogleAnalytics(gaId) {
-  setGoogleAnalyticsDisabled(gaId, true);
-  applyConsent("denied");
-  deleteGoogleAnalyticsCookies();
-  window.setTimeout(deleteGoogleAnalyticsCookies, 250);
-  window.setTimeout(deleteGoogleAnalyticsCookies, 1000);
-  removeGoogleAnalyticsScripts(gaId);
+function resetGoogleTagState() {
   window.__driveLadyGaConfigured = false;
   window.__driveLadyGaLastPageView = undefined;
   window.__driveLadyGaPreviousPageLocation = undefined;
@@ -134,18 +191,20 @@ function disableGoogleAnalytics(gaId) {
   window.gtag = undefined;
 }
 
+function disableGoogleAnalytics(gaId) {
+  setGoogleAnalyticsDisabled(gaId, true);
+  applyConsent("denied");
+  deleteGoogleAnalyticsCookies();
+  window.setTimeout(deleteGoogleAnalyticsCookies, 250);
+  window.setTimeout(deleteGoogleAnalyticsCookies, 1000);
+  removeGoogleAnalyticsScripts(gaId);
+  resetGoogleTagState();
+}
+
 function loadGoogleAnalytics(gaId, consent) {
   if (typeof window === "undefined" || typeof document === "undefined") return;
 
-  window.dataLayer = window.dataLayer || [];
-  window.gtag =
-    window.gtag ||
-    function gtag() {
-      // Google Tag expects the native arguments object here.
-      // eslint-disable-next-line prefer-rest-params
-      window.dataLayer?.push(arguments);
-    };
-
+  ensureGoogleTagStub();
   setGoogleAnalyticsDisabled(gaId, consent === "denied");
   window.gtag("consent", "default", consentPayload(consent));
 
@@ -239,20 +298,21 @@ function CookieGlyph({ size = 18 }) {
   );
 }
 
-export default function CookieBanner({ gaId }) {
+export default function CookieBanner({ gaId, gtmId }) {
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
   const [bannerOpen, setBannerOpen] = useState(false);
 
   useEffect(() => {
     const saved = safeStorageGet(STORAGE_KEY);
+    const consent = saved === "granted" ? "granted" : "denied";
 
     if (gaId) {
-      if (saved === "granted") {
-        loadGoogleAnalytics(gaId, "granted");
-      } else {
-        loadGoogleAnalytics(gaId, "denied");
-      }
+      loadGoogleAnalytics(gaId, consent);
+    }
+
+    if (gtmId) {
+      loadGoogleTagManager(gtmId, consent);
     }
 
     const defer = typeof queueMicrotask === "function" ? queueMicrotask : (callback) => window.setTimeout(callback, 0);
@@ -260,7 +320,7 @@ export default function CookieBanner({ gaId }) {
       setMounted(true);
       setBannerOpen(saved === null && !isCookieBannerDismissed() && !isMobileCookieViewport());
     });
-  }, [gaId]);
+  }, [gaId, gtmId]);
 
   useEffect(() => {
     if (!mounted || !gaId || safeStorageGet(STORAGE_KEY) !== "granted") return;
@@ -272,13 +332,15 @@ export default function CookieBanner({ gaId }) {
   const saveAndClose = (value) => {
     safeStorageSet(STORAGE_KEY, value);
 
-    if (gaId) {
-      if (value === "granted") {
-        loadGoogleAnalytics(gaId, "granted");
-        applyConsent("granted");
-      } else {
-        disableGoogleAnalytics(gaId);
-      }
+    if (value === "granted") {
+      if (gaId) loadGoogleAnalytics(gaId, "granted");
+      if (gtmId) loadGoogleTagManager(gtmId, "granted");
+      applyConsent("granted");
+    } else {
+      // GTM d'abord : disableGoogleAnalytics libere window.gtag a la fin.
+      if (gtmId) disableGoogleTagManager(gtmId);
+      if (gaId) disableGoogleAnalytics(gaId);
+      else if (gtmId) resetGoogleTagState();
     }
 
     setBannerOpen(false);
