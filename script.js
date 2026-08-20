@@ -531,7 +531,7 @@ async function handleContactSubmit(event) {
       formData.set("captchaToken", captchaToken);
     }
 
-    const response = await fetch(form.action || "/api/contact", {
+    const response = await fetch(form.action || "/api/contact/", {
       method: "POST",
       body: formData,
       headers: {

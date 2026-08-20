@@ -2,6 +2,7 @@ import path from "node:path";
 import { readFile } from "node:fs/promises";
 import { notFound } from "next/navigation";
 import { ROUTES, routePath } from "../site-routes";
+import { OPEN_GRAPH_BASE } from "../site-meta";
 
 export const dynamicParams = false;
 
@@ -14,13 +15,19 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }) {
   const routeKey = await getRouteKey(params);
   const html = await readRouteHtml(routeKey);
+  const canonical = routePath(routeKey);
+  const title = extractTitle(html) || "Drive Lady";
+  const description = extractDescription(html);
 
   return {
-    title: extractTitle(html) || "Drive Lady",
-    description: extractDescription(html),
-    // Canonique sans parametre de requete : /contact?sujet=... est la meme
-    // page que /contact, sinon chaque sujet est indexe comme un doublon.
-    alternates: { canonical: routePath(routeKey) },
+    title,
+    description,
+    // Canonique sans parametre de requete : /contact/?sujet=... est la meme
+    // page que /contact/, sinon chaque sujet est indexe comme un doublon.
+    alternates: { canonical },
+    // OPEN_GRAPH_BASE doit etre repris ici : des qu'une page definit
+    // openGraph, Next remplace celui du layout au lieu de le completer.
+    openGraph: { ...OPEN_GRAPH_BASE, url: canonical, title, description },
   };
 }
 
@@ -135,11 +142,11 @@ function normalizeUrl(url) {
   }
 
   if (cleanUrl === "contact.html") {
-    return "/contact";
+    return "/contact/";
   }
 
   if (cleanUrl.startsWith("contact.html#")) {
-    return `/contact${cleanUrl.slice("contact.html".length)}`;
+    return `/contact/${cleanUrl.slice("contact.html".length)}`;
   }
 
   const routeKey = cleanUrl.replace(/\/index\.html$/, "").replace(/\/$/, "");

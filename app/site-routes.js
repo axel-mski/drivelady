@@ -79,7 +79,7 @@ function discoverRoutes(seedRoutes) {
 
 export const ROUTES = discoverRoutes(STATIC_ROUTES);
 
-// Forme canonique servie par Next : pas de slash final, sauf la racine.
+// Forme canonique servie par Next : slash final (trailingSlash active).
 export function routePath(routeKey) {
-  return routeKey ? `/${routeKey}` : "/";
+  return routeKey ? `/${routeKey}/` : "/";
 }

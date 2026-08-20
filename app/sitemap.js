@@ -1,10 +1,5 @@
 import { ROUTES, routePath } from "./site-routes";
-
-const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ||
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : "https://www.drivelady.fr");
+import { SITE_URL } from "./site-meta";
 
 // Genere depuis la meme liste de routes que les pages : toute page ajoutee
 // au site apparait dans le sitemap sans intervention.
