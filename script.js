@@ -417,6 +417,7 @@ function initContactForms() {
 
   contactForms.forEach((form) => {
     form.addEventListener("submit", handleContactSubmit);
+    form.addEventListener("focusin", loadRecaptchaScript, { once: true });
   });
 
   const params = new URLSearchParams(window.location.search);
@@ -457,6 +458,48 @@ function setContactTopic(topic) {
   });
 }
 
+function getRecaptchaSiteKey() {
+  return document.querySelector('meta[name="recaptcha-site-key"]')?.content || "";
+}
+
+let recaptchaScriptPromise = null;
+
+function loadRecaptchaScript() {
+  const siteKey = getRecaptchaSiteKey();
+  if (!siteKey) return Promise.resolve(null);
+  if (recaptchaScriptPromise) return recaptchaScriptPromise;
+
+  recaptchaScriptPromise = new Promise((resolve) => {
+    if (window.grecaptcha) {
+      window.grecaptcha.ready(() => resolve(window.grecaptcha));
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.src = `https://www.google.com/recaptcha/api.js?render=${encodeURIComponent(siteKey)}`;
+    script.async = true;
+    script.onload = () => window.grecaptcha.ready(() => resolve(window.grecaptcha));
+    script.onerror = () => resolve(null);
+    document.head.appendChild(script);
+  });
+
+  return recaptchaScriptPromise;
+}
+
+async function getRecaptchaToken() {
+  const siteKey = getRecaptchaSiteKey();
+  if (!siteKey) return "";
+
+  try {
+    const grecaptcha = await loadRecaptchaScript();
+    if (!grecaptcha) return "";
+
+    return await grecaptcha.execute(siteKey, { action: "submit" });
+  } catch {
+    return "";
+  }
+}
+
 async function handleContactSubmit(event) {
   event.preventDefault();
 
@@ -479,6 +522,13 @@ async function handleContactSubmit(event) {
       submitButton.disabled = true;
       submitButton.dataset.originalText = submitButton.textContent || "";
       submitButton.textContent = "Envoi en cours...";
+    }
+
+    formData.set("source", `${window.location.host}${window.location.pathname}`);
+
+    const captchaToken = await getRecaptchaToken();
+    if (captchaToken) {
+      formData.set("captchaToken", captchaToken);
     }
 
     const response = await fetch(form.action || "/api/contact", {

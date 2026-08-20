@@ -4,6 +4,7 @@ import "../styles.css";
 import "../pages.css";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
 // Base absolue necessaire pour que l'image d'apercu soit servie avec une URL
 // complete : les crawlers (WhatsApp, Facebook, X) rejettent les URL relatives.
@@ -45,6 +46,7 @@ export default function RootLayout({ children }) {
     <html lang="fr">
       <head>
         <link rel="icon" href="/assets/drive-lady-app-icon.png" />
+        {RECAPTCHA_SITE_KEY ? <meta name="recaptcha-site-key" content={RECAPTCHA_SITE_KEY} /> : null}
         <link rel="apple-touch-icon" href="/assets/drive-lady-app-icon.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />

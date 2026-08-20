@@ -1,6 +1,7 @@
 const DEFAULT_RECIPIENT = "contact@drivelady.fr";
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
 const RATE_LIMIT_MAX = 5;
+const RECAPTCHA_MIN_SCORE = 0.1;
 const recentSubmissions = new Map();
 
 export async function POST(request) {
@@ -53,17 +54,39 @@ export async function POST(request) {
     });
   }
 
-  const payload = {
+  const captcha = await verifyRecaptcha(getField(fields, "captchaToken"));
+
+  if (!captcha.ok) {
+    return contactResponse(request, {
+      ok: false,
+      status: 403,
+      message: "Verification anti-spam echouee. Rechargez la page et reessayez.",
+    });
+  }
+
+  const pageSource = resolveSource(request, getField(fields, "source"));
+
+  // Les cles de confiance sont posees apres l'etalement des champs du
+  // formulaire : un champ homonyme envoye par un bot ne peut pas les ecraser.
+  const submission = {
+    ...cleanFields(fields),
+    formulaire: getField(fields, "formulaire") || "contact",
+    full_source: pageSource.full,
+    source: pageSource.path,
+    recaptcha_score: captcha.score,
+    receivedAt: new Date().toISOString(),
+  };
+
+  // Utilise uniquement par le repli e-mail (Resend), pas envoye au webhook.
+  const mail = {
     to: process.env.CONTACT_TO_EMAIL || DEFAULT_RECIPIENT,
     subject: `[Drive Lady] ${subject}`,
     replyTo: email,
     name,
-    fields: cleanFields(fields),
-    receivedAt: new Date().toISOString(),
   };
 
   try {
-    await deliverContactMessage(payload);
+    await deliverContactMessage(submission, mail);
   } catch (error) {
     console.error("Drive Lady contact delivery failed", error);
 
@@ -97,12 +120,14 @@ async function readFields(request) {
   return fields;
 }
 
-async function deliverContactMessage(payload) {
-  if (process.env.CONTACT_WEBHOOK_URL) {
-    const response = await fetch(process.env.CONTACT_WEBHOOK_URL, {
+async function deliverContactMessage(submission, mail) {
+  const webhookUrl = process.env.CONTACT_WEBHOOK_URL;
+
+  if (webhookUrl) {
+    const response = await fetch(webhookUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
+      body: JSON.stringify(submission),
     });
 
     if (!response.ok) {
@@ -121,10 +146,10 @@ async function deliverContactMessage(payload) {
       },
       body: JSON.stringify({
         from: process.env.CONTACT_FROM_EMAIL || "Drive Lady <onboarding@resend.dev>",
-        to: payload.to,
-        subject: payload.subject,
-        reply_to: payload.replyTo,
-        text: formatContactMessage(payload),
+        to: mail.to,
+        subject: mail.subject,
+        reply_to: mail.replyTo,
+        text: formatContactMessage(submission, mail),
       }),
     });
 
@@ -140,31 +165,70 @@ async function deliverContactMessage(payload) {
   }
 
   console.info("Drive Lady contact form submission", {
-    to: payload.to,
-    subject: payload.subject,
-    replyTo: payload.replyTo,
-    fields: payload.fields,
-    receivedAt: payload.receivedAt,
+    to: mail.to,
+    subject: mail.subject,
+    replyTo: mail.replyTo,
+    submission,
   });
 }
 
-function formatContactMessage(payload) {
-  const lines = [
-    `Nom : ${payload.name}`,
-    `E-mail : ${payload.replyTo}`,
-    `Recu le : ${payload.receivedAt}`,
-    "",
-  ];
+function formatContactMessage(submission, mail) {
+  const lines = [`Nom : ${mail.name}`, `E-mail : ${mail.replyTo}`, ""];
 
-  Object.entries(payload.fields).forEach(([key, value]) => {
+  Object.entries(submission).forEach(([key, value]) => {
     lines.push(`${key} : ${value}`);
   });
 
   return lines.join("\n");
 }
 
+async function verifyRecaptcha(token) {
+  const secret = process.env.RECAPTCHA_SECRET_KEY;
+
+  // Sans cle secrete configuree, la verification est desactivee (dev local).
+  if (!secret) return { ok: true, score: null };
+
+  if (!token) return { ok: false, score: null };
+
+  try {
+    const response = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({ secret, response: token }),
+    });
+
+    const result = await response.json();
+
+    if (!result.success) {
+      console.error("Drive Lady reCAPTCHA rejected", result["error-codes"]);
+      return { ok: false, score: null };
+    }
+
+    const score = typeof result.score === "number" ? result.score : null;
+
+    return { ok: score === null || score >= RECAPTCHA_MIN_SCORE, score };
+  } catch (error) {
+    console.error("Drive Lady reCAPTCHA verification failed", error);
+    return { ok: false, score: null };
+  }
+}
+
+// Le Referer fait foi (un navigateur ne peut pas le falsifier) ; le champ
+// envoye par le client ne sert que de repli, sans schema d'URL.
+function resolveSource(request, clientSource) {
+  const raw = request.headers.get("referer") || (clientSource ? `https://${clientSource}` : "");
+
+  try {
+    const url = new URL(raw);
+    return { full: `${url.host}${url.pathname}`, path: url.pathname };
+  } catch {
+    return { full: "", path: "" };
+  }
+}
+
 function cleanFields(fields) {
-  const ignored = new Set(["site_web", "website"]);
+  // formulaire / source sont poses par le serveur, pas repris des champs saisis.
+  const ignored = new Set(["site_web", "website", "captchaToken", "formulaire", "source", "full_source"]);
   const clean = {};
 
   Object.entries(fields || {}).forEach(([key, value]) => {
