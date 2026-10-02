@@ -263,6 +263,21 @@ currentYearTargets.forEach((target) => {
 });
 
 initContactForms();
+initScheduledBlocks();
+}
+
+// Blocs dates : data-show-from / data-show-until (date ISO) basculent seuls,
+// ex. le contenu d'avant lancement de l'application remplace par celui d'apres.
+function initScheduledBlocks() {
+  const now = Date.now();
+
+  document.querySelectorAll("[data-show-from]").forEach((block) => {
+    block.hidden = now < Date.parse(block.dataset.showFrom);
+  });
+
+  document.querySelectorAll("[data-show-until]").forEach((block) => {
+    block.hidden = now >= Date.parse(block.dataset.showUntil);
+  });
 }
 
 function initAnnouncementBanner() {

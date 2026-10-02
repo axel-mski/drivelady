@@ -77,7 +77,20 @@ function discoverRoutes(seedRoutes) {
   return routes;
 }
 
-export const ROUTES = discoverRoutes(STATIC_ROUTES);
+// Pages preparees en attente de validation (partenaire, visuels) : servies en
+// local et sur les previews Vercel, absentes de la production et du sitemap.
+// Pour publier : retirer la route de cette liste et ajouter le lien au menu.
+const DRAFT_ROUTES = [];
+
+function withoutDrafts(routes) {
+  if (process.env.VERCEL_ENV === "production") {
+    DRAFT_ROUTES.forEach((routeKey) => routes.delete(routeKey));
+  }
+
+  return routes;
+}
+
+export const ROUTES = withoutDrafts(discoverRoutes(STATIC_ROUTES));
 
 // Forme canonique servie par Next : slash final (trailingSlash active).
 export function routePath(routeKey) {
