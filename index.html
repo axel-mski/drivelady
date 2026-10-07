@@ -148,16 +148,43 @@
                 <a class="button button--secondary" href="#trajets">Découvrir le principe</a>
               </div>
             </div>
-            <div class="hero__showcase hero__showcase--screens" aria-label="Aperçu de l'application Drive Lady">
-              <figure class="hero-phone hero-phone--left">
-                <img src="./assets/app-screen-detail-trajet.webp" alt="Écran Détail du trajet : conductrice, départ, arrivée, horaire et options de confort" width="600" height="1223" loading="lazy" decoding="async" />
-              </figure>
-              <figure class="hero-phone hero-phone--center">
-                <img src="./assets/app-screen-accueil.webp" alt="Écran d'accueil de l'application Drive Lady : recherche, prochains départs proches et événements à venir" width="600" height="1223" fetchpriority="high" decoding="async" />
-              </figure>
-              <figure class="hero-phone hero-phone--right">
-                <img src="./assets/app-screen-demande-trajet.webp" alt="Écran Nouvelle demande de trajet : adresse de départ, d'arrivée, date et nombre de passagères" width="600" height="1223" loading="lazy" decoding="async" />
-              </figure>
+            <div class="hero__showcase reveal reveal--delay" aria-label="Aperçu de l'application Drive Lady">
+              <article class="app-panel app-panel--history app-panel--screen">
+                <div class="phone-status" aria-hidden="true">
+                  <span>9:41</span>
+                  <span class="phone-status__icons">
+                    <svg class="status-icon status-icon--signal" viewBox="0 0 21 14" focusable="false"><rect x="1" y="8" width="3" height="5" rx="1.25"></rect><rect x="6" y="6" width="3" height="7" rx="1.25"></rect><rect x="11" y="3" width="3" height="10" rx="1.25"></rect><rect class="status-icon__muted" x="16" y="1" width="3" height="12" rx="1.25"></rect></svg>
+                    <svg class="status-icon status-icon--wifi" viewBox="0 0 18 14" focusable="false"><path d="M1.7 5.1C5.8 1.6 12.2 1.6 16.3 5.1"></path><path d="M4.7 8.3C7.1 6.3 10.9 6.3 13.3 8.3"></path><path d="M7.7 11.2C8.5 10.6 9.5 10.6 10.3 11.2"></path></svg>
+                    <svg class="status-icon status-icon--battery" viewBox="0 0 29 14" focusable="false"><rect class="status-icon__battery-shell" x="1" y="1.7" width="23.4" height="10.6" rx="3.15"></rect><rect class="status-icon__battery-cap" x="25.6" y="5" width="2.2" height="4" rx="1.1"></rect><rect class="status-icon__battery-fill" x="3.3" y="3.95" width="18.9" height="6.1" rx="1.75"></rect></svg>
+                  </span>
+                </div>
+                <img class="app-screen" src="./assets/app-screen-detail-trajet.webp" alt="Écran Détail du trajet : conductrice, départ, arrivée, horaire et options de confort" width="600" height="1223" loading="lazy" decoding="async" />
+              </article>
+
+              <article class="phone-frame phone-frame--screen">
+                <div class="phone-notch"></div>
+                <div class="phone-status" aria-hidden="true">
+                  <span>9:41</span>
+                  <span class="phone-status__icons">
+                    <svg class="status-icon status-icon--signal" viewBox="0 0 21 14" focusable="false"><rect x="1" y="8" width="3" height="5" rx="1.25"></rect><rect x="6" y="6" width="3" height="7" rx="1.25"></rect><rect x="11" y="3" width="3" height="10" rx="1.25"></rect><rect class="status-icon__muted" x="16" y="1" width="3" height="12" rx="1.25"></rect></svg>
+                    <svg class="status-icon status-icon--wifi" viewBox="0 0 18 14" focusable="false"><path d="M1.7 5.1C5.8 1.6 12.2 1.6 16.3 5.1"></path><path d="M4.7 8.3C7.1 6.3 10.9 6.3 13.3 8.3"></path><path d="M7.7 11.2C8.5 10.6 9.5 10.6 10.3 11.2"></path></svg>
+                    <svg class="status-icon status-icon--battery" viewBox="0 0 29 14" focusable="false"><rect class="status-icon__battery-shell" x="1" y="1.7" width="23.4" height="10.6" rx="3.15"></rect><rect class="status-icon__battery-cap" x="25.6" y="5" width="2.2" height="4" rx="1.1"></rect><rect class="status-icon__battery-fill" x="3.3" y="3.95" width="18.9" height="6.1" rx="1.75"></rect></svg>
+                  </span>
+                </div>
+                <img class="app-screen" src="./assets/app-screen-accueil.webp" alt="Écran d'accueil de l'application Drive Lady : recherche, prochains départs proches et événements à venir" width="600" height="1223" fetchpriority="high" decoding="async" />
+              </article>
+
+              <article class="app-panel app-panel--feed app-panel--screen">
+                <div class="phone-status" aria-hidden="true">
+                  <span>9:41</span>
+                  <span class="phone-status__icons">
+                    <svg class="status-icon status-icon--signal" viewBox="0 0 21 14" focusable="false"><rect x="1" y="8" width="3" height="5" rx="1.25"></rect><rect x="6" y="6" width="3" height="7" rx="1.25"></rect><rect x="11" y="3" width="3" height="10" rx="1.25"></rect><rect class="status-icon__muted" x="16" y="1" width="3" height="12" rx="1.25"></rect></svg>
+                    <svg class="status-icon status-icon--wifi" viewBox="0 0 18 14" focusable="false"><path d="M1.7 5.1C5.8 1.6 12.2 1.6 16.3 5.1"></path><path d="M4.7 8.3C7.1 6.3 10.9 6.3 13.3 8.3"></path><path d="M7.7 11.2C8.5 10.6 9.5 10.6 10.3 11.2"></path></svg>
+                    <svg class="status-icon status-icon--battery" viewBox="0 0 29 14" focusable="false"><rect class="status-icon__battery-shell" x="1" y="1.7" width="23.4" height="10.6" rx="3.15"></rect><rect class="status-icon__battery-cap" x="25.6" y="5" width="2.2" height="4" rx="1.1"></rect><rect class="status-icon__battery-fill" x="3.3" y="3.95" width="18.9" height="6.1" rx="1.75"></rect></svg>
+                  </span>
+                </div>
+                <img class="app-screen" src="./assets/app-screen-demande-trajet.webp" alt="Écran Nouvelle demande de trajet : adresse de départ, d'arrivée, date et nombre de passagères" width="600" height="1223" loading="lazy" decoding="async" />
+              </article>
             </div>
 
           </section>
