@@ -15,6 +15,9 @@ const appBaseUrl = "https://app-drivelady.fr/";
 const appHost = "app.localhost";
 const defaultAppPort = "5173";
 const defaultRideTime = "22:30";
+// Bandeau d'annonce en haut du site : desactive pour l'instant, a reactiver (true)
+// pour annoncer un evenement en adaptant le message dans initAnnouncementBanner().
+const announcementEnabled = false;
 const announcementDismissKey = "drive-lady-announcement-dismissed-v1";
 const scalyCardDismissKey = "drive-lady-scaly-card-dismissed-v1";
 const scalyCardDelay = 3600;
@@ -282,7 +285,7 @@ function initScheduledBlocks() {
 
 function initAnnouncementBanner() {
   const pageStage = document.querySelector(".page-stage");
-  if (!pageStage || document.querySelector("[data-announcement-banner]") || isAnnouncementDismissed()) return;
+  if (!announcementEnabled || !pageStage || document.querySelector("[data-announcement-banner]") || isAnnouncementDismissed()) return;
 
   const banner = document.createElement("section");
   banner.className = "announcement-banner";
