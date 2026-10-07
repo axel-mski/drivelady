@@ -1566,7 +1566,7 @@ main > section:first-child {
   border-radius: 50% 50% 0 0;
   background:
     radial-gradient(circle at 50% 18%, rgba(255, 255, 255, 0.9), transparent 17rem),
-    linear-gradient(180deg, rgba(255, 196, 224, 0.76), rgba(255, 229, 239, 0.22));
+    linear-gradient(180deg, rgba(201, 176, 215, 0.62), rgba(201, 176, 215, 0.16));
   transform: translateX(-50%);
 }
 
