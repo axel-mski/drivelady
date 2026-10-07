@@ -1556,7 +1556,18 @@ main > section:first-child {
 }
 
 .hero::before {
-  content: none;
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -15rem;
+  z-index: 0;
+  width: 66rem;
+  height: 31rem;
+  border-radius: 50% 50% 0 0;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(255, 255, 255, 0.9), transparent 17rem),
+    linear-gradient(180deg, rgba(255, 196, 224, 0.76), rgba(255, 229, 239, 0.22));
+  transform: translateX(-50%);
 }
 
 .hero::after {
