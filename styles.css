@@ -1552,23 +1552,11 @@ main > section:first-child {
   background:
     radial-gradient(circle at 8% 12%, rgba(253, 250, 246, 0.78) 0, rgba(253, 250, 246, 0.38) 7rem, transparent 15rem),
     radial-gradient(circle at 92% 84%, rgba(253, 250, 246, 0.76) 0, rgba(253, 250, 246, 0.34) 7.5rem, transparent 16rem),
-    radial-gradient(ellipse at 50% 111%, rgba(255, 128, 188, 0.42) 0 27rem, transparent 27.2rem),
     #f7f2ec;
 }
 
 .hero::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: -15rem;
-  z-index: 0;
-  width: 66rem;
-  height: 31rem;
-  border-radius: 50% 50% 0 0;
-  background:
-    radial-gradient(circle at 50% 18%, rgba(255, 255, 255, 0.9), transparent 17rem),
-    linear-gradient(180deg, rgba(255, 196, 224, 0.76), rgba(255, 229, 239, 0.22));
-  transform: translateX(-50%);
+  content: none;
 }
 
 .hero::after {
@@ -1916,6 +1904,12 @@ main > section:first-child {
 
 .phone-frame--screen .phone-status {
   padding: 0 1.25rem;
+}
+
+.phone-frame.phone-frame--screen {
+  border-bottom-width: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 .app-panel--screen .app-screen,
