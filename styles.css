@@ -1472,6 +1472,51 @@ main > section:first-child {
     background 0.22s var(--ease);
 }
 
+.store-badges {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.store-badge {
+  display: inline-flex;
+  flex-shrink: 0;
+  border-radius: 0.5rem;
+  transition: transform 0.22s var(--ease);
+}
+
+.store-badge:hover,
+.store-badge:focus-visible {
+  transform: translateY(-1px);
+}
+
+.store-badge img {
+  display: block;
+  width: auto;
+  height: 2.9rem;
+}
+
+.nav-stores {
+  justify-self: end;
+  flex-wrap: nowrap;
+  gap: 0.45rem;
+}
+
+.nav-stores .store-badge img {
+  height: 2.4rem;
+}
+
+@media (max-width: 1100px) {
+  .nav-stores {
+    gap: 0.35rem;
+  }
+
+  .nav-stores .store-badge img {
+    height: 1.8rem;
+  }
+}
+
 .nav-toggle {
   display: none;
   width: 2.7rem;
@@ -9384,7 +9429,8 @@ main > .legal-hero:first-child {
     display: none;
   }
 
-  .nav-cta {
+  .nav-cta,
+  .nav-stores {
     display: none;
   }
 
